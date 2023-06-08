@@ -95,8 +95,8 @@ def extract_reaction(reaction_id, equation_text):
             try:
                 stoechiometry = int(stoechiometry)
             except:
-                logger.critical('Stochiometry is not an int for {0} ignore it.'.format(reaction_id))
-                return None, None
+                logger.critical('Stochiometry is not an int ({0}) for {1}, replace by 1 as it is not relevant for topological analysis.'.format(stoechiometry, reaction_id))
+                stoechiometry = 1
         compound = m.groupdict()['compound']
         symbol = m.groupdict()['symbol']
         if symbol is not None:
@@ -319,16 +319,18 @@ def create_reference_base():
     logger.info('|kegg2bipartitegraph|reference| Begin KEGG metabolism mapping.')
 
     # Create a json file containing metadata.
+    options = {}
+
+    options['tool_dependencies'] = {}
+    options['tool_dependencies']['python_package'] = {}
+    options['tool_dependencies']['python_package']['Python_version'] = sys.version
+    options['tool_dependencies']['python_package']['kegg2bipartitegraph'] = kegg2bipartitegraph_version
+    options['tool_dependencies']['python_package']['bioservices'] = bioservices_version
+    options['tool_dependencies']['python_package']['urllib'] = urllib.request.__version__
+    options['tool_dependencies']['python_package']['cobra'] = cobra_version
+
     kegg2bipartitegraph_reference_metadata = {}
-
-    kegg2bipartitegraph_reference_metadata['tool_dependencies'] = {}
-    kegg2bipartitegraph_reference_metadata['tool_dependencies']['python_package'] = {}
-    kegg2bipartitegraph_reference_metadata['tool_dependencies']['python_package']['Python_version'] = sys.version
-    kegg2bipartitegraph_reference_metadata['tool_dependencies']['python_package']['kegg2bipartitegraph'] = kegg2bipartitegraph_version
-    kegg2bipartitegraph_reference_metadata['tool_dependencies']['python_package']['bioservices'] = bioservices_version
-    kegg2bipartitegraph_reference_metadata['tool_dependencies']['python_package']['urllib'] = urllib.request.__version__
-    kegg2bipartitegraph_reference_metadata['tool_dependencies']['python_package']['cobra'] = cobra_version
-
+    kegg2bipartitegraph_reference_metadata['tool_options'] = options
     kegg2bipartitegraph_reference_metadata['kegg_release_number'] = get_kegg_database_version()
 
     output_folder = DATA_ROOT

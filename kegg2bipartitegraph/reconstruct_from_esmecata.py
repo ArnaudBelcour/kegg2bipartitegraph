@@ -62,12 +62,12 @@ def chunks(elements, n):
 def query_uniprot_bioservices(protein_queries):
     """REST query to get annotation from proteins.
     Args:
-        protein_queries (str): list of proteins sperated by ','.
+        protein_queries (list): list of proteins.
     Returns:
         data (dict): dictionary returned by bioservices containing annotation
     """
-    data = UNIPROT_BIOSERVICES.mapping(fr='UniProtKB_AC-ID', to='KEGG', query=protein_queries.split(','),
-                                       max_waiting_time=3600, progress=False)
+    data = UNIPROT_BIOSERVICES.mapping(fr='UniProtKB_AC-ID', to='KEGG', query=protein_queries,
+                                        progress=True)
     print(data)
     return data
 
@@ -83,13 +83,14 @@ def query_uniprot_kegg_rest(protein_to_search_on_uniprots, output_dict):
     """
     # The limit of 15 000 proteins per query comes from the help of Uniprot (inferior to 20 000):
     # https://www.uniprot.org/help/uploadlists
-    if len(protein_to_search_on_uniprots) < 15000:
+    print(len(protein_to_search_on_uniprots))
+    if len(protein_to_search_on_uniprots) < 5000:
         protein_queries = ','.join(protein_to_search_on_uniprots)
         tmp_output_dict = query_uniprot_bioservices(protein_queries)
         output_dict.update(tmp_output_dict)
         time.sleep(1)
     else:
-        protein_chunks = chunks(list(protein_to_search_on_uniprots), 15000)
+        protein_chunks = chunks(list(protein_to_search_on_uniprots), 5000)
         for chunk in protein_chunks:
             protein_queries = ','.join(chunk)
             tmp_output_dict = query_uniprot_bioservices(protein_queries)
@@ -237,7 +238,9 @@ def create_draft_networks(input_folder, output_folder, mapping_ko=False, recreat
     if mapping_ko:
         kegg2bipartitegraph_esmecata_metadata = get_rest_uniprot_release(options)
         kegg2bipartitegraph_esmecata_metadata['kegg_release_number'] = get_kegg_database_version()
-
+    else:
+        kegg2bipartitegraph_esmecata_metadata = {}
+        kegg2bipartitegraph_esmecata_metadata['tool_options'] = options
     is_valid_dir(output_folder)
 
     data_kegg_model_path = DATA_ROOT
@@ -392,7 +395,7 @@ def create_draft_networks(input_folder, output_folder, mapping_ko=False, recreat
 
         species_model.add_reactions(sbml_reactions)
 
-        # Create file if there si at least 1 reaction.
+        # Create file if there is at least 1 reaction.
         if len(species_model.reactions) > 0:
             # Create SBML file.
             sbml_output_file_path = os.path.join(clust_sbml_output_folder_path, base_filename+'.sbml')
