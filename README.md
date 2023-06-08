@@ -1,6 +1,6 @@
 # kegg2bipartitegraph
 
-kegg2bipartitegraph is a Python package to create KEGG graphs. The main idea of this package is to create metabolic graphs from KEGG database according to the ones used in the article [Weber Zendrera et al. (2021)](https://www.nature.com/articles/s41598-021-91486-8). In this article, the authors creates the metabolic networks from the organism of KEGG (accessible in this [github repository](https://github.com/AWebZen/FunctionalPrediction5000species)). Using annotation (at this moment only from [EsMeCaTa](https://github.com/AuReMe/esmecata)), kegg2bipartitegraph maps the EC and reconstruct metabolic networks associated with the organism.
+kegg2bipartitegraph is a Python package to create KEGG graphs. The main idea of this package is to create metabolic graphs from KEGG database according to the ones used in the article [Weber Zendrera et al. (2021)](https://www.nature.com/articles/s41598-021-91486-8). In this article, the authors creates the metabolic networks from the organism of KEGG (accessible in this [github repository](https://github.com/AWebZen/FunctionalPrediction5000species)). Using annotation (at this moment only from [EsMeCaTa](https://github.com/AuReMe/esmecata)), kegg2bipartitegraph maps the EC and reconstruct metabolic networks associated with the organism following the proposal of this article.
 
 ## Installation
 
