@@ -253,6 +253,7 @@ def create_draft_networks(input_folder, output_folder, mapping_ko=False, recreat
     kegg_sbml_model_path = os.path.join(kegg_model_path, 'kegg_model.sbml')
     kegg_rxn_mapping_path = os.path.join(kegg_model_path, 'kegg_mapping.tsv')
     kegg_pathways_path = os.path.join(kegg_model_path, 'kegg_pathways.tsv')
+    kegg_modules_path = os.path.join(kegg_model_path, 'kegg_modules.tsv')
 
     kegg_pathways = {}
     with open(kegg_pathways_path, 'r') as open_kegg_pathways_path:
@@ -263,6 +264,16 @@ def create_draft_networks(input_folder, output_folder, mapping_ko=False, recreat
             pathway_name = line[1]
             pathway_reactions = line[2].split(',')
             kegg_pathways[pathway_id] = (pathway_name, pathway_reactions)
+
+    kegg_modules = {}
+    with open(kegg_modules_path, 'r') as open_kegg_modules_path:
+        csvreader = csv.reader(open_kegg_modules_path, delimiter='\t')
+        next(csvreader)
+        for line in csvreader:
+            moudle_id = line[0]
+            module_name = line[1]
+            module_reactions = line[3].split(',')
+            kegg_modules[moudle_id] = (module_name, module_reactions)
 
     # Create SBML output folder.
     sbml_output_folder_path = os.path.join(output_folder, 'sbml')
@@ -275,6 +286,10 @@ def create_draft_networks(input_folder, output_folder, mapping_ko=False, recreat
     # Create pathways annotated output folder.
     pathways_output_folder_path = os.path.join(output_folder, 'pathways')
     is_valid_dir(pathways_output_folder_path)
+
+    # Create modules annotated output folder.
+    modules_output_folder_path = os.path.join(output_folder, 'modules')
+    is_valid_dir(modules_output_folder_path)
 
     ko_to_reactions, ec_to_reactions = retrieve_mapping_dictonaries(kegg_rxn_mapping_path)
 
@@ -368,11 +383,11 @@ def create_draft_networks(input_folder, output_folder, mapping_ko=False, recreat
         if mapping_ko is True:
             logger.info('|EsMeCaTa|kegg| A total of {0} unique reactions are added from EC and KO for taxon {1}.'.format(len(total_added_reactions), base_filename))
 
-        # Create pathway file contening pathway with reacitons in the taxon.
+        # Create pathway file contening pathway with reactions in the taxon.
         pathways_output_file_path = os.path.join(clust_pathways_output_folder_path, base_filename+'.tsv')
         with open(pathways_output_file_path, 'w') as open_pathways_output_file_path:
             csvwriter = csv.writer(open_pathways_output_file_path, delimiter='\t')
-            csvwriter.writerow(['pathway_id', 'pathway_name', 'pathway_compeltion_ratio', 'pathway_reaction_in_taxon', 'pathway_reaction'])
+            csvwriter.writerow(['pathway_id', 'pathway_name', 'pathway_completion_ratio', 'pathway_reaction_in_taxon', 'pathway_reaction'])
             for pathway in kegg_pathways:
                 pathway_reactions = kegg_pathways[pathway][1]
                 pathway_reaction_in_taxon = set(pathway_reactions).intersection(set(total_added_reactions))
@@ -380,6 +395,19 @@ def create_draft_networks(input_folder, output_folder, mapping_ko=False, recreat
                     pathway_name = kegg_pathways[pathway][0]
                     pathway_completion_ratio = len(pathway_reaction_in_taxon) / len(pathway_reactions)
                     csvwriter.writerow([pathway, pathway_name, pathway_completion_ratio, ','.join(pathway_reaction_in_taxon), ','.join(pathway_reactions)])
+
+        # Create module file contening module with reactions in the taxon.
+        modules_output_file_path = os.path.join(modules_output_folder_path, base_filename+'.tsv')
+        with open(modules_output_file_path, 'w') as open_modules_output_file_path:
+            csvwriter = csv.writer(open_modules_output_file_path, delimiter='\t')
+            csvwriter.writerow(['module_id', 'module_name', 'module_completion_ratio', 'module_reaction_in_taxon', 'module_reaction'])
+            for module in kegg_modules:
+                module_reactions = kegg_modules[module][1]
+                module_reaction_in_taxon = set(module_reactions).intersection(set(total_added_reactions))
+                if len(module_reaction_in_taxon) > 0:
+                    module_name = kegg_modules[module][0]
+                    module_completion_ratio = len(module_reaction_in_taxon) / len(module_reactions)
+                    csvwriter.writerow([module, module_name, module_completion_ratio, ','.join(module_reaction_in_taxon), ','.join(module_reactions)])
 
         kegg_model = read_sbml_model(kegg_sbml_model_path)
 

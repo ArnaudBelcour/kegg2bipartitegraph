@@ -172,7 +172,7 @@ def get_modules(module_file):
 
     modules = {}
     for line in csvreader:
-        module_id = line[0].split(':')[1]
+        module_id = line[0]
         module_data = line[1].split(', ')
         if len(module_data) > 2:
             module_name = module_data[0]
@@ -345,12 +345,13 @@ def create_reference_base():
     kegg_sbml_model_path = os.path.join(kegg_model_path, 'kegg_model.sbml')
     kegg_rxn_mapping_path = os.path.join(kegg_model_path, 'kegg_mapping.tsv')
     kegg_pathways_path = os.path.join(kegg_model_path, 'kegg_pathways.tsv')
+    kegg_modules_path = os.path.join(kegg_model_path, 'kegg_modules.tsv')
 
     logger.info('|kegg2bipartitegraph|reference| Check missing files in {0}.'.format(DATA_ROOT))
-    input_files = [kegg_sbml_model_path, kegg_rxn_mapping_path, kegg_pathways_path]
+    input_files = [kegg_sbml_model_path, kegg_rxn_mapping_path, kegg_pathways_path, kegg_modules_path]
     missing_files = []
     for input_file in input_files:
-        if not os.path.exists(kegg_sbml_model_path):
+        if not os.path.exists(input_file):
             missing_files.append(input_file)
     
     if len(missing_files) > 0:
@@ -363,6 +364,7 @@ def create_reference_base():
             get_compound_names(compound_file_path)
         logger.info('|kegg2bipartitegraph|reference| Create KEGG reference SBML and mapping tsv file.')
         create_sbml_model_from_kegg_file(kegg_reactions_folder_path, compound_file_path, kegg_sbml_model_path, kegg_rxn_mapping_path, kegg_pathways_path)
+        get_modules(kegg_modules_path)
 
         # Create compress archive.
         model_zipfile = zipfile.ZipFile(KEGG_ARCHIVE, mode="w")
