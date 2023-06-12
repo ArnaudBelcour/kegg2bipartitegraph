@@ -83,8 +83,12 @@ def extract_reaction(reaction_id, equation_text):
         left_compounds (list): compounds at the left of the reaction formula
         right_compounds (list): compounds at the right of the reaction formula
     """
+    if '<=>' not in equation_text:
+        logger.critical('|kegg2bipartitegraph|reference| No <=> symbol in equation {0} of {1}.'.format(equation_text, reaction_id))
     if len(equation_text.split('<=>')) > 2:
         logger.critical('|kegg2bipartitegraph|reference| More than one <=> symbol in equation {0} of {1}.'.format(equation_text, reaction_id))
+
+    # Find group pattern
     equation_pattern = r'(?P<stoechiometry>\d|\w|\([\w\d\+]*\))*\ *(?P<compound>[CG]\d{5})|(?P<symbol><*=>*)'
     left_compounds = []
     right_compounds = []
@@ -228,6 +232,8 @@ def create_sbml_model_from_kegg_file(reaction_folder, compound_file, output_sbml
     sbml_reactions = []
     reactions = {}
     pathways = {}
+
+    # Parse reaction file to extract information.
     for reaction_file in os.listdir(reaction_folder):
         reaction_file_path = os.path.join(reaction_folder, reaction_file)
         with open(reaction_file_path) as open_reaction_file_path:
@@ -259,8 +265,11 @@ def create_sbml_model_from_kegg_file(reaction_folder, compound_file, output_sbml
         reaction_ecs[reaction_id] = [kegg_orthologs, kegg_ecs]
         if left_compounds is None:
             continue
+
         reactions[reaction_id] = {}
         glycan_reaction = None
+
+        # Create metabolites from left compounds, remove ubiquitous and mark glycan reactions.
         for stochiometry_metabolite in left_compounds:
             metabolite_id = stochiometry_metabolite[0]
             if metabolite_id.startswith('G'):
@@ -270,6 +279,8 @@ def create_sbml_model_from_kegg_file(reaction_folder, compound_file, output_sbml
                     continue
             metabolite_id_sbml = Metabolite(metabolite_id, compartment='c', name=compounds[metabolite_id])
             reactions[reaction_id][metabolite_id_sbml] = - stochiometry_metabolite[1]
+
+        # Create metabolites from right compounds, remove ubiquitous and mark glycan reactions.
         for stochiometry_metabolite in right_compounds:
             metabolite_id = stochiometry_metabolite[0]
             if metabolite_id.startswith('G'):
@@ -287,8 +298,15 @@ def create_sbml_model_from_kegg_file(reaction_folder, compound_file, output_sbml
             reaction.gene_reaction_rule = '( ' + ' or '.join([ko for ko in kegg_orthologs]) + ' )'
         reaction.add_metabolites(reactions[reaction_id])
 
+        remove_reaction = False
+        if reaction.metabolites == {}:
+            logger.critical('|kegg2bipartitegraph|reference| No reactants and products for {0}, will be removed from model.'.format(reaction_id))
+            remove_reaction = True
         if remove_glycan_reactions is True and glycan_reaction is True:
             logger.critical('|kegg2bipartitegraph|reference| Do not add glycan reaction {0}.'.format(reaction_id))
+            remove_reaction = True
+
+        if remove_reaction is True:
             pass
         else:
             sbml_reactions.append(reaction)
