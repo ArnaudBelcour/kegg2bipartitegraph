@@ -19,6 +19,7 @@ import sys
 import time
 
 from kegg2bipartitegraph.reconstruct_from_esmecata import create_draft_networks
+from kegg2bipartitegraph.organism import create_organism_network
 from kegg2bipartitegraph.reference import create_reference_base
 from kegg2bipartitegraph.utils import is_valid_dir
 from kegg2bipartitegraph import __version__ as VERSION
@@ -50,6 +51,15 @@ def main():
         required=True,
         help='Input folder corresponds to esmecata annotation folder.',
         metavar='INPUT_DIR')
+
+    parent_parser_i_org = argparse.ArgumentParser(add_help=False)
+    parent_parser_i_org.add_argument(
+        '-i',
+        '--input',
+        dest='input',
+        required=True,
+        help='KEGG organism code (for example hsa for Homo sapiens (human)).',
+        metavar='INPUT_STR')
 
     parent_parser_o = argparse.ArgumentParser(add_help=False)
     parent_parser_o.add_argument(
@@ -98,6 +108,14 @@ def main():
             ],
         allow_abbrev=False)
 
+    kegg_organism_parser = subparsers.add_parser(
+        'organism',
+        help='Create network from a KEGG organism code.',
+        parents=[
+            parent_parser_i_org, parent_parser_o
+            ],
+        allow_abbrev=False)
+
     args = parser.parse_args()
 
     # If no argument print the help.
@@ -105,11 +123,11 @@ def main():
         parser.print_help()
         sys.exit(1)
 
-    if args.cmd in ['esmecata']:
+    if args.cmd in ['esmecata', 'organism']:
         is_valid_dir(args.output)
 
     formatter = logging.Formatter('%(message)s')
-    if args.cmd in ['esmecata']:
+    if args.cmd in ['esmecata', 'organism']:
         # add logger in file
         log_file_path = os.path.join(args.output, f'kegg2bipartitegraph{args.cmd}.log')
         file_handler = logging.FileHandler(log_file_path, 'w+')
@@ -127,6 +145,9 @@ def main():
 
     if args.cmd == 'reference':
         create_reference_base()
+
+    if args.cmd == 'organism':
+        create_organism_network(args.input, args.output)
 
     logger.info("--- Total runtime %.2f seconds ---" % (time.time() - start_time))
     if args.cmd in ['esmecata']:
