@@ -83,6 +83,8 @@ def extract_reaction(reaction_id, equation_text):
         left_compounds (list): compounds at the left of the reaction formula
         right_compounds (list): compounds at the right of the reaction formula
     """
+    if len(equation_text.split('<=>')) > 2:
+        logger.critical('|kegg2bipartitegraph|reference| More than one <=> symbol in equation {0} of {1}.'.format(equation_text, reaction_id))
     equation_pattern = r'(?P<stoechiometry>\d|\w|\([\w\d\+]*\))*\ *(?P<compound>[CG]\d{5})|(?P<symbol><*=>*)'
     left_compounds = []
     right_compounds = []
@@ -95,7 +97,7 @@ def extract_reaction(reaction_id, equation_text):
             try:
                 stoechiometry = int(stoechiometry)
             except:
-                logger.critical('Stochiometry is not an int ({0}) for {1}, replace by 1 as it is not relevant for topological analysis.'.format(stoechiometry, reaction_id))
+                logger.critical('|kegg2bipartitegraph|reference| Stochiometry is not an int ({0}) for {1}, replace by 1 as it is not relevant for topological analysis.'.format(stoechiometry, reaction_id))
                 stoechiometry = 1
         compound = m.groupdict()['compound']
         symbol = m.groupdict()['symbol']
@@ -200,7 +202,8 @@ def get_modules(module_file):
             csvwriter.writerow([module_id, module_name, module_formula, module_reaction])
 
 
-def create_sbml_model_from_kegg_file(reaction_folder, compound_file, output_sbml, output_tsv, pathways_tsv, remove_ubiquitous=True):
+def create_sbml_model_from_kegg_file(reaction_folder, compound_file, output_sbml, output_tsv, pathways_tsv,
+                                     remove_ubiquitous=True, remove_glycan_reactions=True):
     """Using the reaction keg files (from retrieve_reactions), the compound file (from get_compound_names),
     create a SBML file (containing all reactions of KEGG) and a tsv file (used to map EC and/or KO to reaction ID)
 
@@ -210,6 +213,8 @@ def create_sbml_model_from_kegg_file(reaction_folder, compound_file, output_sbml
         output_sbml (str): path to the sbml output file
         output_tsv (str): path to an output tsv file mapping reaction ID, with KO and EC
         pathways_tsv (str): path to an output tsv showing the pathway, pathway ID and the associated reactions
+        remove_ubiquitous (bool): remove ubiquitous metabolites
+        remove_glycan_reactions (bool): remove glycan associated reactions
     """
     compounds = {}
     with open(compound_file, 'r') as output_file:
@@ -255,8 +260,11 @@ def create_sbml_model_from_kegg_file(reaction_folder, compound_file, output_sbml
         if left_compounds is None:
             continue
         reactions[reaction_id] = {}
+        glycan_reaction = None
         for stochiometry_metabolite in left_compounds:
             metabolite_id = stochiometry_metabolite[0]
+            if metabolite_id.startswith('G'):
+                glycan_reaction = True
             if remove_ubiquitous is True:
                 if metabolite_id in UBIQUITOUS_METABOLITES:
                     continue
@@ -264,6 +272,8 @@ def create_sbml_model_from_kegg_file(reaction_folder, compound_file, output_sbml
             reactions[reaction_id][metabolite_id_sbml] = - stochiometry_metabolite[1]
         for stochiometry_metabolite in right_compounds:
             metabolite_id = stochiometry_metabolite[0]
+            if metabolite_id.startswith('G'):
+                glycan_reaction = True
             if remove_ubiquitous is True:
                 if metabolite_id in UBIQUITOUS_METABOLITES:
                     continue
@@ -277,7 +287,11 @@ def create_sbml_model_from_kegg_file(reaction_folder, compound_file, output_sbml
             reaction.gene_reaction_rule = '( ' + ' or '.join([ko for ko in kegg_orthologs]) + ' )'
         reaction.add_metabolites(reactions[reaction_id])
 
-        sbml_reactions.append(reaction)
+        if remove_glycan_reactions is True and glycan_reaction is True:
+            logger.critical('|kegg2bipartitegraph|reference| Do not add glycan reaction {0}.'.format(reaction_id))
+            pass
+        else:
+            sbml_reactions.append(reaction)
 
     model.add_reactions(sbml_reactions)
     logger.info('|kegg2bipartitegraph|reference| {0} reactions and {1} metabolites in reference model.'.format(len(model.reactions), len(model.metabolites)))
