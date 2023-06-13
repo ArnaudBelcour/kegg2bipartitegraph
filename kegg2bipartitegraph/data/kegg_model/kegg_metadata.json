@@ -1,0 +1,15 @@
+{
+    "tool_options": {
+        "tool_dependencies": {
+            "python_package": {
+                "Python_version": "3.8.10 (default, Mar 13 2023, 10:26:41) \n[GCC 9.4.0]",
+                "kegg2bipartitegraph": "0.0.1",
+                "bioservices": "1.11.2",
+                "urllib": "3.8",
+                "cobra": "0.25.0"
+            }
+        }
+    },
+    "kegg_release_number": "106.0+/06-13, Jun 23",
+    "kegg2bipartitegraph_reference_duration": 22.761514902114868
+}

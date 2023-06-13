@@ -91,15 +91,15 @@ def create_organism_network(organism, output_folder):
     options['tool_dependencies']['python_package']['urllib'] = urllib.request.__version__
     options['tool_dependencies']['python_package']['cobra'] = cobra_version
 
-
-    kegg2bipartitegraph_esmecata_metadata = {}
-    kegg2bipartitegraph_esmecata_metadata['tool_options'] = options
+    kegg2bipartitegraph_organism_metadata = {}
+    kegg2bipartitegraph_organism_metadata['tool_options'] = options
     is_valid_dir(output_folder)
 
     data_kegg_model_path = DATA_ROOT
     # Check if KEGG model files exist if not create them.
     kegg_model_path = os.path.join(data_kegg_model_path, 'kegg_model')
     is_valid_dir(kegg_model_path)
+    kegg2bipartitegraph_organism_metadata['reference_path'] = data_kegg_model_path
 
     compound_file_path = os.path.join(kegg_model_path, 'kegg_compound_name.tsv')
     kegg_sbml_model_path = os.path.join(kegg_model_path, 'kegg_model.sbml')
@@ -224,8 +224,9 @@ def create_organism_network(organism, output_folder):
     endtime = time.time()
 
     duration = endtime - starttime
-    options['esmecata_kegg_duration'] = duration
-    uniprot_metadata_file = os.path.join(output_folder, 'esmecata_metadata_kegg.json')
+
+    kegg2bipartitegraph_organism_metadata['kegg2bipartitegraph_organism_duration'] = duration
+    uniprot_metadata_file = os.path.join(output_folder, 'kegg2bipartitegraph_organism_kegg.json')
     with open(uniprot_metadata_file, 'w') as ouput_file:
-        json.dump(kegg2bipartitegraph_esmecata_metadata, ouput_file, indent=4)
+        json.dump(kegg2bipartitegraph_organism_metadata, ouput_file, indent=4)
     logger.info('|kegg2bipartitegraph|organism| Draft networks creation complete.')

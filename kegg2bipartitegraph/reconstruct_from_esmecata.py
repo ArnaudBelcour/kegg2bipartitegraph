@@ -177,6 +177,7 @@ def create_draft_networks(input_folder, output_folder, mapping_ko=False, recreat
     # Check if KEGG model files exist if not create them.
     kegg_model_path = os.path.join(data_kegg_model_path, 'kegg_model')
     is_valid_dir(kegg_model_path)
+    kegg2bipartitegraph_esmecata_metadata['reference_path'] = data_kegg_model_path
 
     kegg_reactions_folder_path = os.path.join(kegg_model_path, 'reaction_folder')
     compound_file_path = os.path.join(kegg_model_path, 'kegg_compound_name.tsv')
@@ -368,8 +369,8 @@ def create_draft_networks(input_folder, output_folder, mapping_ko=False, recreat
     endtime = time.time()
 
     duration = endtime - starttime
-    options['esmecata_kegg_duration'] = duration
-    uniprot_metadata_file = os.path.join(output_folder, 'esmecata_metadata_kegg.json')
-    with open(uniprot_metadata_file, 'w') as ouput_file:
+    kegg2bipartitegraph_esmecata_metadata['kegg2bipartitegraph_esmecata_duration'] = duration
+    kegg2bipartitgraph_metadata_file = os.path.join(output_folder, 'kegg2bipartitegraph_esmecata_kegg.json')
+    with open(kegg2bipartitgraph_metadata_file, 'w') as ouput_file:
         json.dump(kegg2bipartitegraph_esmecata_metadata, ouput_file, indent=4)
     logger.info('|EsMeCaTa|kegg| Draft networks creation complete.')

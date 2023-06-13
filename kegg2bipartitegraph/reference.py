@@ -14,6 +14,7 @@
 
 import csv
 import logging
+import json
 import os
 import re
 import time
@@ -378,6 +379,7 @@ def create_reference_base():
     kegg_rxn_mapping_path = os.path.join(kegg_model_path, 'kegg_mapping.tsv')
     kegg_pathways_path = os.path.join(kegg_model_path, 'kegg_pathways.tsv')
     kegg_modules_path = os.path.join(kegg_model_path, 'kegg_modules.tsv')
+    kegg_metadata_path = os.path.join(kegg_model_path, 'kegg_metadata.json')
 
     logger.info('|kegg2bipartitegraph|reference| Check missing files in {0}.'.format(DATA_ROOT))
     input_files = [kegg_sbml_model_path, kegg_rxn_mapping_path, kegg_pathways_path, kegg_modules_path]
@@ -412,5 +414,9 @@ def create_reference_base():
     endtime = time.time()
 
     duration = endtime - starttime
+
+    kegg2bipartitegraph_reference_metadata['kegg2bipartitegraph_reference_duration'] = duration
+    with open(kegg_metadata_path, 'w') as ouput_file:
+        json.dump(kegg2bipartitegraph_reference_metadata, ouput_file, indent=4)
 
     logger.info('|kegg2bipartitegraph|reference| Reference creation finished in {0}.'.format(duration))
