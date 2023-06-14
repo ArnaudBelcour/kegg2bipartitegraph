@@ -1,3 +1,4 @@
 bioservices>=1.11.2
-cobra>=0.25.0
+python-libsbml>=5.19.7
 requests>=2.28.1
+networkx>=2.8.8

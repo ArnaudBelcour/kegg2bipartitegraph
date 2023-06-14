@@ -15,6 +15,7 @@
 import csv
 import logging
 import json
+import libsbml
 import os
 import re
 import time
@@ -25,9 +26,6 @@ import zipfile
 
 from bioservices import version as bioservices_version
 from bioservices import KEGG
-from cobra import __version__ as cobra_version
-from cobra import Model, Reaction, Metabolite
-from cobra.io import write_sbml_model
 
 from kegg2bipartitegraph.utils import is_valid_dir
 from kegg2bipartitegraph import __version__ as kegg2bipartitegraph_version
@@ -36,7 +34,6 @@ from kegg2bipartitegraph.graph import sbml_to_graphml
 URLLIB_HEADERS = {'User-Agent': 'kegg2bipartitegraph annotation v' + kegg2bipartitegraph_version + ', request by urllib package v' + urllib.request.__version__}
 
 logger = logging.getLogger(__name__)
-logging.getLogger("cobra.io.sbml").setLevel(logging.CRITICAL)
 
 # Create KEGG instance of bioservices.KEEG.
 KEGG_BIOSERVICES = KEGG()
@@ -208,137 +205,6 @@ def get_modules(module_file):
             csvwriter.writerow([module_id, module_name, module_formula, module_reaction])
 
 
-def create_sbml_model_from_kegg_file(reaction_folder, compound_file, output_sbml, output_tsv, pathways_tsv,
-                                     remove_ubiquitous=True, remove_glycan_reactions=True):
-    """Using the reaction keg files (from retrieve_reactions), the compound file (from get_compound_names),
-    create a SBML file (containing all reactions of KEGG) and a tsv file (used to map EC and/or KO to reaction ID)
-
-    Args:
-        reaction_folder (str): path to the folder containing keg reaction files
-        compound_file (str): path to the tsv file containing compound ID and name
-        output_sbml (str): path to the sbml output file
-        output_tsv (str): path to an output tsv file mapping reaction ID, with KO and EC
-        pathways_tsv (str): path to an output tsv showing the pathway, pathway ID and the associated reactions
-        remove_ubiquitous (bool): remove ubiquitous metabolites
-        remove_glycan_reactions (bool): remove glycan associated reactions
-    """
-    compounds = {}
-    with open(compound_file, 'r') as output_file:
-        csvreader = csv.reader(output_file, delimiter='\t')
-        next(csvreader)
-        for line in csvreader:
-            compounds[line[0]] = line[1]
-
-    reaction_ecs = {}
-    model = Model('KEGG')
-    sbml_reactions = []
-    reactions = {}
-    pathways = {}
-
-    # Parse reaction file to extract information.
-    for reaction_file in os.listdir(reaction_folder):
-        reaction_file_path = os.path.join(reaction_folder, reaction_file)
-        with open(reaction_file_path) as open_reaction_file_path:
-            reaction_data = KEGG_BIOSERVICES.parse(open_reaction_file_path.read())
-
-        reaction_id = reaction_data['ENTRY'].split(' ')[0]
-        if 'NAME' in reaction_data:
-            reaction_name = reaction_data['NAME'][0]
-        else:
-            reaction_name = None
-        left_compounds, right_compounds = extract_reaction(reaction_id, reaction_data['EQUATION'])
-        if 'ORTHOLOGY' in reaction_data:
-            kegg_orthologs = reaction_data['ORTHOLOGY'].keys()
-        else:
-            kegg_orthologs = []
-        if 'ENZYME' in reaction_data:
-            kegg_ecs = reaction_data['ENZYME']
-        else:
-            kegg_ecs = []
-        if 'PATHWAY' in reaction_data:
-            kegg_pathways = reaction_data['PATHWAY']
-            for pathway in kegg_pathways:
-                if pathway not in pathways:
-                    pathways[pathway] = {}
-                    pathways[pathway]['name'] = kegg_pathways[pathway]
-                    pathways[pathway]['reaction'] = [reaction_id]
-                else:
-                    pathways[pathway]['reaction'].append(reaction_id)
-        reaction_ecs[reaction_id] = [kegg_orthologs, kegg_ecs]
-        if left_compounds is None:
-            continue
-
-        reactions[reaction_id] = {}
-        glycan_reaction = None
-
-        reactants = []
-        # Create metabolites from left compounds, remove ubiquitous and mark glycan reactions.
-        for stochiometry_metabolite in left_compounds:
-            metabolite_id = stochiometry_metabolite[0]
-            reactants.append(metabolite_id)
-            if metabolite_id.startswith('G'):
-                glycan_reaction = True
-            if remove_ubiquitous is True:
-                if metabolite_id in UBIQUITOUS_METABOLITES:
-                    continue
-            metabolite_id_sbml = Metabolite(metabolite_id, compartment='c', name=compounds[metabolite_id])
-            reactions[reaction_id][metabolite_id_sbml] = - stochiometry_metabolite[1]
-
-        # Create metabolites from right compounds, remove ubiquitous and mark glycan reactions.
-        for stochiometry_metabolite in right_compounds:
-            metabolite_id = stochiometry_metabolite[0]
-            # If a metabolite is both a reactant and a product, do not add it as a product as cobrapy will remove either both or the reactant.
-            if metabolite_id in reactants:
-                 logger.info('|kegg2bipartitegraph|reference| Metabolite {0} both as reactant and product of reaction {1}, keep it only as a reactant.'.format(metabolite_id, reaction_id))
-                 continue
-            if metabolite_id.startswith('G'):
-                glycan_reaction = True
-            if remove_ubiquitous is True:
-                if metabolite_id in UBIQUITOUS_METABOLITES:
-                    continue
-            metabolite_id_sbml = Metabolite(metabolite_id, compartment='c', name=compounds[metabolite_id])
-            reactions[reaction_id][metabolite_id_sbml] = stochiometry_metabolite[1]
-
-        reaction = Reaction(reaction_id)
-        if reaction_name:
-            reaction.name = reaction_name
-        if kegg_orthologs != []:
-            reaction.gene_reaction_rule = '( ' + ' or '.join([ko for ko in kegg_orthologs]) + ' )'
-        reaction.add_metabolites(reactions[reaction_id])
-
-        remove_reaction = False
-        if reaction.metabolites == {}:
-            logger.critical('|kegg2bipartitegraph|reference| No reactants and products for {0}, will be removed from model.'.format(reaction_id))
-            remove_reaction = True
-        if remove_glycan_reactions is True and glycan_reaction is True:
-            logger.critical('|kegg2bipartitegraph|reference| Do not add glycan reaction {0}.'.format(reaction_id))
-            remove_reaction = True
-
-        if remove_reaction is True:
-            pass
-        else:
-            sbml_reactions.append(reaction)
-
-    model.add_reactions(sbml_reactions)
-    logger.info('|kegg2bipartitegraph|reference| {0} reactions and {1} metabolites in reference model.'.format(len(model.reactions), len(model.metabolites)))
-    # Create sbml file.
-    write_sbml_model(model, output_sbml)
-
-    with open(output_tsv, 'w') as open_output_tsv:
-        csvwriter = csv.writer(open_output_tsv, delimiter='\t')
-        csvwriter.writerow(['reaction_id', 'kegg_orthologs', 'kegg_ec'])
-        for reaction_id in reaction_ecs:
-            csvwriter.writerow([reaction_id, ','.join(reaction_ecs[reaction_id][0]), ','.join(reaction_ecs[reaction_id][1])])
-
-    with open(pathways_tsv, 'w') as open_output_tsv:
-        csvwriter = csv.writer(open_output_tsv, delimiter='\t')
-        csvwriter.writerow(['pathway_id', 'pathway_name', 'pathway_reactions'])
-        for pathway_id in pathways:
-            pathway_name = pathways[pathway_id]['name']
-            pathway_reactions = ','.join(set(pathways[pathway_id]['reaction']))
-            csvwriter.writerow([pathway_id, pathway_name, pathway_reactions])
-
-
 def libsbml_check(value, message):
     """If 'value' is None, prints an error message constructed using
     'message' and then exits with status code 1.  If 'value' is an integer,
@@ -347,7 +213,6 @@ def libsbml_check(value, message):
     prints an error message constructed using 'message' along with text from
     libSBML explaining the meaning of the code, and exits with status code 1.
     """
-    import libsbml
     if value == None:
         raise SystemExit('LibSBML returned a null value trying to ' + message + '.')
     elif type(value) is int:
@@ -366,6 +231,8 @@ def create_sbml_model_from_kegg_file_libsbml(reaction_folder, compound_file, out
                                      remove_ubiquitous=True, remove_glycan_reactions=True):
     """Using the reaction keg files (from retrieve_reactions), the compound file (from get_compound_names),
     create a SBML file (containing all reactions of KEGG) and a tsv file (used to map EC and/or KO to reaction ID)
+    Use python-libsbml instead of cobrapy as cobrapy does not handle metabolite being both in reactant and product of reaction:
+    https://github.com/opencobra/cobrapy/issues/906#issuecomment-527686017
 
     Args:
         reaction_folder (str): path to the folder containing keg reaction files
@@ -376,7 +243,6 @@ def create_sbml_model_from_kegg_file_libsbml(reaction_folder, compound_file, out
         remove_ubiquitous (bool): remove ubiquitous metabolites
         remove_glycan_reactions (bool): remove glycan associated reactions
     """
-    import libsbml
     # Set libsbml namespace.
     sbml_ns = libsbml.SBMLNamespaces(3, 1)  # SBML L3V1
     sbml_ns.addPackageNamespace("fbc", 2)  # fbc-v2
@@ -626,7 +492,7 @@ def create_reference_base():
     options['tool_dependencies']['python_package']['kegg2bipartitegraph'] = kegg2bipartitegraph_version
     options['tool_dependencies']['python_package']['bioservices'] = bioservices_version
     options['tool_dependencies']['python_package']['urllib'] = urllib.request.__version__
-    options['tool_dependencies']['python_package']['cobra'] = cobra_version
+    options['tool_dependencies']['python_package']['libsbml'] = libsbml.__version__
 
     kegg2bipartitegraph_reference_metadata = {}
     kegg2bipartitegraph_reference_metadata['tool_options'] = options
