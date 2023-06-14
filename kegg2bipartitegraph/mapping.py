@@ -17,15 +17,14 @@ import logging
 import os
 import urllib.parse
 import urllib.request
-
-from cobra.io import read_sbml_model
+import libsbml
 
 from kegg2bipartitegraph import __version__ as kegg2bipartitegraph_version
 
 URLLIB_HEADERS = {'User-Agent': 'kegg2bipartitegraph annotation v' + kegg2bipartitegraph_version + ', request by urllib package v' + urllib.request.__version__}
 
 logger = logging.getLogger(__name__)
-logging.getLogger("cobra.io.sbml").setLevel(logging.CRITICAL)
+
 
 def retrieve_mapping_dictonaries(kegg_rxn_mapping_path):
     """From the KEGG tsv mapping file (creating at create_sbml_model_from_kegg_file)
@@ -83,9 +82,11 @@ def compute_stat_kegg(sbml_folder, stat_file=None):
     for infile in os.listdir(sbml_folder):
         if '.sbml' in infile:
             sbml_input_file_path = os.path.join(sbml_folder, infile)
-            kegg_model = read_sbml_model(sbml_input_file_path)
-            infile_reactions = kegg_model.reactions
-            infile_metabolites = kegg_model.metabolites
+            reader = libsbml.SBMLReader()
+            kegg_document = reader.readSBML(sbml_input_file_path)
+            kegg_model = kegg_document.getModel()
+            infile_reactions = kegg_model.getListOfReactions()
+            infile_metabolites = kegg_model.getListOfSpecies()
             kegg_numbers[infile.replace('.sbml','')] = (len(infile_reactions), len(infile_metabolites))
 
     if stat_file:
