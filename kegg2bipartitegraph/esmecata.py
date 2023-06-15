@@ -137,7 +137,7 @@ def map_protein_to_KO_id(proteins_ids):
     return protein_ko_mapping
 
 
-def create_draft_networks(input_folder, output_folder, mapping_ko=False, recreate_kegg=None, remove_ubiquitous=True):
+def create_esmecata_network(input_folder, output_folder, mapping_ko=False, recreate_kegg=None, remove_ubiquitous=True):
     """From the output folder of 'esmecata annotation' create KEGG SBML files using bioservices.KEGG.
     To retrieve KEGG reactions, a mapping is performed between EC number and KEGG reactions.
     And if the option mapping_ko is set to True, it will also map KO ID to KEGG reaction
