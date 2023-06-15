@@ -435,11 +435,21 @@ def create_sbml_model_from_kegg_file_libsbml(reaction_folder, compound_file, out
 
         remove_reaction = False
         reactions_metabolites = reactants + products
+        # Remove reactions without reactants and products.
         if reactions_metabolites == []:
             logger.critical('|kegg2bipartitegraph|reference| No reactants and products for {0}, will be removed from model.'.format(reaction_id))
             remove_reaction = True
+        # Remvoe glycan reactions.
         if remove_glycan_reactions is True and glycan_reaction is True:
             logger.critical('|kegg2bipartitegraph|reference| Do not add glycan reaction {0}.'.format(reaction_id))
+            remove_reaction = True
+        # Remove reactions if all left compounds are UBIQUITOUS_METABOLITES, because it unlocks metabolites freely.
+        if all([compound[0] in UBIQUITOUS_METABOLITES for compound in left_compounds]):
+            logger.critical('|kegg2bipartitegraph|reference| Remove reaction {0} as all its reactants are ubiquitous metabolites.'.format(reaction_id))
+            remove_reaction = True
+        # Remove reactions if all right compounds are UBIQUITOUS_METABOLITES, because it unlocks metabolites freely.
+        if all([compound[0] in UBIQUITOUS_METABOLITES for compound in right_compounds]):
+            logger.critical('|kegg2bipartitegraph|reference| Remove reaction {0} as all its products are ubiquitous metabolites.'.format(reaction_id))
             remove_reaction = True
 
         # Remove reaction if it contains glycan metabolite or it does not have reactants and products.
