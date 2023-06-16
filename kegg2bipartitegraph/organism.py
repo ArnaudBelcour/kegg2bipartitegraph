@@ -102,6 +102,12 @@ def create_organism_network(organism, output_folder):
     kegg_rxn_mapping_path = os.path.join(kegg_model_path, 'kegg_mapping.tsv')
     kegg_pathways_path = os.path.join(kegg_model_path, 'kegg_pathways.tsv')
     kegg_modules_path = os.path.join(kegg_model_path, 'kegg_modules.tsv')
+    kegg_json_model_path = os.path.join(kegg_model_path, 'kegg_metadata.json')
+
+    with open(kegg_json_model_path, 'r') as input_metadata_json:
+        json_data = json.load(input_metadata_json)
+
+    kegg2bipartitegraph_organism_metadata['json_reference_metadata'] = json_data
 
     kegg_pathways = {}
     with open(kegg_pathways_path, 'r') as open_kegg_pathways_path:

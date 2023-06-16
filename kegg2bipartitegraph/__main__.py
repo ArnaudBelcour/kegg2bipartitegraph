@@ -21,6 +21,7 @@ import time
 from kegg2bipartitegraph.esmecata import create_esmecata_network
 from kegg2bipartitegraph.organism import create_organism_network
 from kegg2bipartitegraph.eggnog import create_eggnog_network
+from kegg2bipartitegraph.kofamkoala import create_kofamkoala_network
 from kegg2bipartitegraph.reference import create_reference_base
 from kegg2bipartitegraph.utils import is_valid_dir
 from kegg2bipartitegraph import __version__ as VERSION
@@ -59,7 +60,16 @@ def main():
         '--input',
         dest='input',
         required=True,
-        help='Input folder corresponds to esmecata annotation folder.',
+        help='Input folder corresponds to a folder containing eggnog-mapper .emapper.annotations files.',
+        metavar='INPUT_DIR')
+
+    parent_parser_i_kofamkoala = argparse.ArgumentParser(add_help=False)
+    parent_parser_i_kofamkoala.add_argument(
+        '-i',
+        '--input',
+        dest='input',
+        required=True,
+        help='Input folder corresponds to a folder containing multiple kofam koala result files.',
         metavar='INPUT_DIR')
 
     parent_parser_i_org = argparse.ArgumentParser(add_help=False)
@@ -126,11 +136,19 @@ def main():
             ],
         allow_abbrev=False)
 
-    kegg_organism_parser = subparsers.add_parser(
+    kegg_eggnog_parser = subparsers.add_parser(
         'reconstruct_from_eggnog',
         help='Create network from a folder containing multiple eggnog-mapper annotation files.',
         parents=[
             parent_parser_i_eggnog, parent_parser_o
+            ],
+        allow_abbrev=False)
+
+    kegg_kofamkoala_parser = subparsers.add_parser(
+        'reconstruct_from_kofamkoala',
+        help='Create network from a folder containing multiple kofam koala result files.',
+        parents=[
+            parent_parser_i_kofamkoala, parent_parser_o
             ],
         allow_abbrev=False)
 
@@ -141,11 +159,13 @@ def main():
         parser.print_help()
         sys.exit(1)
 
-    if args.cmd in ['reconstruct_from_esmecata', 'reconstruct_from_organism', 'reconstruct_from_eggnogg']:
+    if args.cmd in ['reconstruct_from_esmecata', 'reconstruct_from_organism', 'reconstruct_from_eggnogg',
+                    'reconstruct_from_kofamkoala']:
         is_valid_dir(args.output)
 
     formatter = logging.Formatter('%(message)s')
-    if args.cmd in ['reconstruct_from_esmecata', 'reconstruct_from_organism', 'reconstruct_from_eggnogg']:
+    if args.cmd in ['reconstruct_from_esmecata', 'reconstruct_from_organism', 'reconstruct_from_eggnogg',
+                    'reconstruct_from_kofamkoala']:
         # add logger in file
         log_file_path = os.path.join(args.output, f'kegg2bipartitegraph{args.cmd}.log')
         file_handler = logging.FileHandler(log_file_path, 'w+')
@@ -166,6 +186,8 @@ def main():
         create_organism_network(args.input, args.output)
     elif args.cmd == 'reconstruct_from_eggnog':
         create_eggnog_network(args.input, args.output)
+    elif args.cmd == 'reconstruct_from_kofamkoala':
+        create_kofamkoala_network(args.input, args.output)
 
     logger.info("--- Total runtime %.2f seconds ---" % (time.time() - start_time))
     if args.cmd in ['esmecata']:
