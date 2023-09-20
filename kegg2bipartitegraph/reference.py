@@ -65,10 +65,34 @@ def get_reactions(reaction_folder):
         reaction_ids.append(reaction_id)
 
     for reaction_id in reaction_ids:
-        response_text = KEGG_BIOSERVICES.get(reaction_id)
         reaction_file = os.path.join(reaction_folder, reaction_id+'.keg')
-        with open(reaction_file, 'w') as output_file:
-            output_file.write(response_text)
+        if not os.path.exists(reaction_file):
+            response_text = KEGG_BIOSERVICES.get(reaction_id)
+            with open(reaction_file, 'w') as output_file:
+                output_file.write(response_text)
+
+
+def get_compounds(compound_folder, compound_type):
+    """Using bioservices.KEGG retrieve all keg files associated to KEGG compounds
+
+    Args:
+        compound_folder (str): output folder which will contains compound file
+    """
+    is_valid_dir(compound_folder)
+
+    response_text = KEGG_BIOSERVICES.list('compound')
+
+    compound_ids = []
+    for line in response_text.splitlines():
+        compound_id = line.split('\t')[0].strip()
+        compound_ids.append(compound_id)
+
+    for compound_id in compound_ids:
+        compound_file = os.path.join(compound_folder, compound_id+'.keg')
+        if not os.path.exists(compound_file):
+            response_text = KEGG_BIOSERVICES.get(compound_id)
+            with open(compound_file, 'w') as output_file:
+                output_file.write(response_text)
 
 
 def extract_reaction(reaction_id, equation_text):
@@ -516,7 +540,8 @@ def create_reference_base():
     is_valid_dir(kegg_model_path)
 
     kegg_reactions_folder_path = os.path.join(kegg_model_path, 'reaction_folder')
-    compound_file_path = os.path.join(kegg_model_path, 'kegg_compound_name.tsv')
+    kegg_compounds_folder_path = os.path.join(kegg_model_path, 'compound_folder')
+    kegg_compound_file_path = os.path.join(kegg_model_path, 'kegg_compound_name.tsv')
     kegg_sbml_model_path = os.path.join(kegg_model_path, 'kegg_model.sbml')
     kegg_graphml_model_path = os.path.join(kegg_model_path, 'kegg_model.graphml')
     kegg_rxn_mapping_path = os.path.join(kegg_model_path, 'kegg_mapping.tsv')
@@ -525,7 +550,9 @@ def create_reference_base():
     kegg_metadata_path = os.path.join(kegg_model_path, 'kegg_metadata.json')
 
     logger.info('|kegg2bipartitegraph|reference| Check missing files in {0}.'.format(DATA_ROOT))
-    input_files = [kegg_sbml_model_path, kegg_rxn_mapping_path, kegg_pathways_path, kegg_modules_path]
+    input_files = [kegg_compound_file_path, kegg_sbml_model_path, kegg_rxn_mapping_path,
+                   kegg_pathways_path, kegg_modules_path, kegg_reactions_folder_path,
+                   kegg_compounds_folder_path]
     missing_files = []
     for input_file in input_files:
         if not os.path.exists(input_file):
@@ -534,13 +561,17 @@ def create_reference_base():
     if len(missing_files) > 0:
         logger.info('|kegg2bipartitegraph|reference| Missing: ' + ' '.join(missing_files))
         if not os.path.exists(kegg_reactions_folder_path):
-            logger.info('|kegg2bipartitegraph|reference| Retrieve reactions from KEGG to create SMBL model.')
-            get_reactions(kegg_reactions_folder_path)
-        if not os.path.exists(compound_file_path):
-            logger.info('|kegg2bipartitegraph|reference| Retrieve compound IDs and names from KEGG to create SMBL model.')
-            get_compound_names(compound_file_path)
+            logger.info('|kegg2bipartitegraph|reference| Retrieve reactions from KEGG to create SBML model.')
+            get_reactions(kegg_compounds_folder_path)
+       # if not os.path.exists(kegg_compounds_folder_path):
+        logger.info('|kegg2bipartitegraph|reference| Retrieve compounds from KEGG to create SBML model.')
+        get_compounds(kegg_compounds_folder_path, 'compound')
+        get_compounds(kegg_compounds_folder_path, 'glycan')
+        if not os.path.exists(kegg_compound_file_path):
+            logger.info('|kegg2bipartitegraph|reference| Retrieve compound IDs and names from KEGG to create SBML model.')
+            get_compound_names(kegg_compound_file_path)
         logger.info('|kegg2bipartitegraph|reference| Create KEGG reference SBML and mapping tsv file.')
-        create_sbml_model_from_kegg_file_libsbml(kegg_reactions_folder_path, compound_file_path, kegg_sbml_model_path, kegg_rxn_mapping_path, kegg_pathways_path)
+        create_sbml_model_from_kegg_file_libsbml(kegg_reactions_folder_path, kegg_compound_file_path, kegg_sbml_model_path, kegg_rxn_mapping_path, kegg_pathways_path)
         sbml_to_graphml(kegg_sbml_model_path, kegg_graphml_model_path)
         get_modules(kegg_modules_path)
 
@@ -550,7 +581,7 @@ def create_reference_base():
             file_name = os.path.basename(filepath)
             model_zipfile.write(filepath, file_name)
 
-        model_zipfile.write(compound_file_path, 'kegg_compound_name.tsv')
+        model_zipfile.write(kegg_compound_file_path, 'kegg_compound_name.tsv')
         model_zipfile.close()
     else:
         logger.info('|kegg2bipartitegraph|reference| No missing files.')
