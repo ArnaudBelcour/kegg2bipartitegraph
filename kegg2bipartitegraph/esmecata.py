@@ -253,12 +253,11 @@ def create_esmecata_network(input_folder, output_folder, mapping_ko=False, recre
         protein_ec_numbers = {}
         protein_clusters = {}
         with open(annot_file_path, 'r') as open_annot_file_path:
-            csvreader = csv.reader(open_annot_file_path, delimiter='\t')
-            next(csvreader)
+            csvreader = csv.DictReader(open_annot_file_path, delimiter='\t')
             for line in csvreader:
-                protein_id = line[0]
-                protein_cluster = line[1].split(',')
-                ec_numbers = line[4].split(',')
+                protein_id = line['protein_cluster']
+                protein_cluster = line['cluster_members'].split(',')
+                ec_numbers = line['EC'].split(',')
                 protein_ec_numbers[protein_id] = ec_numbers
                 protein_clusters[protein_id] = protein_cluster
 
