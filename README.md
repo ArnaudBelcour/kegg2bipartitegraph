@@ -1,6 +1,6 @@
 # kegg2bipartitegraph
 
-kegg2bipartitegraph is a Python package to create KEGG graphs. The main idea of this package is to create metabolic graphs from KEGG database according to the ones used in the article [Weber Zendrera et al. (2021)](https://www.nature.com/articles/s41598-021-91486-8). In this article, the authors creates the metabolic networks from the organism of KEGG (accessible in this [github repository](https://github.com/AWebZen/FunctionalPrediction5000species)). Using annotation (from EsMeCaTa, eggnog-mapper, KofamKOALA) or a KEGG organism ID, kegg2bipartitegraph maps the EC and reconstruct metabolic networks associated with the organism following the proposal of this article.
+kegg2bipartitegraph is a Python package to create KEGG graphs. The main idea of this package is to create metabolic graphs from KEGG database according to the ones used in the article [Weber Zendrera et al. (2021)](https://www.nature.com/articles/s41598-021-91486-8). In this article, the authors creates the metabolic networks from the organism of KEGG (accessible in this [github repository](https://github.com/AWebZen/FunctionalPrediction5000species)). Using annotation (from EsMeCaTa, eggnog-mapper, KofamKOALA) or a KEGG organism ID, **kegg2bipartitegraph** maps the EC and reconstruct metabolic networks associated with the organism following the proposal of this article.
 
 ## Installation
 
@@ -40,7 +40,7 @@ Then it will create multiple files:
 
 - a sbml file containing the metabolic network that can be used with topological analysis methods (such as [MeneTools](https://github.com/cfrioux/MeneTools), [MiSCoTo](https://github.com/cfrioux/miscoto) or [Metage2Metabo](https://github.com/AuReMe/metage2metabo)).
 
-- a graphml file containing the metabolic network as a bipartite graph.
+- a graphml file containing the metabolic network as a bipartite graph. At this moment, it is not used, but I am currently adaptating the scope method of [Weber Zendrera et al. (2021)](https://www.nature.com/articles/s41598-021-91486-8) to automatise its use with this package.
 
 - tsv files indicating the pathways/modules contained in the metabolic networks, their completness ratio and the associated reactions.
 

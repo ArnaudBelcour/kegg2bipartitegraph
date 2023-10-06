@@ -26,6 +26,7 @@ import zipfile
 
 from bioservices import version as bioservices_version
 from bioservices import KEGG
+from networkx import __version__ as networkx_version
 
 from kegg2bipartitegraph.utils import is_valid_dir
 from kegg2bipartitegraph import __version__ as kegg2bipartitegraph_version
@@ -527,6 +528,7 @@ def create_reference_base():
     options['tool_dependencies']['python_package']['bioservices'] = bioservices_version
     options['tool_dependencies']['python_package']['urllib'] = urllib.request.__version__
     options['tool_dependencies']['python_package']['libsbml'] = libsbml.__version__
+    options['tool_dependencies']['python_package']['networkx'] = networkx_version
 
     kegg2bipartitegraph_reference_metadata = {}
     kegg2bipartitegraph_reference_metadata['tool_options'] = options
