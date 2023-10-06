@@ -12,13 +12,17 @@ If it becomes mature enough, a pip package could be created.
 
 ## Usage
 
-It is divided in two steps:
+It is divided in different parts:
 
 - `kegg2bipartitegraph reference` an optional ones that creates the reference data (especially the universal reference metabolic graphs). By default, these data are precomputed and available within the package located in `kegg2bipartitegraph/data/kegg_model`.
 
-- `kegg2bipartitegraph esmecata` which takes as input the annotation output folder from EsMeCaTa and reconstruct the metabolic networks associated with each taxon.
+- subcommand to reconstruct metabolic graphs from different inputs:
+    - `kegg2bipartitegraph reconstruct_from_esmecata` takes as input the annotation output folder from [EsMeCaTa](https://github.com/AuReMe/esmecata) and reconstruct the metabolic networks associated with each taxon.
+    - `kegg2bipartitegraph reconstruct_from_eggnog` takes as input the annotation output file from [eggnog-mapper]()https://github.com/eggnogdb/eggnog-mapper to map the EC to KEGG reactions.
+    - `kegg2bipartitegraph reconstruct_from_kofamkoala` takes as input the result from [KofamKOALA](https://www.genome.jp/tools/kofamkoala/).
+    - `kegg2bipartitegraph reconstruct_from_organism` takes as input an organism ID from KEGG (such as `hsa` for human or `eco` for *Escherichia coli*).
 
-## Output
+## Reference model
 
 The `kegg2bipartitegraph reference` is to be used only if you want to update the KEGG reference data. First, delete the data contain in `kegg2bipartitegraph/data/kegg_model`, then use this command to download all the required data. This step is long, it is advised to not use it.
 
@@ -28,12 +32,14 @@ It will create 4 files:
 
 - several mapping files to go from annotation (especially EC number) to KEGG reactions: `kegg_compound_name.tsv`, `kegg_mapping.tsv` and `kegg_pathways.tsv`.
 
-The `kegg2bipartitegraph esmecata` command will reconstruct draft metabolic networks by mapping the annotation from EsMeCaTa with the metabolic graphs contained in kegg2bipartitegraph.
+## Output files of other command
+
+The other subcommands will reconstruct draft metabolic networks by mapping the annotation with the metabolic graphs contained in kegg2bipartitegraph.
 
 Then for each taxon of EsMeCaTa, it will create multiple files:
 
 - a sbml file containing the metabolic network that can be used with topological analysis methods (such as [MeneTools](https://github.com/cfrioux/MeneTools), [MiSCoTo](https://github.com/cfrioux/miscoto) or [Metage2Metabo](https://github.com/AuReMe/metage2metabo)).
 
-- a tv file indicating the pathways contained in the metabolic networks, their completness ratio and the associated reactions.
+- tsv files indicating the pathways/modules contained in the metabolic networks, their completness ratio and the associated reactions.
 
 
