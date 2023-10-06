@@ -1,6 +1,6 @@
 # kegg2bipartitegraph
 
-kegg2bipartitegraph is a Python package to create KEGG graphs. The main idea of this package is to create metabolic graphs from KEGG database according to the ones used in the article [Weber Zendrera et al. (2021)](https://www.nature.com/articles/s41598-021-91486-8). In this article, the authors creates the metabolic networks from the organism of KEGG (accessible in this [github repository](https://github.com/AWebZen/FunctionalPrediction5000species)). Using annotation (at this moment only from [EsMeCaTa](https://github.com/AuReMe/esmecata)), kegg2bipartitegraph maps the EC and reconstruct metabolic networks associated with the organism following the proposal of this article.
+kegg2bipartitegraph is a Python package to create KEGG graphs. The main idea of this package is to create metabolic graphs from KEGG database according to the ones used in the article [Weber Zendrera et al. (2021)](https://www.nature.com/articles/s41598-021-91486-8). In this article, the authors creates the metabolic networks from the organism of KEGG (accessible in this [github repository](https://github.com/AWebZen/FunctionalPrediction5000species)). Using annotation (from EsMeCaTa, eggnog-mapper, KofamKOALA) or a KEGG organism ID, kegg2bipartitegraph maps the EC and reconstruct metabolic networks associated with the organism following the proposal of this article.
 
 ## Installation
 
@@ -28,7 +28,7 @@ The `kegg2bipartitegraph reference` is to be used only if you want to update the
 
 It will create 4 files:
 
-- `kegg_model.sbml`: a universal graph containing most of the reactions contained in KEGG database. Such as in the graph made by [Weber Zendrera et al. (2021)](https://www.nature.com/articles/s41598-021-91486-8), 14 cofactors have been removed (H2O, ATP, ADP, NAD+, NADH, NADP+, NADPH, CO2, ammonia, sulfate, thioredoxin, phosphate, pyrophosphate (PPi), and H+). Also the stoechiometry is simplified as these metabolic networks are created in order to be used in topological analysis. **So they are supposed to be used with other metabolic methods (such as Constraint-Based Modelling)**.
+- `kegg_model.sbml`: a universal graph containing most of the reactions contained in KEGG database. Such as in the graph made by [Weber Zendrera et al. (2021)](https://www.nature.com/articles/s41598-021-91486-8), 14 cofactors have been removed (H2O, ATP, ADP, NAD+, NADH, NADP+, NADPH, CO2, ammonia, sulfate, thioredoxin, phosphate, pyrophosphate (PPi), and H+). Also the stoechiometry is simplified as these metabolic networks are created in order to be used in topological analysis. **So they are not supposed to be used with other metabolic methods (such as Constraint-Based Modelling)**.
 
 - several mapping files to go from annotation (especially EC number) to KEGG reactions: `kegg_compound_name.tsv`, `kegg_mapping.tsv` and `kegg_pathways.tsv`.
 
@@ -40,6 +40,10 @@ Then for each taxon of EsMeCaTa, it will create multiple files:
 
 - a sbml file containing the metabolic network that can be used with topological analysis methods (such as [MeneTools](https://github.com/cfrioux/MeneTools), [MiSCoTo](https://github.com/cfrioux/miscoto) or [Metage2Metabo](https://github.com/AuReMe/metage2metabo)).
 
+- a graphml file containing the metabolic network as a bipartite graph.
+
 - tsv files indicating the pathways/modules contained in the metabolic networks, their completness ratio and the associated reactions.
 
+- a tsv file showing KO information if the option has been used.
 
+- several statistics/metadata/log files.

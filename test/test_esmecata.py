@@ -3,10 +3,10 @@ import subprocess
 
 from cobra.io import read_sbml_model
 
-from kegg2bipartitegraph.reconstruct_from_esmecata import create_draft_networks
+from kegg2bipartitegraph.esmecata import create_esmecata_network
 
 def test_draft_reconstruct():
-    create_draft_networks('esmecata_annotation_folder', 'test_out')
+    create_esmecata_network('esmecata_annotation_folder', 'test_out')
 
     sbml_model = read_sbml_model('test_out/sbml/taxon_test.sbml')
 
@@ -21,7 +21,7 @@ def test_draft_reconstruct():
     shutil.rmtree('test_out')
 
 def test_draft_reconstruct_cli():
-    subprocess.call(['kegg2bipartitegraph', 'esmecata', '-i', 'esmecata_annotation_folder', '-o', 'test_out'])
+    subprocess.call(['kegg2bipartitegraph', 'reconstruct_from_esmecata', '-i', 'esmecata_annotation_folder', '-o', 'test_out'])
     sbml_model = read_sbml_model('test_out/sbml/taxon_test.sbml')
 
     expected_reactions = ['R10209']

@@ -29,5 +29,5 @@ setup(
             'kegg2bipartitegraph = kegg2bipartitegraph.__main__:main',
         ]
     },
-    install_requires=['bioservices', 'python-libsbml', 'requests', 'networkx'],
+    install_requires=['bioservices', 'python-libsbml', 'networkx'],
 )

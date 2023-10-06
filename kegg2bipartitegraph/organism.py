@@ -22,6 +22,7 @@ import urllib.parse
 import urllib.request
 import libsbml
 
+from networkx import __version__ as networkx_version
 from bioservices import version as bioservices_version
 from bioservices import KEGG
 
@@ -61,8 +62,8 @@ def get_enzyme_org(organism):
     return enzymes
 
 def create_organism_network(organism, output_folder):
-    """From the output folder of 'esmecata annotation' create KEGG SBML files using bioservices.KEGG.
-    To retrieve KEGG reactions, a mapping is performed between EC number and KEGG reactions.
+    """From a KEGG organism ID create KEGG SBML files using bioservices.KEGG.
+    To retrieve KEGG reactions, a mapping is performed between EC number foundin organism and KEGG reactions.
     And if the option mapping_ko is set to True, it will also map KO ID to KEGG reaction
 
     Args:
@@ -82,10 +83,11 @@ def create_organism_network(organism, output_folder):
     options['tool_dependencies'] = {}
     options['tool_dependencies']['python_package'] = {}
     options['tool_dependencies']['python_package']['Python_version'] = sys.version
-    options['tool_dependencies']['python_package']['esmecata'] = kegg2bipartitegraph_version
+    options['tool_dependencies']['python_package']['kegg2bipartitegraph'] = kegg2bipartitegraph_version
     options['tool_dependencies']['python_package']['bioservices'] = bioservices_version
     options['tool_dependencies']['python_package']['urllib'] = urllib.request.__version__
     options['tool_dependencies']['python_package']['libsbml'] = libsbml.__version__
+    options['tool_dependencies']['python_package']['networkx'] = networkx_version
 
     kegg2bipartitegraph_organism_metadata = {}
     kegg2bipartitegraph_organism_metadata['tool_options'] = options

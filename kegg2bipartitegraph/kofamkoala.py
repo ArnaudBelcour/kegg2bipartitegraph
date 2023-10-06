@@ -20,7 +20,10 @@ import time
 import pandas as pd
 import sys
 import libsbml
+import urllib.request
 
+from networkx import __version__ as networkx_version
+from bioservices import version as bioservices_version
 from kegg2bipartitegraph.utils import is_valid_dir
 from kegg2bipartitegraph import __version__ as kegg2bipartitegraph_version
 from kegg2bipartitegraph.mapping import retrieve_mapping_dictonaries, compute_stat_kegg
@@ -69,7 +72,10 @@ def create_kofamkoala_network(kofam_koala_folder, output_folder):
     options['tool_dependencies']['python_package'] = {}
     options['tool_dependencies']['python_package']['Python_version'] = sys.version
     options['tool_dependencies']['python_package']['kegg2bipartitegraph'] = kegg2bipartitegraph_version
+    options['tool_dependencies']['python_package']['bioservices'] = bioservices_version
+    options['tool_dependencies']['python_package']['urllib'] = urllib.request.__version__
     options['tool_dependencies']['python_package']['libsbml'] = libsbml.__version__
+    options['tool_dependencies']['python_package']['networkx'] = networkx_version
 
     kegg2bipartitegraph_kofamkoala_metadata = {}
     kegg2bipartitegraph_kofamkoala_metadata['tool_options'] = options

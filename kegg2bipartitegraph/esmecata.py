@@ -22,6 +22,7 @@ import sys
 import urllib.parse
 import urllib.request
 
+from networkx import __version__ as networkx_version
 from bioservices import version as bioservices_version
 from bioservices import KEGG, UniProt
 
@@ -157,10 +158,11 @@ def create_esmecata_network(input_folder, output_folder, mapping_ko=False, recre
     options['tool_dependencies'] = {}
     options['tool_dependencies']['python_package'] = {}
     options['tool_dependencies']['python_package']['Python_version'] = sys.version
-    options['tool_dependencies']['python_package']['esmecata'] = kegg2bipartitegraph_version
+    options['tool_dependencies']['python_package']['kegg2bipartitegraph'] = kegg2bipartitegraph_version
     options['tool_dependencies']['python_package']['bioservices'] = bioservices_version
     options['tool_dependencies']['python_package']['urllib'] = urllib.request.__version__
     options['tool_dependencies']['python_package']['libsbml'] = libsbml.__version__
+    options['tool_dependencies']['python_package']['networkx'] = networkx_version
 
     if mapping_ko:
         kegg2bipartitegraph_esmecata_metadata = get_rest_uniprot_release(options)

@@ -129,7 +129,7 @@ def urllib_query(request, nb_retry=5):
         nb_retry (int): number of retry to perform (default = 5)
 
     Returns:
-        response (http.client.HTTPResponse): response returns by requests
+        response (http.client.HTTPResponse): response returns by urllib.request
     """
     passed = False
 
