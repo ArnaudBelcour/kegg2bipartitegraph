@@ -18,7 +18,7 @@ It is divided in different parts:
 
 - subcommand to reconstruct metabolic graphs from different inputs:
     - `kegg2bipartitegraph reconstruct_from_esmecata` takes as input the annotation output folder from [EsMeCaTa](https://github.com/AuReMe/esmecata) and reconstruct the metabolic networks associated with each taxon.
-    - `kegg2bipartitegraph reconstruct_from_eggnog` takes as input the annotation output file from [eggnog-mapper]()https://github.com/eggnogdb/eggnog-mapper to map the EC to KEGG reactions.
+    - `kegg2bipartitegraph reconstruct_from_eggnog` takes as input the annotation output file from [eggnog-mapper](https://github.com/eggnogdb/eggnog-mapper) to map the EC to KEGG reactions.
     - `kegg2bipartitegraph reconstruct_from_kofamkoala` takes as input the result from [KofamKOALA](https://www.genome.jp/tools/kofamkoala/).
     - `kegg2bipartitegraph reconstruct_from_organism` takes as input an organism ID from KEGG (such as `hsa` for human or `eco` for *Escherichia coli*).
 
