@@ -36,9 +36,6 @@ URLLIB_HEADERS = {'User-Agent': 'kegg2bipartitegraph annotation v' + kegg2bipart
 
 logger = logging.getLogger(__name__)
 
-# Create KEGG instance of bioservices.KEEG.
-KEGG_BIOSERVICES = KEGG()
-
 ROOT = os.path.dirname(__file__)
 DATA_ROOT = os.path.join(ROOT, 'data')
 KEGG_ARCHIVE = os.path.join(*[ROOT, 'data', 'kegg_model.zip'])
@@ -72,6 +69,10 @@ def create_organism_network(organism, output_folder):
     """
     starttime = time.time()
     logger.info('|kegg2bipartitegraph|organism| Begin KEGG metabolism mapping for organism {0}.'.format(organism))
+
+    # Create KEGG instance of bioservices.KEEG in this function to avoid trying to connect to KEGG with offline mode.
+    global KEGG_BIOSERVICES
+    KEGG_BIOSERVICES = KEGG()
 
     if KEGG_BIOSERVICES.isOrganism(organism) is not True:
         logger.info('|kegg2bipartitegraph|organism| Incorrect KEGG organism IDs {0}, please check at: https://www.genome.jp/kegg/catalog/org_list.html.'.format(organism))

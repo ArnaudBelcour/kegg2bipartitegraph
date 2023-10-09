@@ -36,9 +36,6 @@ URLLIB_HEADERS = {'User-Agent': 'kegg2bipartitegraph annotation v' + kegg2bipart
 
 logger = logging.getLogger(__name__)
 
-# Create KEGG instance of bioservices.KEEG.
-KEGG_BIOSERVICES = KEGG()
-
 ROOT = os.path.dirname(__file__)
 DATA_ROOT = os.path.join(ROOT, 'data')
 KEGG_ARCHIVE = os.path.join(*[ROOT, 'data', 'kegg_model.zip'])
@@ -505,6 +502,11 @@ def get_kegg_database_version():
     Returns:
         kegg_version (str): string containing KEGG release version
     """
+    try:
+        KEGG_BIOSERVICES
+    except NameError:
+        KEGG_BIOSERVICES = KEGG()
+
     response_text = KEGG_BIOSERVICES.dbinfo()
 
     for line in response_text.splitlines():
@@ -517,6 +519,10 @@ def get_kegg_database_version():
 def create_reference_base():
     starttime = time.time()
     logger.info('|kegg2bipartitegraph|reference| Begin KEGG metabolism mapping.')
+
+    # Create KEGG instance of bioservices.KEEG in this function to avoid trying to connect to KEGG with offline mode.
+    global KEGG_BIOSERVICES
+    KEGG_BIOSERVICES = KEGG()
 
     # Create a json file containing metadata.
     options = {}

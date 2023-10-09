@@ -22,6 +22,18 @@ It is divided in different parts:
     - `kegg2bipartitegraph reconstruct_from_kofamkoala` takes as input the result from [KofamKOALA](https://www.genome.jp/tools/kofamkoala/).
     - `kegg2bipartitegraph reconstruct_from_organism` takes as input an organism ID from KEGG (such as `hsa` for human or `eco` for *Escherichia coli*).
 
+## Online / Offline requirements
+
+Multiple subcommands can be used to reconstruct draft networks. Some of them required an internet connection to work, you can see which ones in the following table:
+
+| Subcommands  | Online  | Offline  |
+|---|---|---|
+| reconstruct_from_esmecata  | (Mapping of KOs)  | X (without mapping KOs)  |
+|  reconstruct_from_eggnog |   |  X |
+|  reconstruct_from_kofamkoala |   | X  |
+|  reconstruct_from_organism | X  |   |
+|  reference | X  |   |
+
 ## Reference model
 
 The `kegg2bipartitegraph reference` is to be used only if you want to update the KEGG reference data. First, delete the data contain in `kegg2bipartitegraph/data/kegg_model`, then use this command to download all the required data. This step is long, it is advised to not use it.

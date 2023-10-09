@@ -1,7 +1,6 @@
 import shutil
 import subprocess
-
-from cobra.io import read_sbml_model
+import libsbml
 
 from kegg2bipartitegraph.reference import extract_reaction
 

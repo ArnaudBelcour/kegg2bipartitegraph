@@ -38,10 +38,6 @@ URLLIB_HEADERS = {'User-Agent': 'kegg2bipartitegraph annotation v' + kegg2bipart
 logger = logging.getLogger(__name__)
 logging.getLogger("cobra.io.sbml").setLevel(logging.CRITICAL)
 
-# Create KEGG instance of bioservices.KEEG.
-KEGG_BIOSERVICES = KEGG()
-UNIPROT_BIOSERVICES = UniProt(verbose=False)
-
 ROOT = os.path.dirname(__file__)
 DATA_ROOT = os.path.join(ROOT, 'data')
 KEGG_ARCHIVE = os.path.join(*[ROOT, 'data', 'kegg_model.zip'])
@@ -67,7 +63,6 @@ def query_uniprot_bioservices(protein_queries):
     """
     data = UNIPROT_BIOSERVICES.mapping(fr='UniProtKB_AC-ID', to='KEGG', query=protein_queries,
                                         progress=True)
-    print(data)
     return data
 
 def query_uniprot_kegg_rest(protein_to_search_on_uniprots, output_dict):
@@ -82,7 +77,6 @@ def query_uniprot_kegg_rest(protein_to_search_on_uniprots, output_dict):
     """
     # The limit of 15 000 proteins per query comes from the help of Uniprot (inferior to 20 000):
     # https://www.uniprot.org/help/uploadlists
-    print(len(protein_to_search_on_uniprots))
     if len(protein_to_search_on_uniprots) < 5000:
         protein_queries = ','.join(protein_to_search_on_uniprots)
         tmp_output_dict = query_uniprot_bioservices(protein_queries)
@@ -165,6 +159,11 @@ def create_esmecata_network(input_folder, output_folder, mapping_ko=False, recre
     options['tool_dependencies']['python_package']['networkx'] = networkx_version
 
     if mapping_ko:
+        # Create KEGG instance of bioservices.KEEG in this function to avoid trying to connect to KEGG with offline mode.
+        global KEGG_BIOSERVICES
+        KEGG_BIOSERVICES = KEGG()
+        global UNIPROT_BIOSERVICES
+        UNIPROT_BIOSERVICES = UniProt(verbose=False)
         kegg2bipartitegraph_esmecata_metadata = get_rest_uniprot_release(options)
         kegg2bipartitegraph_esmecata_metadata['kegg_release_number'] = get_kegg_database_version()
     else:
