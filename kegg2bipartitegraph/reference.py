@@ -47,6 +47,7 @@ UBIQUITOUS_METABOLITES = ["C00001", "C00002", "C00003", "C00004", "C00005", "C00
                           "C00008", "C00009", "C00011", "C00013", "C00014", "C00059",
                           "C00080", "C00342"]
 
+
 def get_reactions(reaction_folder):
     """Using bioservices.KEGG retrieve all keg files associated to KEGG reactions
 
@@ -57,40 +58,32 @@ def get_reactions(reaction_folder):
 
     response_text = KEGG_BIOSERVICES.list('reaction')
 
-    reaction_ids = [] 
+    reaction_ids = []
     for line in response_text.splitlines():
         reaction_id = line.split('\t')[0].strip()
         reaction_ids.append(reaction_id)
 
-    for reaction_id in reaction_ids:
-        reaction_file = os.path.join(reaction_folder, reaction_id+'.keg')
-        if not os.path.exists(reaction_file):
-            response_text = KEGG_BIOSERVICES.get(reaction_id)
-            with open(reaction_file, 'w') as output_file:
-                output_file.write(response_text)
+    already_downloaded_reaction = [kegg_file.replace('.keg', '') for kegg_file in os.listdir(reaction_folder)]
+    reaction_ids = sorted(list(set(reaction_ids) - set(already_downloaded_reaction)))
+    logger.info('|kegg2bipartitegraph|reference| Retrieving {0} reactions from KEGG.'.format(len(reaction_ids)))
+    # Download reaction by chunk of 9.
+    for i in range(0, len(reaction_ids), 9):
+        reaction_chunk = '+'.join(reaction_ids[i:i+9])
+        response_text = KEGG_BIOSERVICES.get(reaction_chunk)
+        if isinstance(response_text, int):
+            time.sleep(600)
+            response_text = KEGG_BIOSERVICES.get(reaction_chunk)
+        for response_split in response_text.split('///')[:-1]:
+            if response_split.startswith('\n'):
+                response_split = response_split.replace('\n', '', 1)
+            reaction_data = KEGG_BIOSERVICES.parse(response_split.strip('\n'))
 
-
-def get_compounds(compound_folder, compound_type):
-    """Using bioservices.KEGG retrieve all keg files associated to KEGG compounds
-
-    Args:
-        compound_folder (str): output folder which will contains compound file
-    """
-    is_valid_dir(compound_folder)
-
-    response_text = KEGG_BIOSERVICES.list('compound')
-
-    compound_ids = []
-    for line in response_text.splitlines():
-        compound_id = line.split('\t')[0].strip()
-        compound_ids.append(compound_id)
-
-    for compound_id in compound_ids:
-        compound_file = os.path.join(compound_folder, compound_id+'.keg')
-        if not os.path.exists(compound_file):
-            response_text = KEGG_BIOSERVICES.get(compound_id)
-            with open(compound_file, 'w') as output_file:
-                output_file.write(response_text)
+            reaction_id = reaction_data['ENTRY'].split(' ')[0]
+            reaction_file = os.path.join(reaction_folder, reaction_id+'.keg')
+            if not os.path.exists(reaction_file):
+                with open(reaction_file, 'w') as output_file:
+                    output_file.write(response_split+'///')
+                time.sleep(3)
 
 
 def extract_reaction(reaction_id, equation_text):
@@ -518,7 +511,7 @@ def get_kegg_database_version():
 
 def create_reference_base():
     starttime = time.time()
-    logger.info('|kegg2bipartitegraph|reference| Begin KEGG metabolism mapping.')
+    logger.info('|kegg2bipartitegraph|reference| Begin KEGG metabolism reference model creation.')
 
     # Create KEGG instance of bioservices.KEEG in this function to avoid trying to connect to KEGG with offline mode.
     global KEGG_BIOSERVICES
@@ -548,7 +541,6 @@ def create_reference_base():
     is_valid_dir(kegg_model_path)
 
     kegg_reactions_folder_path = os.path.join(kegg_model_path, 'reaction_folder')
-    kegg_compounds_folder_path = os.path.join(kegg_model_path, 'compound_folder')
     kegg_compound_file_path = os.path.join(kegg_model_path, 'kegg_compound_name.tsv')
     kegg_sbml_model_path = os.path.join(kegg_model_path, 'kegg_model.sbml')
     kegg_graphml_model_path = os.path.join(kegg_model_path, 'kegg_model.graphml')
@@ -559,8 +551,8 @@ def create_reference_base():
 
     logger.info('|kegg2bipartitegraph|reference| Check missing files in {0}.'.format(DATA_ROOT))
     input_files = [kegg_compound_file_path, kegg_sbml_model_path, kegg_rxn_mapping_path,
-                   kegg_pathways_path, kegg_modules_path, kegg_reactions_folder_path,
-                   kegg_compounds_folder_path]
+                   kegg_pathways_path, kegg_modules_path, kegg_reactions_folder_path]
+
     missing_files = []
     for input_file in input_files:
         if not os.path.exists(input_file):
@@ -570,11 +562,12 @@ def create_reference_base():
         logger.info('|kegg2bipartitegraph|reference| Missing: ' + ' '.join(missing_files))
         if not os.path.exists(kegg_reactions_folder_path):
             logger.info('|kegg2bipartitegraph|reference| Retrieve reactions from KEGG to create SBML model.')
-            get_reactions(kegg_compounds_folder_path)
-       # if not os.path.exists(kegg_compounds_folder_path):
-        logger.info('|kegg2bipartitegraph|reference| Retrieve compounds from KEGG to create SBML model.')
-        get_compounds(kegg_compounds_folder_path, 'compound')
-        get_compounds(kegg_compounds_folder_path, 'glycan')
+            get_reactions(kegg_reactions_folder_path)
+        else:
+            if len(os.listdir(kegg_reactions_folder_path)) != len(KEGG_BIOSERVICES.reactionIds):
+                logger.info('|kegg2bipartitegraph|reference| Retrieve reactions from KEGG to create SBML model.')
+                get_reactions(kegg_reactions_folder_path) 
+
         if not os.path.exists(kegg_compound_file_path):
             logger.info('|kegg2bipartitegraph|reference| Retrieve compound IDs and names from KEGG to create SBML model.')
             get_compound_names(kegg_compound_file_path)

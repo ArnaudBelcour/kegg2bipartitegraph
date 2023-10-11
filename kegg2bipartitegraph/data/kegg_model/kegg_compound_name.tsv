@@ -2306,7 +2306,7 @@ C02906	Dihydromyricetin
 C02909	(2-Naphthyl)methanol
 C02912	(R)-Propane-1,2-diol
 C02914	(S)-2-O-Sulfolactate
-C02915	(S)-N-Methylcanadine
+C02915	(S)-cis-N-Methylcanadine
 C02916	(S)-Norlaudanosoline
 C02917	(S)-Propane-1,2-diol
 C02918	1-Methylnicotinamide
@@ -3918,7 +3918,7 @@ C05314	N-Methyl-(R,S)-tetrahydrobenzylisoquinoline
 C05315	Palmatine
 C05316	Dihydromacarpine
 C05317	Nororientaline
-C05318	cis-N-Methyl-(S)-7,8,13,14-tetrahydroprotoberberine
+C05318	(S)-cis-N-Methyl-7,8,13,14-tetrahydroprotoberberine
 C05319	[Cytochrome c] S-methylmethionine
 C05320	Histone N(omega)-methyl-L-arginine
 C05321	[Myeline basic protein] N(omega)-methyl-L-arginine
@@ -16828,7 +16828,7 @@ C20326	2-exo-Hydroxy-1,8-cineole
 C20327	2-Oxo-4-phenylbutyric acid
 C20328	N-Acetyl-alpha-D-glucosamine
 C20329	Abieta-7,13-dien-18,18-diol
-C20330	L-Hydroxyarginine
+C20330	5-Hydroxy-L-arginine
 C20331	beta-Carotene-15,15'-epoxide
 C20332	15,15'-Dihydroxy-beta-carotene
 C20333	N2-Citryl-N6-acetyl-N6-hydroxy-L-lysine
@@ -18052,10 +18052,10 @@ C21582	Bacteriochlorophyllide e
 C21583	6-O-Methyl-N-deacetylisoipecoside aglycon
 C21584	7'-O-Dmethylcephaeline
 C21585	4-Phospho-D-threonate
-C21586	(S)-1-Hydroxy-N-methylcanadine
-C21587	(13S,14R)-1,13-Dihydroxy-N-methylcanadine
-C21588	(13S,14R)-1-Hydroxy-13-O-acetyl-N-methylcanadine
-C21589	(13S,14R)-1,8-Dihydroxy-13-O-acetyl-N-methylcanadine
+C21586	(S)-1-Hydroxy-cis-N-methylcanadine
+C21587	(13S,14R)-1,13-Dihydroxy-cis-N-methylcanadine
+C21588	(13S,14R)-13-O-Acetyl-1-hydroxy-cis-N-methylcanadine
+C21589	(13S,14R)-13-O-Acetyl-1,8-dihydroxy-cis-N-methylcanadine
 C21590	4'-O-Desmethyl-3-O-acetylpapaveroxine
 C21591	3-O-Acetylpapaveroxine
 C21592	Ceftizoxime alapivoxil
@@ -19085,6 +19085,8 @@ C22640	Phenyl-N-(sulfonatooxy)methanimidothioate
 C22641	N-(Sulfonatooxy)prop-2-enimidothioate
 C22642	Prop-2-enylthiocyanate
 C22643	2-(Thiiran-2-yl)acetonitrile
+C22644	Viridicatin
+C22645	Methyl isocyanate
 C22646	N-(4-Aminobutylpyrrolinium) ion
 C22647	N-(4-Oxobutylpyrrolinium) ion
 C22648	1-Formylpyrrolizidine
@@ -19107,10 +19109,32 @@ C22664	Quillaic acid 3-O-beta-D-xylosyl-1,3-(beta-D-galactosyl-1,2)-beta-D-glucu
 C22665	Quillaic acid 3-O-alpha-L-rhamnosyl-1,3-(beta-D-galactosyl-1,2)-beta-D-glucuronide-28-O-beta-D-apiosyl-1,3-beta-D-xylosyl-1,4-alpha-L-rhamnosyl-1,2-beta-D-fucoside
 C22666	Quillaic acid 3-O-beta-D-xylosyl-1,3-(beta-D-galactosyl-1,2)-beta-D-glucuronide 28-O-beta-D-apiosyl-1,3-beta-D-xylosyl-1,4-(beta-D-glucosyl-1,3)-alpha-L-rhamnosyl-1,2-(alpha-L-rhamnosyl-1,3)-4-O-acetyl-beta-D-fucoside
 C22667	4-Carboxy-1-hydroxybutyryl-ThPP
+C22668	Colibactin
 C22672	Aucubigenin
 C22673	Aucubinine A
 C22674	Aucubinine B
 C22675	Genipinine
+C22676	Loganetin
+C22677	Sweroside aglycone
+C22678	Naucledal
+C22679	Erythrocentaurin
+C22680	Gentinopicral
+C22681	Andrimid
+C22684	(S)-Tetrahydroprotoberberine
+C22685	Ethyl 4-phenylpiperidine-4-carboxylate
+C22686	4-Dimethylamino-2,2-diphenylvaleronitrile
+C22687	1-Methyl-4-phenylpiperidine-4-carbonitrile
+C22688	2-Methyl-3-morpholino-1,1-diphenylpropane-carboxylic acid
+C22689	Kermesate
+C22690	2''-O-Lipoyl-ADP-D-ribose
+C22691	Ergosteryl-3beta-O-L-aspartate
+C22692	[Protein]-O-phospho-L-serine
+C22693	[Protein]-O-phospho-L-threonine
+C22694	Ipecoside aglycone
+C22696	(1R)-(2-Amino-1-hydroxyethyl)phosphonate
+C22697	(E)-2-Aminoethenylphosphonate
+C22712	4-Deoxy-L-erythro-hex-4-enopyranuronate
+C22713	4-Deoxy-L-threo-hex-4-enopyranuronate
 G00001	N-Acetyl-D-glucosaminyldiphosphodolichol
 G00002	N,N'-Chitobiosyldiphosphodolichol
 G00003	(GlcNAc)2 (Man)1 (PP-Dol)1
@@ -19150,9 +19174,9 @@ G00036	Lc3Cer
 G00037	Lc4Cer
 G00038	(Gal)3 (Glc)1 (GlcNAc)1 (Cer)1
 G00039	Type IB glycolipid
-G00040	(Gal)3 (Glc)1 (GlcNAc)1 (LFuc)2 (Cer)1
+G00040	BLeb glycolipid
 G00042	Type IA glycolipid
-G00043	(Gal)2 (GalNAc)1 (Glc)1 (GlcNAc)1 (LFuc)2 (Cer)1
+G00043	ALeb glycolipid
 G00044	IV2Fuc-Lc4Cer
 G00045	IV2Fuc,III4Fuc-Lc4Cer
 G00046	Fuc-Lc4Cer
@@ -19165,7 +19189,7 @@ G00053	(Gal)2 (GalNAc)1 (Glc)1 (GlcNAc)1 (Cer)1
 G00054	Type II A antigen
 G00055	IV2Fuc-nLc4Cer
 G00056	III3,IV2Fuc-nLc4Cer
-G00057	(Gal)3 (GalNAc)1 (Glc)1 (GlcNAc)1 (LFuc)1 (Cer)1
+G00057	Gal-TypeIIA glycolipid
 G00058	Type IIIH glycolipid
 G00059	Type IIIA glycolipid
 G00060	III3Fuc-nLc4Cer
@@ -19924,7 +19948,7 @@ G00934	GM3 de-N-Ac, with N-acetylsphingosine
 G00935	(Man)5
 G00936	(GlcNAc)1 (Man)3
 G00937	(Gal)1 (Glc)2
-G00938	Lewis a-sulfated
+G00938	3'-Sulfo-Lewis a antigen
 G00939	(Gal)1 (GalNAc)1 (GlcNAc)1
 G00940	(Glc)1 (LAra)1 (LRha)1
 G00941	(Gal)1 (GalNAc)1 (Glc)1
@@ -20341,7 +20365,7 @@ G01435	(Gal)2 (GlcNAc)2 (LFuc)2 (Man)3
 G01436	PSGP
 G01437	(Gal)2 (Glc)1 (GlcNAc)1 (LFuc)1 (Neu5Ac)1 (Cer)1
 G01438	GM1
-G01439	(Gal)3 (Glc)1 (GlcNAc)1 (LFuc)2 (Cer)1
+G01439	III3,IV2Fuca,IV3Gala-nLc4-Cer
 G01440	(Gal)3 (GalNAc)1 (Glc)1 (LFuc)1 (Cer)1
 G01441	(Xyl)8
 G01442	(Gal)3 (Glc)1 (GlcNAc)2 (LFuc)2
@@ -28052,7 +28076,7 @@ G10301	(Gal)1 (GalNAc)1 (Glc)1 (Neu5Ac)1 (Cer)1
 G10309	(Gal)1 (GlcNAc)3 (LFuc)1 (Man)4
 G10311	(Gal)1 (Glc)1 (Neu5Ac4Ac)1 (Cer)1
 G10312	(Gal6Ac)1 (Glc)1 (Neu5Ac)1 (Cer)1
-G10313	(Gal)2 (Glc)1 (GlcNAc)1 (LFuc)1 (S)1 (Cer)1
+G10313	3'-Sulfated Lewis a pentaosyl ceramide
 G10314	(Gal)2 (Glc)1 (GlcNAc)1 (LFuc)1 (S)1
 G10315	(Gal)2 (Glc)1 (GlcNAc)1 (LFuc)1 (S)2 (Cer)1
 G10317	(Glc)1 (Neu5Ac)2 (Cer)1
@@ -29391,7 +29415,7 @@ G12222	(Glc)3 (Asn)1
 G12224	(Glc)3 (LRha)1 (LRha2Ac)1 (*)2 (P)1
 G12225	(Gal)3 (Glc)1 (GlcNAc)2 (LFuc)1
 G12226	(Gal)2 (GalNAc)1 (Glc)1 (Neu5Ac)1 (P)1 (Ser)1
-G12227	(Gal)2 (GalNAc)1 (Glc)1 (GlcNAc)1 (Neu5Ac)1 (Cer)1
+G12227	GalNAc-3'-isoLM1
 G12228	(GlcNAc)2 (Man)3 (P)2
 G12229	Blood group substance H (IV)
 G12230	(Gal)2 (Glc)3 (GlcNAc)1

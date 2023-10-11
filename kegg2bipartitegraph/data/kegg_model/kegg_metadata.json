@@ -2,14 +2,15 @@
     "tool_options": {
         "tool_dependencies": {
             "python_package": {
-                "Python_version": "3.8.10 (default, Mar 13 2023, 10:26:41) \n[GCC 9.4.0]",
+                "Python_version": "3.11.4 (main, Jul  5 2023, 13:45:01) [GCC 11.2.0]",
                 "kegg2bipartitegraph": "0.0.1",
                 "bioservices": "1.11.2",
-                "urllib": "3.8",
-                "libsbml": "5.19.7"
+                "urllib": "3.11",
+                "libsbml": "5.20.1",
+                "networkx": "3.1"
             }
         }
     },
-    "kegg_release_number": "106.0+/06-15, Jun 23",
-    "kegg2bipartitegraph_reference_duration": 21.096805095672607
+    "kegg_release_number": "108.0+/10-10, Oct 23",
+    "kegg2bipartitegraph_reference_duration": 37813.81888985634
 }
