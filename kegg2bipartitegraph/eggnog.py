@@ -74,6 +74,7 @@ def read_annotation(eggnog_outfile:str, remove_duplicates=True):
         annotation_data.replace(np.nan, '', inplace=True)
         # Assign the headers
         annotation_data.columns = headers_row
+
         if remove_duplicates is True:
             # If there are multiple times the same gene ID, select the one with the best score.
             annotation_data = annotation_data.sort_values('score', ascending=False).drop_duplicates('query').sort_index()

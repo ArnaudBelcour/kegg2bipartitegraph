@@ -12,13 +12,13 @@ def test_draft_reconstruct():
     sbml_model = sbml_document.getModel()
 
     expected_len_reactions = 1766
-    expected_len__metabolites = 1753
+    expected_len_metabolites = 1756
 
     found_reactions = [reaction.id for reaction in sbml_model.getListOfReactions()]
     found_metabolites = [reaction.id for reaction in sbml_model.getListOfSpecies()]
 
     assert len(found_reactions) == expected_len_reactions
-    assert len(found_metabolites) == expected_len__metabolites
+    assert len(found_metabolites) == expected_len_metabolites
 
     shutil.rmtree('test_out')
 
@@ -29,12 +29,12 @@ def test_draft_reconstruct_cli():
     sbml_model = sbml_document.getModel()
 
     expected_len_reactions = 1766
-    expected_len__metabolites = 1753
+    expected_len_metabolites = 1756
 
     found_reactions = [reaction.id for reaction in sbml_model.getListOfReactions()]
     found_metabolites = [reaction.id for reaction in sbml_model.getListOfSpecies()]
 
     assert len(found_reactions) == expected_len_reactions
-    assert len(found_metabolites) == expected_len__metabolites
+    assert len(found_metabolites) == expected_len_metabolites
 
     shutil.rmtree('test_out')
