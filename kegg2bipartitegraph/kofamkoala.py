@@ -55,15 +55,23 @@ def read_kofam_koala_txt(kofam_koala_result_file):
     return gene_to_kos
 
 
-def create_kofamkoala_network(kofam_koala_folder, output_folder):
+def create_kofamkoala_network(kofam_koala_folder, output_folder, reference_folder=False):
     """From a folder containing kofam koala result files, reconstruct draft metabolic networks.
 
     Args:
         kofam_koala_folder (str): path to kofam koala annotation files folder
         output_folder (str): path to the output folder
+        reference_folder (str): path to a reference KEGG folder, to use it instead of the default ones contained in kegg2bipartitegraph
     """
     starttime = time.time()
     logger.info('|kegg2bipartitegraph|kofamkoala| Begin KEGG metabolism mapping for folder {0}.'.format(kofam_koala_folder))
+
+    if reference_folder is not False:
+        kegg_model_path = reference_folder
+        logger.info('|kegg2bipartitegraph|kofamkoala| Use reference KEGG model given at {0}.'.format(reference_folder))
+    else:
+        logger.info('|kegg2bipartitegraph|kofamkoala| Use default reference KEGG model from {0}.'.format(DATA_ROOT))
+        kegg_model_path = os.path.join(DATA_ROOT, 'kegg_model')
 
     # Download Uniprot metadata and create a json file containing them.
     options = {'kofam_koala_folder': kofam_koala_folder, 'output_folder': output_folder}
@@ -81,11 +89,9 @@ def create_kofamkoala_network(kofam_koala_folder, output_folder):
     kegg2bipartitegraph_kofamkoala_metadata['tool_options'] = options
     is_valid_dir(output_folder)
 
-    data_kegg_model_path = DATA_ROOT
     # Check if KEGG model files exist if not create them.
-    kegg_model_path = os.path.join(data_kegg_model_path, 'kegg_model')
     is_valid_dir(kegg_model_path)
-    kegg2bipartitegraph_kofamkoala_metadata['reference_path'] = data_kegg_model_path
+    kegg2bipartitegraph_kofamkoala_metadata['reference_path'] = kegg_model_path
 
     compound_file_path = os.path.join(kegg_model_path, 'kegg_compound_name.tsv')
     kegg_sbml_model_path = os.path.join(kegg_model_path, 'kegg_model.sbml')

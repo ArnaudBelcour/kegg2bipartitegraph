@@ -98,6 +98,7 @@ def main():
         required=False,
         action='store_true',
         default=None)
+
     parent_parser_recreate_kegg = argparse.ArgumentParser(add_help=False)
     parent_parser_recreate_kegg.add_argument(
         '--recreate-kegg',
@@ -106,6 +107,16 @@ def main():
         required=False,
         action='store_true',
         default=None)
+
+    parent_parser_r = argparse.ArgumentParser(add_help=False)
+    parent_parser_r.add_argument(
+        '-r',
+        '--reference',
+        dest='reference_folder',
+        required=False,
+        help='Path to a reference KEGG folder, to use it instead of the default ones contained in kegg2bipartitegraph.',
+        metavar='REFERENCE_PATH',
+        default=False)
 
     # subparsers
     subparsers = parser.add_subparsers(
@@ -124,7 +135,7 @@ def main():
         help='Create networks from esmecata results.',
         parents=[
             parent_parser_i, parent_parser_o, parent_parser_map_ko,
-            parent_parser_recreate_kegg
+            parent_parser_r
             ],
         allow_abbrev=False)
 
@@ -132,7 +143,7 @@ def main():
         'reconstruct_from_organism',
         help='Create network from a KEGG organism code.',
         parents=[
-            parent_parser_i_org, parent_parser_o
+            parent_parser_i_org, parent_parser_o, parent_parser_r
             ],
         allow_abbrev=False)
 
@@ -140,7 +151,7 @@ def main():
         'reconstruct_from_eggnog',
         help='Create network from a folder containing multiple eggnog-mapper annotation files.',
         parents=[
-            parent_parser_i_eggnog, parent_parser_o
+            parent_parser_i_eggnog, parent_parser_o, parent_parser_r
             ],
         allow_abbrev=False)
 
@@ -148,7 +159,7 @@ def main():
         'reconstruct_from_kofamkoala',
         help='Create network from a folder containing multiple kofam koala result files.',
         parents=[
-            parent_parser_i_kofamkoala, parent_parser_o
+            parent_parser_i_kofamkoala, parent_parser_o, parent_parser_r
             ],
         allow_abbrev=False)
 
@@ -181,13 +192,13 @@ def main():
     if args.cmd == 'reference':
         create_reference_base()
     elif args.cmd == 'reconstruct_from_esmecata':
-        create_esmecata_network(args.input, args.output, args.map_ko, args.recreate_kegg)
+        create_esmecata_network(args.input, args.output, args.map_ko, args.reference_folder)
     elif args.cmd == 'reconstruct_from_organism':
-        create_organism_network(args.input, args.output)
+        create_organism_network(args.input, args.output, args.reference_folder)
     elif args.cmd == 'reconstruct_from_eggnog':
-        create_eggnog_network(args.input, args.output)
+        create_eggnog_network(args.input, args.output, args.reference_folder)
     elif args.cmd == 'reconstruct_from_kofamkoala':
-        create_kofamkoala_network(args.input, args.output)
+        create_kofamkoala_network(args.input, args.output, args.reference_folder)
 
     logger.info("--- Total runtime %.2f seconds ---" % (time.time() - start_time))
     if args.cmd in ['esmecata']:

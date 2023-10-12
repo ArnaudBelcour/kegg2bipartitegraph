@@ -94,15 +94,23 @@ def read_annotation(eggnog_outfile:str, remove_duplicates=True):
             yield key, annotation_dict[key]
 
 
-def create_eggnog_network(eggnog_folder, output_folder):
+def create_eggnog_network(eggnog_folder, output_folder, reference_folder=False):
     """From a folder containing eggnog-mapper annotation files, reconstruct draft metabolic networks.
 
     Args:
         eggnog_folder (str): path to eggnog-mapper annotation files folder
         output_folder (str): path to the output folder
+        reference_folder (str): path to a reference KEGG folder, to use it instead of the default ones contained in kegg2bipartitegraph
     """
     starttime = time.time()
     logger.info('|kegg2bipartitegraph|eggnog| Begin KEGG metabolism mapping for folder {0}.'.format(eggnog_folder))
+
+    if reference_folder is not False:
+        kegg_model_path = reference_folder
+        logger.info('|kegg2bipartitegraph|eggnog| Use reference KEGG model given at {0}.'.format(reference_folder))
+    else:
+        logger.info('|kegg2bipartitegraph|eggnog| Use default reference KEGG model from {0}.'.format(DATA_ROOT))
+        kegg_model_path = os.path.join(DATA_ROOT, 'kegg_model')
 
     # Download Uniprot metadata and create a json file containing them.
     options = {'eggnog_folder': eggnog_folder, 'output_folder': output_folder}
@@ -117,11 +125,9 @@ def create_eggnog_network(eggnog_folder, output_folder):
     kegg2bipartitegraph_eggnog_metadata['tool_options'] = options
     is_valid_dir(output_folder)
 
-    data_kegg_model_path = DATA_ROOT
     # Check if KEGG model files exist if not create them.
-    kegg_model_path = os.path.join(data_kegg_model_path, 'kegg_model')
     is_valid_dir(kegg_model_path)
-    kegg2bipartitegraph_eggnog_metadata['reference_path'] = data_kegg_model_path
+    kegg2bipartitegraph_eggnog_metadata['reference_path'] = kegg_model_path
 
     compound_file_path = os.path.join(kegg_model_path, 'kegg_compound_name.tsv')
     kegg_sbml_model_path = os.path.join(kegg_model_path, 'kegg_model.sbml')

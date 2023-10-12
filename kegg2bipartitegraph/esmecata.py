@@ -132,7 +132,7 @@ def map_protein_to_KO_id(proteins_ids):
     return protein_ko_mapping
 
 
-def create_esmecata_network(input_folder, output_folder, mapping_ko=False, recreate_kegg=None, remove_ubiquitous=True):
+def create_esmecata_network(input_folder, output_folder, mapping_ko=False, reference_folder=False):
     """From the output folder of 'esmecata annotation' create KEGG SBML files using bioservices.KEGG.
     To retrieve KEGG reactions, a mapping is performed between EC number and KEGG reactions.
     And if the option mapping_ko is set to True, it will also map KO ID to KEGG reaction
@@ -141,10 +141,17 @@ def create_esmecata_network(input_folder, output_folder, mapping_ko=False, recre
         input_folder (str): path to the output folder of esmecata annotation
         output_folder (str): path to the output folder
         mapping_ko (bool): option to use KO ID to retrieve reactions
-        recreate_kegg (bool): option to recreate KEGG model by guerying KEGG server
+        reference_folder (str): path to a reference KEGG folder, to use it instead of the default ones contained in kegg2bipartitegraph
     """
     starttime = time.time()
-    logger.info('|EsMeCaTa|kegg| Begin KEGG metabolism mapping.')
+    logger.info('|kegg2bipartitegraph|esmecata| Begin KEGG metabolism mapping.')
+
+    if reference_folder is not False:
+        kegg_model_path = reference_folder
+        logger.info('|kegg2bipartitegraph|esmecata| Use reference KEGG model given at {0}.'.format(reference_folder))
+    else:
+        logger.info('|kegg2bipartitegraph|esmecata| Use default reference KEGG model from {0}.'.format(DATA_ROOT))
+        kegg_model_path = os.path.join(DATA_ROOT, 'kegg_model')
 
     # Download Uniprot metadata and create a json file containing them.
     options = {'input_folder': input_folder, 'output_folder': output_folder, 'mapping_ko': mapping_ko}
@@ -169,13 +176,12 @@ def create_esmecata_network(input_folder, output_folder, mapping_ko=False, recre
     else:
         kegg2bipartitegraph_esmecata_metadata = {}
         kegg2bipartitegraph_esmecata_metadata['tool_options'] = options
+
     is_valid_dir(output_folder)
 
-    data_kegg_model_path = DATA_ROOT
     # Check if KEGG model files exist if not create them.
-    kegg_model_path = os.path.join(data_kegg_model_path, 'kegg_model')
     is_valid_dir(kegg_model_path)
-    kegg2bipartitegraph_esmecata_metadata['reference_path'] = data_kegg_model_path
+    kegg2bipartitegraph_esmecata_metadata['reference_path'] = kegg_model_path
 
     kegg_reactions_folder_path = os.path.join(kegg_model_path, 'reaction_folder')
     compound_file_path = os.path.join(kegg_model_path, 'kegg_compound_name.tsv')
@@ -298,7 +304,7 @@ def create_esmecata_network(input_folder, output_folder, mapping_ko=False, recre
                                 taxon_reactions[reaction_id] = [protein_cluster]
                             else:
                                 taxon_reactions[reaction_id].append(protein_cluster)
-            logger.info('|EsMeCaTa|kegg| Added {0} reactions from {1} KO for taxon {2}.'.format(len(set(ko_added_reactions)), len(set(all_kos)), base_filename))
+            logger.info('|kegg2bipartitegraph|esmecata| Added {0} reactions from {1} KO for taxon {2}.'.format(len(set(ko_added_reactions)), len(set(all_kos)), base_filename))
 
         # Use EC found to be associated to reference protein to retrieve KEEG reaction.
         ec_added_reactions = []
@@ -315,11 +321,11 @@ def create_esmecata_network(input_folder, output_folder, mapping_ko=False, recre
                             taxon_reactions[reaction_id] = [protein]
                         else:
                             taxon_reactions[reaction_id].append(protein)
-        logger.info('|EsMeCaTa|kegg| Added {0} reactions from {1} EC for taxon {2}.'.format(len(set(ec_added_reactions)), len(set(all_ecs)), base_filename))
+        logger.info('|kegg2bipartitegraph|esmecata| Added {0} reactions from {1} EC for taxon {2}.'.format(len(set(ec_added_reactions)), len(set(all_ecs)), base_filename))
 
         total_added_reactions = list(taxon_reactions.keys())
         if mapping_ko is True:
-            logger.info('|EsMeCaTa|kegg| A total of {0} unique reactions are added from EC and KO for taxon {1}.'.format(len(total_added_reactions), base_filename))
+            logger.info('|kegg2bipartitegraph|esmecata| A total of {0} unique reactions are added from EC and KO for taxon {1}.'.format(len(total_added_reactions), base_filename))
 
         # Create pathway file contening pathway with reactions in the taxon.
         pathways_output_file_path = os.path.join(clust_pathways_output_folder_path, base_filename+'.tsv')
@@ -356,9 +362,9 @@ def create_esmecata_network(input_folder, output_folder, mapping_ko=False, recre
             libsbml.writeSBMLToFile(kegg_document, sbml_output_file_path)
             graphml_output_file_path = os.path.join(graphml_output_folder_path, base_filename+'.graphml')
             sbml_to_graphml(sbml_output_file_path, graphml_output_file_path)
-            logger.info('|kegg2bipartitegraph|organism| Network of {0} contains {1} reactions and {2} metabolites.'.format(base_filename, len(kegg_model.getListOfReactions()), len(kegg_model.getListOfSpecies())))
+            logger.info('|kegg2bipartitegraph|esmecata| Network of {0} contains {1} reactions and {2} metabolites.'.format(base_filename, len(kegg_model.getListOfReactions()), len(kegg_model.getListOfSpecies())))
         else:
-            logger.info('|kegg2bipartitegraph|organism| No reactions in model for {0}, no SBML file will be created.'.format(base_filename))
+            logger.info('|kegg2bipartitegraph|esmecata| No reactions in model for {0}, no SBML file will be created.'.format(base_filename))
 
     clust_stat_file = os.path.join(output_folder, 'stat_number_kegg.tsv')
     compute_stat_kegg(clust_sbml_output_folder_path, clust_stat_file)
@@ -370,4 +376,4 @@ def create_esmecata_network(input_folder, output_folder, mapping_ko=False, recre
     kegg2bipartitgraph_metadata_file = os.path.join(output_folder, 'kegg2bipartitegraph_esmecata_kegg.json')
     with open(kegg2bipartitgraph_metadata_file, 'w') as ouput_file:
         json.dump(kegg2bipartitegraph_esmecata_metadata, ouput_file, indent=4)
-    logger.info('|EsMeCaTa|kegg| Draft networks creation complete.')
+    logger.info('|kegg2bipartitegraph|esmecata| Draft networks creation complete.')

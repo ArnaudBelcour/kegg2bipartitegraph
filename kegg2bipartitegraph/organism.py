@@ -58,7 +58,7 @@ def get_enzyme_org(organism):
 
     return enzymes
 
-def create_organism_network(organism, output_folder):
+def create_organism_network(organism, output_folder, reference_folder=False):
     """From a KEGG organism ID create KEGG SBML files using bioservices.KEGG.
     To retrieve KEGG reactions, a mapping is performed between EC number foundin organism and KEGG reactions.
     And if the option mapping_ko is set to True, it will also map KO ID to KEGG reaction
@@ -66,9 +66,17 @@ def create_organism_network(organism, output_folder):
     Args:
         organism (str): KEGG code for an organism
         output_folder (str): path to the output folder
+        reference_folder (str): path to a reference KEGG folder, to use it instead of the default ones contained in kegg2bipartitegraph
     """
     starttime = time.time()
     logger.info('|kegg2bipartitegraph|organism| Begin KEGG metabolism mapping for organism {0}.'.format(organism))
+
+    if reference_folder != False:
+        kegg_model_path = reference_folder
+        logger.info('|kegg2bipartitegraph|organism| Use reference KEGG model given at {0}.'.format(reference_folder))
+    else:
+        logger.info('|kegg2bipartitegraph|organism| Use default reference KEGG model from {0}.'.format(DATA_ROOT))
+        kegg_model_path = os.path.join(DATA_ROOT, 'kegg_model')
 
     # Create KEGG instance of bioservices.KEEG in this function to avoid trying to connect to KEGG with offline mode.
     global KEGG_BIOSERVICES
@@ -94,11 +102,9 @@ def create_organism_network(organism, output_folder):
     kegg2bipartitegraph_organism_metadata['tool_options'] = options
     is_valid_dir(output_folder)
 
-    data_kegg_model_path = DATA_ROOT
     # Check if KEGG model files exist if not create them.
-    kegg_model_path = os.path.join(data_kegg_model_path, 'kegg_model')
     is_valid_dir(kegg_model_path)
-    kegg2bipartitegraph_organism_metadata['reference_path'] = data_kegg_model_path
+    kegg2bipartitegraph_organism_metadata['reference_path'] = kegg_model_path
 
     compound_file_path = os.path.join(kegg_model_path, 'kegg_compound_name.tsv')
     kegg_sbml_model_path = os.path.join(kegg_model_path, 'kegg_model.sbml')
