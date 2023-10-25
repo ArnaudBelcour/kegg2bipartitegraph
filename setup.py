@@ -23,7 +23,6 @@ setup(
     author='AuReMe',
     author_email='gem-aureme@inria.fr',
     packages=['kegg2bipartitegraph, kegg2bipartitegraph.data'],
-    package_dir={'kegg2bipartitegraph': 'kegg2bipartitegraph'},
     entry_points={
         'console_scripts': [
             'kegg2bipartitegraph = kegg2bipartitegraph.__main__:main',
