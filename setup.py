@@ -24,6 +24,7 @@ setup(
     author_email='gem-aureme@inria.fr',
     packages=['kegg2bipartitegraph', 'kegg2bipartitegraph.data', 'kegg2bipartitegraph.data.kegg_model'],
     package_dir={'kegg2bipartitegraph': 'kegg2bipartitegraph'},
+    package_data={'kegg2bipartitegraph.data.kegg_model': ['*.tsv', '*.json', '*.sbml', '*.graphml']},
     entry_points={
         'console_scripts': [
             'kegg2bipartitegraph = kegg2bipartitegraph.__main__:main',
