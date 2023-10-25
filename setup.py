@@ -22,7 +22,7 @@ setup(
     'Reconstruct metabolic bipartite graph using KEGG',
     author='AuReMe',
     author_email='gem-aureme@inria.fr',
-    packages=['kegg2bipartitegraph'],
+    packages=['kegg2bipartitegraph, kegg2bipartitegraph.data'],
     package_dir={'kegg2bipartitegraph': 'kegg2bipartitegraph'},
     entry_points={
         'console_scripts': [
