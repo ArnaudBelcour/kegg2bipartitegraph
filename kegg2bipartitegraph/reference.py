@@ -165,7 +165,7 @@ def get_compound_names(compound_file):
 
 
 def get_modules(module_file):
-    """Using bioservices.KEGG to find the module associated with reacitons.
+    """Using bioservices.KEGG to find the module associated with reactions.
 
     Args:
         module_file (str): output file which will contains module ID, name, formula and reactions
@@ -203,6 +203,7 @@ def get_modules(module_file):
         modules[module_id] = (module_name, module_formula)
 
     all_modules = set(list(modules.keys()) + list(module_reactions.keys()))
+    module_data= {}
     with open(module_file, 'w') as output_file:
         csvwriter = csv.writer(output_file, delimiter='\t')
         csvwriter.writerow(['module_id', 'module_name', 'module_formula', 'module_reactions'])
@@ -218,7 +219,9 @@ def get_modules(module_file):
                 module_name = ''
                 module_formula = ''
             csvwriter.writerow([module_id, module_name, module_formula, module_reaction])
+            module_data[module_id] = [module_name, module_formula, module_reaction]
 
+    return module_data
 
 def libsbml_check(value, message):
     """If 'value' is None, prints an error message constructed using
@@ -243,7 +246,7 @@ def libsbml_check(value, message):
 
 
 def create_sbml_model_from_kegg_file_libsbml(reaction_folder, compound_file, output_sbml, output_tsv, pathways_tsv,
-                                     remove_ubiquitous=True, remove_glycan_reactions=True):
+                                     module_data, remove_ubiquitous=True, remove_glycan_reactions=True):
     """Using the reaction keg files (from retrieve_reactions), the compound file (from get_compound_names),
     create a SBML file (containing all reactions of KEGG) and a tsv file (used to map EC and/or KO to reaction ID)
     Use python-libsbml instead of cobrapy as cobrapy does not handle metabolite being both in reactant and product of reaction:
@@ -255,11 +258,12 @@ def create_sbml_model_from_kegg_file_libsbml(reaction_folder, compound_file, out
         output_sbml (str): path to the sbml output file
         output_tsv (str): path to an output tsv file mapping reaction ID, with KO and EC
         pathways_tsv (str): path to an output tsv showing the pathway, pathway ID and the associated reactions
+        module_data (dict): dictionary with module ID as key, list of module name, formula and reaction as values
         remove_ubiquitous (bool): remove ubiquitous metabolites
         remove_glycan_reactions (bool): remove glycan associated reactions
     """
     # Set libsbml namespace.
-    sbml_ns = libsbml.SBMLNamespaces(3, 1)  # SBML L3V1
+    sbml_ns = libsbml.SBMLNamespaces(3, 1, 'groups', 1)  # SBML L3V1 with groups
     sbml_ns.addPackageNamespace("fbc", 2)  # fbc-v2
 
     # Create document
@@ -270,6 +274,7 @@ def create_sbml_model_from_kegg_file_libsbml(reaction_folder, compound_file, out
     document.setPackageRequired("fbc", False)
     model_fbc = model.getPlugin('fbc')
     model_fbc.setStrict(True)
+    model_groups = model.getPlugin("groups")
 
     # Set units.
     libsbml_check(model,                              'create model')
@@ -471,6 +476,30 @@ def create_sbml_model_from_kegg_file_libsbml(reaction_folder, compound_file, out
         if remove_reaction is True:
             model.removeReaction(reaction_id)
 
+    # Add pathways using groups:kind.
+    # Help from: https://synonym.caltech.edu/software/libsbml/5.18.0/docs/formatted/python-api/groups_example1_8py-example.html
+    for pathway_id in pathways:
+        pathway_reactions = pathways[pathway_id]['reaction']
+        group = model_groups.createGroup()
+        group.setId(pathway_id)
+        group.setName(pathways[pathway_id]['name'])
+        group.setKind("partonomy")
+        for reaction in pathway_reactions:
+            member = group.createMember()
+            member.setIdRef(reaction)
+
+    # Add module using groups:kind.
+    for module_id in module_data:
+        module_name = module_data[module_id][0]
+        module_reactions = module_data[module_id][2].split(',')
+        group = model_groups.createGroup()
+        group.setId(module_id)
+        group.setName(module_name)
+        group.setKind("partonomy")
+        for reaction in module_reactions:
+            member = group.createMember()
+            member.setIdRef(reaction)
+
     libsbml.writeSBMLToFile(document, output_sbml)
     logger.info('|kegg2bipartitegraph|reference| {0} reactions and {1} metabolites in reference model.'.format(len(model.getListOfReactions()), len(model.getListOfSpecies())))
 
@@ -572,9 +601,9 @@ def create_reference_base():
             logger.info('|kegg2bipartitegraph|reference| Retrieve compound IDs and names from KEGG to create SBML model.')
             get_compound_names(kegg_compound_file_path)
         logger.info('|kegg2bipartitegraph|reference| Create KEGG reference SBML and mapping tsv file.')
-        create_sbml_model_from_kegg_file_libsbml(kegg_reactions_folder_path, kegg_compound_file_path, kegg_sbml_model_path, kegg_rxn_mapping_path, kegg_pathways_path)
+        module_data = get_modules(kegg_modules_path)
+        create_sbml_model_from_kegg_file_libsbml(kegg_reactions_folder_path, kegg_compound_file_path, kegg_sbml_model_path, kegg_rxn_mapping_path, kegg_pathways_path, module_data)
         sbml_to_graphml(kegg_sbml_model_path, kegg_graphml_model_path)
-        get_modules(kegg_modules_path)
 
         # Create compress archive.
         model_zipfile = zipfile.ZipFile(KEGG_ARCHIVE, mode="w")
