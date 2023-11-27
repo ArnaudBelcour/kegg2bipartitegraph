@@ -11,14 +11,22 @@ def test_draft_reconstruct():
     sbml_document = reader.readSBML('test_out/sbml/eco.sbml')
     sbml_model = sbml_document.getModel()
 
-    expected_len_reactions = 1766
+    expected_len_reactions = 1768
     expected_len_metabolites = 1756
+    expected_len_pathways = 131
+    expected_len_modules = 205
 
     found_reactions = [reaction.id for reaction in sbml_model.getListOfReactions()]
     found_metabolites = [reaction.id for reaction in sbml_model.getListOfSpecies()]
 
+    model_groups = sbml_model.getPlugin("groups")
+    pathways_ids = [group.id for group in model_groups.getListOfGroups() if group.id.startswith('rn')]
+    modules_ids = [group.id for group in model_groups.getListOfGroups() if group.id.startswith('M')]
+
     assert len(found_reactions) == expected_len_reactions
     assert len(found_metabolites) == expected_len_metabolites
+    assert len(pathways_ids) == expected_len_pathways
+    assert len(modules_ids) == expected_len_modules
 
     shutil.rmtree('test_out')
 
@@ -28,13 +36,21 @@ def test_draft_reconstruct_cli():
     sbml_document = reader.readSBML('test_out/sbml/eco.sbml')
     sbml_model = sbml_document.getModel()
 
-    expected_len_reactions = 1766
+    expected_len_reactions = 1768
     expected_len_metabolites = 1756
+    expected_len_pathways = 131
+    expected_len_modules = 205
 
     found_reactions = [reaction.id for reaction in sbml_model.getListOfReactions()]
     found_metabolites = [reaction.id for reaction in sbml_model.getListOfSpecies()]
 
+    model_groups = sbml_model.getPlugin("groups")
+    pathways_ids = [group.id for group in model_groups.getListOfGroups() if group.id.startswith('rn')]
+    modules_ids = [group.id for group in model_groups.getListOfGroups() if group.id.startswith('M')]
+
     assert len(found_reactions) == expected_len_reactions
     assert len(found_metabolites) == expected_len_metabolites
+    assert len(pathways_ids) == expected_len_pathways
+    assert len(modules_ids) == expected_len_modules
 
     shutil.rmtree('test_out')

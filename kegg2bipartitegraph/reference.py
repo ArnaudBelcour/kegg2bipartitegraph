@@ -486,6 +486,7 @@ def create_sbml_model_from_kegg_file_libsbml(reaction_folder, compound_file, out
         group.setKind("partonomy")
         for reaction in pathway_reactions:
             member = group.createMember()
+            member.setId(reaction)
             member.setIdRef(reaction)
 
     # Add module using groups:kind.
@@ -498,6 +499,7 @@ def create_sbml_model_from_kegg_file_libsbml(reaction_folder, compound_file, out
         group.setKind("partonomy")
         for reaction in module_reactions:
             member = group.createMember()
+            member.setId(reaction)
             member.setIdRef(reaction)
 
     libsbml.writeSBMLToFile(document, output_sbml)

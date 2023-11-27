@@ -24,7 +24,7 @@ import urllib.request
 
 from networkx import __version__ as networkx_version
 from bioservices import version as bioservices_version
-from kegg2bipartitegraph.utils import is_valid_dir
+from kegg2bipartitegraph.utils import is_valid_dir, write_pathway_file, write_module_file
 from kegg2bipartitegraph import __version__ as kegg2bipartitegraph_version
 from kegg2bipartitegraph.mapping import retrieve_mapping_dictonaries, compute_stat_kegg
 from kegg2bipartitegraph.reference import sbml_to_graphml
@@ -46,7 +46,7 @@ def read_kofam_koala_txt(kofam_koala_result_file):
     Returns:
         dict: dict of genes and their annotations as {gene1:[KO1, KO2]}
     """
-    df = pd.read_fwf(kofam_koala_result_file, comment='#', sep=' ', header=None)
+    df = pd.read_fwf(kofam_koala_result_file, comment='#', delimiter=r"\s+", header=None)
     # In my example, columns 1 and 2 correspond to gene_id and ko but should be tested on more result files.
     df = df[[1,2]]
     df.columns = ['gene_id', 'ko']
@@ -177,31 +177,13 @@ def create_kofamkoala_network(kofam_koala_folder, output_folder, reference_folde
 
         # Create pathway file contening pathway with reactions in the taxon.
         pathways_output_file_path = os.path.join(pathways_output_folder_path, base_name+'.tsv')
-        with open(pathways_output_file_path, 'w') as open_pathways_output_file_path:
-            csvwriter = csv.writer(open_pathways_output_file_path, delimiter='\t')
-            csvwriter.writerow(['pathway_id', 'pathway_name', 'pathway_completion_ratio', 'pathway_reaction_in_taxon', 'pathway_reaction'])
-            for pathway in kegg_pathways:
-                pathway_reactions = kegg_pathways[pathway][1]
-                pathway_reaction_in_taxon = set(pathway_reactions).intersection(set(total_added_reactions))
-                if len(pathway_reaction_in_taxon) > 0:
-                    pathway_name = kegg_pathways[pathway][0]
-                    pathway_completion_ratio = len(pathway_reaction_in_taxon) / len(pathway_reactions)
-                    csvwriter.writerow([pathway, pathway_name, pathway_completion_ratio, ','.join(pathway_reaction_in_taxon), ','.join(pathway_reactions)])
+        organism_pathways = write_pathway_file(kegg_pathways, pathways_output_file_path, total_added_reactions)
 
         # Create module file contening module with reactions in the taxon.
         modules_output_file_path = os.path.join(modules_output_folder_path, base_name+'.tsv')
-        with open(modules_output_file_path, 'w') as open_modules_output_file_path:
-            csvwriter = csv.writer(open_modules_output_file_path, delimiter='\t')
-            csvwriter.writerow(['module_id', 'module_name', 'module_completion_ratio', 'module_reaction_in_taxon', 'module_reaction'])
-            for module in kegg_modules:
-                module_reactions = kegg_modules[module][1]
-                module_reaction_in_taxon = set(module_reactions).intersection(set(total_added_reactions))
-                if len(module_reaction_in_taxon) > 0:
-                    module_name = kegg_modules[module][0]
-                    module_completion_ratio = len(module_reaction_in_taxon) / len(module_reactions)
-                    csvwriter.writerow([module, module_name, module_completion_ratio, ','.join(module_reaction_in_taxon), ','.join(module_reactions)])
+        organism_modules = write_module_file(kegg_modules, modules_output_file_path, total_added_reactions)
 
-        kegg_document, kegg_model = create_sbml_from_kegg_reactions(kegg_sbml_model_path, taxon_reactions)
+        kegg_document, kegg_model = create_sbml_from_kegg_reactions(kegg_sbml_model_path, taxon_reactions, organism_pathways, organism_modules)
 
         # Create file if there is at least 1 reaction.
         if len(kegg_model.getListOfReactions()) > 0:

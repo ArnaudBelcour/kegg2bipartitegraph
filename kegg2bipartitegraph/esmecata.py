@@ -26,7 +26,7 @@ from networkx import __version__ as networkx_version
 from bioservices import version as bioservices_version
 from bioservices import KEGG, UniProt
 
-from kegg2bipartitegraph.utils import is_valid_dir, get_rest_uniprot_release
+from kegg2bipartitegraph.utils import is_valid_dir, get_rest_uniprot_release, write_pathway_file, write_module_file
 from kegg2bipartitegraph.reference import get_kegg_database_version
 from kegg2bipartitegraph import __version__ as kegg2bipartitegraph_version
 from kegg2bipartitegraph.mapping import retrieve_mapping_dictonaries, compute_stat_kegg
@@ -42,6 +42,7 @@ ROOT = os.path.dirname(__file__)
 DATA_ROOT = os.path.join(ROOT, 'data')
 KEGG_ARCHIVE = os.path.join(*[ROOT, 'data', 'kegg_model.zip'])
 
+
 def chunks(elements, n):
     """Yield successive n-sized chunks from list.
     Form: https://stackoverflow.com/a/312464
@@ -54,6 +55,7 @@ def chunks(elements, n):
     for i in range(0, len(elements), n):
         yield elements[i:i + n]
 
+
 def query_uniprot_bioservices(protein_queries):
     """REST query to get annotation from proteins.
     Args:
@@ -64,6 +66,7 @@ def query_uniprot_bioservices(protein_queries):
     data = UNIPROT_BIOSERVICES.mapping(fr='UniProtKB_AC-ID', to='KEGG', query=protein_queries,
                                         progress=True)
     return data
+
 
 def query_uniprot_kegg_rest(protein_to_search_on_uniprots, output_dict):
     """Query UniProt with REST to find KEGG gene ID
@@ -256,6 +259,7 @@ def create_esmecata_network(input_folder, output_folder, mapping_ko=False, refer
         base_file = os.path.basename(annot_file_path)
         base_filename = os.path.splitext(base_file)[0]
 
+        taxon_reactions = {}
         # Extract protein IDs and EC number from anntotation reference folder.
         protein_ec_numbers = {}
         protein_clusters = {}
@@ -265,10 +269,10 @@ def create_esmecata_network(input_folder, output_folder, mapping_ko=False, refer
                 protein_id = line['protein_cluster']
                 protein_cluster = line['cluster_members'].split(',')
                 ec_numbers = line['EC'].split(',')
+
                 protein_ec_numbers[protein_id] = ec_numbers
                 protein_clusters[protein_id] = protein_cluster
 
-        taxon_reactions = {}
         # If mapping KO option is used, search for KO terms associated to proteins.
         if mapping_ko is True:
             protein_to_maps = set([protein_id for protein_cluster in protein_clusters for protein_id in protein_clusters[protein_cluster]])
@@ -329,31 +333,13 @@ def create_esmecata_network(input_folder, output_folder, mapping_ko=False, refer
 
         # Create pathway file contening pathway with reactions in the taxon.
         pathways_output_file_path = os.path.join(clust_pathways_output_folder_path, base_filename+'.tsv')
-        with open(pathways_output_file_path, 'w') as open_pathways_output_file_path:
-            csvwriter = csv.writer(open_pathways_output_file_path, delimiter='\t')
-            csvwriter.writerow(['pathway_id', 'pathway_name', 'pathway_completion_ratio', 'pathway_reaction_in_taxon', 'pathway_reaction'])
-            for pathway in kegg_pathways:
-                pathway_reactions = kegg_pathways[pathway][1]
-                pathway_reaction_in_taxon = set(pathway_reactions).intersection(set(total_added_reactions))
-                if len(pathway_reaction_in_taxon) > 0:
-                    pathway_name = kegg_pathways[pathway][0]
-                    pathway_completion_ratio = len(pathway_reaction_in_taxon) / len(pathway_reactions)
-                    csvwriter.writerow([pathway, pathway_name, pathway_completion_ratio, ','.join(pathway_reaction_in_taxon), ','.join(pathway_reactions)])
+        organism_pathways = write_pathway_file(kegg_pathways, pathways_output_file_path, total_added_reactions)
 
         # Create module file contening module with reactions in the taxon.
         modules_output_file_path = os.path.join(modules_output_folder_path, base_filename+'.tsv')
-        with open(modules_output_file_path, 'w') as open_modules_output_file_path:
-            csvwriter = csv.writer(open_modules_output_file_path, delimiter='\t')
-            csvwriter.writerow(['module_id', 'module_name', 'module_completion_ratio', 'module_reaction_in_taxon', 'module_reaction'])
-            for module in kegg_modules:
-                module_reactions = kegg_modules[module][1]
-                module_reaction_in_taxon = set(module_reactions).intersection(set(total_added_reactions))
-                if len(module_reaction_in_taxon) > 0:
-                    module_name = kegg_modules[module][0]
-                    module_completion_ratio = len(module_reaction_in_taxon) / len(module_reactions)
-                    csvwriter.writerow([module, module_name, module_completion_ratio, ','.join(module_reaction_in_taxon), ','.join(module_reactions)])
+        organism_modules = write_module_file(kegg_modules, modules_output_file_path, total_added_reactions)
 
-        kegg_document, kegg_model = create_sbml_from_kegg_reactions(kegg_sbml_model_path, taxon_reactions)
+        kegg_document, kegg_model = create_sbml_from_kegg_reactions(kegg_sbml_model_path, taxon_reactions, organism_pathways, organism_modules)
 
         # Create file if there is at least 1 reaction.
         if len(kegg_model.getListOfReactions()) > 0:

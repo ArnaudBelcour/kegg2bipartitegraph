@@ -14,12 +14,18 @@
 
 import libsbml
 
-def create_sbml_from_kegg_reactions(kegg_sbml_model_path, taxon_reactions):
+def create_sbml_from_kegg_reactions(kegg_sbml_model_path, taxon_reactions, taxon_pathways, taxon_modules):
     """Create a SBML model from the KEGG reference model and reference found for the taxon.
 
     Args:
         kegg_sbml_model_path (str): KEGG code for an organism
         taxon_reactions (dict): reaction ID as key and associated genes as value
+        taxon_pathways (list): list of pathways in organism
+        taxon_modules (lsit): list of modules in organism
+
+    Returns:
+        kegg_document: libsbml document
+        kegg_model: libsbml model
     """
     # Read the reference KEGG sbml file.
     # Use it to create the organism sbml file.
@@ -68,6 +74,35 @@ def create_sbml_from_kegg_reactions(kegg_sbml_model_path, taxon_reactions):
     remove_metabolites = set([m.id for m in kegg_model.getListOfSpecies()]) - set(kept_metabolites)
     for metabolite_id in remove_metabolites:
         kegg_model.removeSpecies(metabolite_id)
+
+    # Keep only groups associated with pathway/module present in the organisms.
+    model_groups = kegg_model.getPlugin("groups")
+    group_to_delete = []
+    members_to_delete = {}
+
+    # If condition required for compatibility with kegg archive 106.
+    if model_groups is not None:
+        for group in model_groups.getListOfGroups():
+            group_id = group.id
+            if group_id not in taxon_pathways and group_id not in taxon_modules:
+                group_to_delete.append(group_id)
+            else:
+                for rxn_member in group.getListOfMembers():
+                    if rxn_member.id not in taxon_reactions:
+                        if group_id not in members_to_delete:
+                            members_to_delete[group_id] = [rxn_member.id]
+                        else:
+                            members_to_delete[group_id].append(rxn_member.id)
+
+        # Remove group not present in modules/pathways of organism.
+        for group in group_to_delete:
+            model_groups.removeGroup(group)
+
+        # Remove reaction member of group not present in reaction list of organism.
+        for group in members_to_delete:
+            group_to_modify = model_groups.getGroup(group)
+            for member in members_to_delete[group]:
+                group_to_modify.removeMember(member)
 
     return kegg_document, kegg_model
 

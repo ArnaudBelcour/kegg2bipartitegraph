@@ -3542,7 +3542,7 @@ C04660	3'-Deoxydihydrostreptomycin 6,3''-bis-phosphate
 C04661	3alpha,7alpha,12beta-Trihydroxy-5beta-cholanate
 C04662	4-Deoxy-alpha-L-erythro-hex-4-enopyranuronoside
 C04663	Acadesine
-C04665	Co-Methyl-5-hydroxybenzimidazolylcobamide
+C04665	Co-methyl-5-hydroxybenzimidazolylcobamide
 C04666	D-erythro-1-(Imidazol-4-yl)glycerol 3-phosphate
 C04667	N-Acetyl-D-glucosaminyl-poly(ribitol phosphate)
 C04670	(1S,4S)-4-Hydroxy-3-oxocyclohexane-1-carboxylate
@@ -3735,7 +3735,7 @@ C04920	6-Sulfo-alpha-D-glucosyl-1,6-alpha-D-glucosyl-1,6-alpha-D-glucosyl-1,3-1-
 C04922	beta-D-Galactosyl-(1->4)-N-acetyl-beta-D-glucosaminyl-(1->3)-beta-D-galactosyl-(1->4)-beta-D-glucosyl-(1<->1)-ceramide
 C04923	1,3-alpha-D-Mannosyl-(1,2-N-acetyl-alpha-D-glucosaminyl)-1,2-alpha-D-mannosyl-1,2-alpha-D-mannosyl-D-mannose
 C04924	N-Acetyl-D-galactosaminyl-1,4-beta-N-acetylneuraminyl-2,3-alpha-D-galactosyl-1,4-beta-D-glucosylceramide
-C04925	N-Acetyl-D-galactosaminyl-N-Acetyl-D-galactosaminyl-1,3-D-galactosyl-1,4-D-galactosyl-1,4-D-glucosylceramide
+C04925	N-Acetyl-D-galactosaminyl-N-acetyl-D-galactosaminyl-1,3-D-galactosyl-1,4-D-galactosyl-1,4-D-glucosylceramide
 C04926	alpha-N-Acetylneuraminyl-2,3-beta-D-galactose-1,3-(alpha-N-acetylneuraminyl-2,6)-N-acetyl-D-galactosaminyl-R
 C04927	N-Acetylneuraminyl-D-galactosyl-N-acetyl-D-galactosaminyl-(N-acetylneuraminyl)-D-galactosyl-D-glucosylceramide
 C04930	N-Acetyl-beta-D-glucosaminyl-1,3-beta-D-galactosyl-1,3-(N-acetyl-beta-D-glucosaminyl-1,6)-N-acetyl-D-galactosaminyl-R
@@ -4201,7 +4201,7 @@ C05714	alpha-Aminopropiononitrile
 C05715	gamma-Amino-gamma-cyanobutanoate
 C05717	alpha-Amino-gamma-cyanobutanoate
 C05718	2-Oxoacid oxime
-C05720	Reduced 2,6-Dichlorophenolindophenol
+C05720	Reduced 2,6-dichlorophenolindophenol
 C05721	Leucomethylene blue
 C05723	Poly-gamma-D-glutamate
 C05726	S-Substituted L-cysteine
@@ -4929,8 +4929,8 @@ C06645	6-Oxo-2-hydroxy-7-(4'-chlorophenyl)-3,8,8-trichloroocta-2E,4E,7E-trienoat
 C06646	2-(4'-Chlorophenyl)-3,3-dichloropropenoate
 C06647	4-Chloroacetophenone
 C06648	4-Chlorobenzaldehyde
-C06649	cis-2,3-Dihydrodiol 1,1,1-Trichloro-2,2-bis(4'-chlorophenyl)ethane
-C06650	2,3-Dihydroxy 1,1,1-Trichloro-2,2-bis(4'-chlorophenyl)ethane
+C06649	cis-2,3-Dihydrodiol 1,1,1-trichloro-2,2-bis(4'-chlorophenyl)ethane
+C06650	2,3-Dihydroxy-1,1,1-trichloro-2,2-bis(4'-chlorophenyl)ethane
 C06651	6-Oxo-2-hydroxy-7-(4'-chlorophenyl)-3,8,8,8-tetrachloroocta-2E,4E-dienoate
 C06653	Erythromycin B
 C06654	4-Amino-anhydrotetracycline
@@ -6149,7 +6149,7 @@ C08296	Quisqualic acid
 C08298	Tricholomic acid
 C08299	Bufotenine
 C08300	D-Cathine
-C08301	D-Cathinone
+C08301	Cathinone
 C08302	N,N-Dimethyltryptamine
 C08303	Galegine
 C08304	Gramine
@@ -7206,7 +7206,7 @@ C09371	Capaurine
 C09372	Capnoidine
 C09373	Conchosin B
 C09374	Confertiflorin
-C09375	(+-)-Carnegine
+C09375	Carnegine
 C09376	Confertifolin
 C09377	Caseadine
 C09378	Confertin
@@ -8240,7 +8240,7 @@ C10411	Tussilagine
 C10412	Uplandicine
 C10413	Usaramine
 C10414	Dalbergin
-C10415	(+-)-Dalbergioidin
+C10415	(+/-)-Dalbergioidin
 C10416	Dalpanin
 C10417	Deguelin
 C10418	5-Deoxykievitone
@@ -16294,7 +16294,7 @@ C19780	(R)-Piperazine-2-carboxylate
 C19781	L-Prolinamide
 C19782	(S)-Piperazine-2-carboxamide
 C19783	(S)-Piperazine-2-carboxylate
-C19784	1-O-[2-(Acetylamino)-2-deoxy-alpha-D-glucopyranosyl]-D-myo-Inositol
+C19784	1-O-(2-Acetamido-2-deoxy-alpha-D-glucopyranosyl)-1D-myo-inositol
 C19785	Streptothricin F
 C19786	Streptothricin F acid
 C19787	5'-S-Methyl-5'-thioinosine
@@ -18711,7 +18711,7 @@ C22259	UDP-2-acetamido-2,6-dideoxy-beta-L-mannose
 C22260	UDP-2-acetamido-2,6-dideoxy-beta-L-glucose
 C22261	UDP-2-acetamido-2,6-dideoxy-alpha-D-galactose
 C22262	UDP-2-acetamido-2,6-dideoxy-alpha-D-glucose
-C22263	(S)-2-(Methylamino)-1-phenylpropan-1-one
+C22263	(S)-2-Methylamino-1-phenylpropan-1-one
 C22264	(L-Arginyl)adenylate
 C22265	L-Arginyl-[pcp]
 C22266	5-Methylaminomethyl-2-(S-geranyl)thiouridine in tRNA
@@ -18786,8 +18786,8 @@ C22340	Heptaprenylglyceryl phosphate
 C22341	Heptaprenylglycerol
 C22342	Diacetylheptaprenylglycerol
 C22343	Dec-9-enoyl-[acyl-carrier protein]
-C22344	C-terminal [mycofactocin precursor peptide]-glycyl-L-valyl-L-tyrosine
-C22345	C-terminal [mycofactocin precursor peptide]-glycyl-L-valyl-4-[2-aminoethenyl]phenol
+C22344	C-Terminal [mycofactocin precursor peptide]-glycyl-L-valyl-L-tyrosine
+C22345	C-Terminal [mycofactocin precursor peptide]-glycyl-L-valyl-4-[2-aminoethenyl]phenol
 C22346	1'-Hydroxy-1',2'-dihydro-beta,psi-caroten-4'-one
 C22347	Bisanhydrobacterioruberin
 C22348	Monoanhydrobacterioruberin
@@ -18802,12 +18802,12 @@ C22356	Benzo[a]pyrene-7,8-dione
 C22357	17beta-Estradiol-2,3-quinone
 C22358	17beta-Estradiol-3,4-quinone
 C22359	S-Methyl-1-thio-D-xylulose 5-phosphate
-C22360	S-methyl-1-thio-D-ribulose 5-phosphate
+C22360	S-Methyl-1-thio-D-ribulose 5-phosphate
 C22361	Glycyl-AMP
 C22362	Glycyl-[peptidyl-carrier protein]
 C22363	(L-Alanyl)adenylate
 C22364	L-Alanyl-[peptidyl-carrier protein]
-C22365	C-terminal [Mycofactocin precursor peptide]-glycyl-3-amino-5-[(4-hydroxyphenyl)methyl]-4,4-dimethylpyrrolidin-2-one
+C22365	C-Terminal [mycofactocin precursor peptide]-glycyl-3-amino-5-[(4-hydroxyphenyl)methyl]-4,4-dimethylpyrrolidin-2-one
 C22366	(L-Glutamyl)adenylate
 C22367	L-Glutamyl-[peptidyl-carrier protein]
 C22368	5-Methyl-3-oxohexanoyl-[acyl-carrier-protein]
@@ -18849,7 +18849,7 @@ C22403	2-Butyloctyl sulfate
 C22404	2-Butyloctan-1-ol
 C22405	(2R)-2-Hydroxy-long-chain fatty acyl-CoA
 C22406	Long-chain fatty aldehyde
-C22407	C-terminal [Mycofactocin precursor peptide]-glycine
+C22407	C-Terminal [mycofactocin precursor peptide]-glycine
 C22408	2,3-Dihydroxybenzoyl-[aryl-carrier protein]
 C22409	UDP-3-O-[(3R)-3-hydroxyacyl]-alpha-D-glucosamine
 C22410	UDP-2-N,3-O-bis[(3R)-3-hydroxyacyl]-alpha-D-glucosamine
@@ -19120,6 +19120,7 @@ C22678	Naucledal
 C22679	Erythrocentaurin
 C22680	Gentinopicral
 C22681	Andrimid
+C22683	Protonitazene
 C22684	(S)-Tetrahydroprotoberberine
 C22685	Ethyl 4-phenylpiperidine-4-carboxylate
 C22686	4-Dimethylamino-2,2-diphenylvaleronitrile
@@ -19131,10 +19132,143 @@ C22691	Ergosteryl-3beta-O-L-aspartate
 C22692	[Protein]-O-phospho-L-serine
 C22693	[Protein]-O-phospho-L-threonine
 C22694	Ipecoside aglycone
+C22695	N-(1-Adamantyl)-1-(5-fluoropentyl)-1H-indazole-3-carboxamide
 C22696	(1R)-(2-Amino-1-hydroxyethyl)phosphonate
 C22697	(E)-2-Aminoethenylphosphonate
+C22698	ADB-CHMINACA
+C22699	ADB-FUBINACA
+C22700	2-Aminopropiophenone
+C22701	N-Pyrrolidino etonitazene
+C22702	AB-CHMINACA
+C22703	AB-FUBINACA
+C22704	AB-PINACA
+C22705	Ethcathinone
+C22706	N-Ethylhexedrone
+C22707	4-Methylethcathinone
+C22708	Eutylone
+C22709	Ethylone
+C22710	N-Ethylpentylone
+C22711	Methoxetamine
 C22712	4-Deoxy-L-erythro-hex-4-enopyranuronate
 C22713	4-Deoxy-L-threo-hex-4-enopyranuronate
+C22714	2,5-Dimethoxy-4-ethylamphetamine
+C22715	2,5-Dimethoxy-4-ethylthiophenethylamine
+C22716	Eticyclidine
+C22717	3,4-Methylenedioxy-N-ethylamphetamine
+C22718	1-(5-Fluoropentyl)-1H-indole-3-carboxylic acid 8-quinolinyl ester
+C22719	2,5-Dimethoxy-4-chloroamphetamine
+C22720	N-(2-Methoxybenzyl)-2-(4-chloro-2,5-dimethoxyphenyl)ethanamine
+C22721	Clephedrone
+C22722	Cumyl-4CN-BINACA
+C22723	N,N-Diallyl-5-methoxytryptamine
+C22724	5-Methoxy-N,N-diisopropyltryptamine
+C22725	Isotonitazene
+C22726	N,N-Diethyltryptamine
+C22727	Metonitazene
+C22728	1-Cyclohexyl-4-(1,2-diphenylethyl)piperazine
+C22729	3,4-Dichloro-N-[(1-dimethylaminocyclohexyl)methyl]benzamide
+C22730	3,4-Dichloro-N-[(1R,2R)-2-(dimethylamino)cyclohexyl]-N-methylbenzamide
+C22731	4-Methylaminorex
+C22732	Dihydroetorphine
+C22733	1-(1,2-Diphenylethyl)piperidine
+C22734	Dimethylheptylpyran
+C22735	2,5-Dimethoxy-4-isopropylthiophenethylamine
+C22736	2,5-Dimethoxy-4-methylamphetamine
+C22737	2,5-Dimethoxy-4-propylthiophenethylamine
+C22738	2,5-Dimethoxyamphetamine
+C22739	Thiofentanyl
+C22740	delta10-Tetrahydrocannabinol
+C22741	delta8-Tetrahydrocannabinol
+C22742	(1S,3R,4R)-delta5-Tetrahydrocannabinol
+C22743	delta3-Tetrahydrocannabinol
+C22744	1R-trans-delta4-Tetrahydrocannabinol
+C22745	1-(3-Trifluoromethylphenyl)piperazine
+C22746	2,4,5-Trimethoxyamphetamine
+C22747	3,4,5-Trimethoxyamphetamine
+C22748	1-Pentyl-3-(1-naphthoyl)indole
+C22749	beta-Hydroxyfentanyl
+C22750	Ohmefentanyl
+C22751	Cannabicyclohexanol
+C22752	Ethylphenidate
+C22753	alpha-Pyrrolidinohexiophenone
+C22754	alpha-Pyrrolidinovalerophenone
+C22755	Acrylfentanyl
+C22756	Acetylfentanyl
+C22757	Cyclopropylfentanyl
+C22758	Tetrahydrofuranylfentanyl
+C22759	Crotonylfentanyl
+C22760	Butyrlfentanyl
+C22761	Furanylfentanyl
+C22762	Valerylfentanyl
+C22763	1-(2-Phenylethyl)-4-phenyl-4-acetoxypiperidine
+C22764	1-Butyl-3-(1-naphthoyl)indole
+C22765	4-Fluorobutyrfentanyl
+C22766	ortho-Fluorofentanyl
+C22767	4-Fluoroamphetamine
+C22768	4-Fluoroisobutyryl fentanyl
+C22769	p-Fluorofentanyl
+C22770	[1-(5-Fluoropentyl)-1H-indol-3-yl](2,2,3,3-tetramethylcyclopropyl)methanone
+C22771	[1-(5-Fluoropentyl)-1H-indol-3-yl](naphthalen-1-yl)methanone
+C22772	[1-(5-Fluoropentyl)-1H-indol-3-yl](4-methylnaphthalen-1-yl)methanone
+C22773	25B-NBOMe
+C22774	25I-NBOMe
+C22775	4-Bromo-2,5-dimethoxyphenethylamine
+C22776	4-Iodo-2,5-dimethoxyphenethylamine
+C22777	Brorphine
+C22778	11-Hydroxytetrahydrocannabinol
+C22779	Synhexyl
+C22780	1-Benzylpiperazine
+C22781	(1-Pentyl-1H-indol-3-yl)(2,2,3,3-tetramethylcyclopropyl)methanone
+C22782	Cumyl-PEGACLONE
+C22783	Methcathinone
+C22784	Pentedrone
+C22785	Mephedrone
+C22786	N-Methyl-1-(3,4-methylenedioxyphenyl)-2-butanamine
+C22787	MDMB-CHMICA
+C22788	MDMB-4EN-PINACA
+C22789	alpha-Methylthiofentanyl
+C22790	3-Methylthiofentanyl
+C22791	Acetyl-alpha-methylfentanyl
+C22792	alpha-Methylfentanyl
+C22793	Mefentanyl
+C22794	Methoxyacetylfentanyl
+C22795	Methiopropamine
+C22796	1-Pentyl-3-(4-methyl-1-napthoyl)indole
+C22797	Desmethylprodine
+C22798	Meperidinic acid
+C22799	4F-MDMB-BINACA
+C22800	AMB-FUBINACA
+C22801	5F-MDMB-PINACA
+C22802	Methyl (2S)-2-[1-(5-fluoropentyl)-1H-indazole-3-carboxamido]-3-methylbutanoate
+C22803	5F-MDMB-PICA
+C22804	4-Methylthioamphetamine
+C22805	4,4'-Dimethylaminorex
+C22806	3,4-Methylenedioxy-N-hydroxy-N-methylamphetamine
+C22807	N-Hydroxy-3,4-methylenedioxyamphetamine
+C22808	Methylenedioxypyrovalerone
+C22809	1-[1-(3-Methoxyphenyl)cyclohexyl]piperidine
+C22810	p-Methoxymethamphetamine
+C22811	4-Methoxyamphetamine
+C22812	5-Methoxy-3,4-methylenedioxyamphetamine
+C22813	2-Chlorodiazepam
+C22814	Clonazolam
+C22815	Flualprazolam
+C22816	Phenazepam
+C22817	Flubromazolam
+C22818	ADB-BUTINACA
+C22819	Methyl alpha-acetylphenylacetate
+C22820	2-Phenyl-3-oxobutanamide
+C22821	Deprenyl
+C22822	Racephedrine
+C22823	1-Chloro-N-methyl-1-phenyl-2-propanamine
+C22824	1-Chloro-2-dimethylamino-1-phenylpropane
+C22825	Dimethylamphetamine
+C22826	2-Phenylacetoacetonitrile
+C22827	Etodesnitazene
+C22828	3-Methylmethcathinone
+C22829	alpha-Pyrrolidinoisohexaphenone
+C22831	5alpha-Pregnan-17alpha-ol-3,20-dione
+C22832	5alpha-Pregnane-3alpha,17alpha-diol-20-one
 G00001	N-Acetyl-D-glucosaminyldiphosphodolichol
 G00002	N,N'-Chitobiosyldiphosphodolichol
 G00003	(GlcNAc)2 (Man)1 (PP-Dol)1

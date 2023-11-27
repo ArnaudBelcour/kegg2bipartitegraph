@@ -181,3 +181,39 @@ def get_rest_uniprot_release(options):
     uniprot_releases['tool_options'] = options
 
     return uniprot_releases
+
+
+def write_pathway_file(kegg_pathways, pathways_output_file_path, total_added_reactions):
+    organism_pathways = []
+
+    with open(pathways_output_file_path, 'w') as open_pathways_output_file_path:
+        csvwriter = csv.writer(open_pathways_output_file_path, delimiter='\t')
+        csvwriter.writerow(['pathway_id', 'pathway_name', 'pathway_completion_ratio', 'pathway_reaction_in_taxon', 'pathway_reaction'])
+        for pathway in kegg_pathways:
+            pathway_reactions = kegg_pathways[pathway][1]
+            pathway_reaction_in_taxon = set(pathway_reactions).intersection(set(total_added_reactions))
+            if len(pathway_reaction_in_taxon) > 0:
+                organism_pathways.append(pathway)
+                pathway_name = kegg_pathways[pathway][0]
+                pathway_completion_ratio = len(pathway_reaction_in_taxon) / len(pathway_reactions)
+                csvwriter.writerow([pathway, pathway_name, pathway_completion_ratio, ','.join(pathway_reaction_in_taxon), ','.join(pathway_reactions)])
+
+    return organism_pathways
+
+
+def write_module_file(kegg_modules, modules_output_file_path, total_added_reactions):
+    organism_modules = []
+
+    with open(modules_output_file_path, 'w') as open_modules_output_file_path:
+        csvwriter = csv.writer(open_modules_output_file_path, delimiter='\t')
+        csvwriter.writerow(['module_id', 'module_name', 'module_completion_ratio', 'module_reaction_in_taxon', 'module_reaction'])
+        for module in kegg_modules:
+            module_reactions = kegg_modules[module][1]
+            module_reaction_in_taxon = set(module_reactions).intersection(set(total_added_reactions))
+            if len(module_reaction_in_taxon) > 0:
+                organism_modules.append(module)
+                module_name = kegg_modules[module][0]
+                module_completion_ratio = len(module_reaction_in_taxon) / len(module_reactions)
+                csvwriter.writerow([module, module_name, module_completion_ratio, ','.join(module_reaction_in_taxon), ','.join(module_reactions)])
+
+    return organism_modules
