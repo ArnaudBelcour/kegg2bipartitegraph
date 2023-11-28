@@ -1,4 +1,5 @@
 # Copyright (C) 2021-2023 Arnaud Belcour - Inria, Univ Rennes, CNRS, IRISA Dyliss
+# Univ. Grenoble Alpes, Inria, Microcosme
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -20,8 +21,7 @@ setup(
     license='GPLv3+',
     description=
     'Reconstruct metabolic bipartite graph using KEGG',
-    author='AuReMe',
-    author_email='gem-aureme@inria.fr',
+    author='Arnaud Belcour',
     packages=['kegg2bipartitegraph', 'kegg2bipartitegraph.data', 'kegg2bipartitegraph.data.kegg_model'],
     package_dir={'kegg2bipartitegraph': 'kegg2bipartitegraph'},
     package_data={'kegg2bipartitegraph.data.kegg_model': ['*.tsv', '*.json', '*.sbml', '*.graphml']},

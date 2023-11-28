@@ -13,7 +13,7 @@ def test_draft_reconstruct():
 
     expected_reactions = ['R10209', 'R01098']
     expected_metabolites = ['C01977', 'C16675', 'C20446', 'C00242', 'C00124', 'C00007', 'C00027', 'C00880']
-    expected_modules_pathways_ids = ['rn01100', 'rn00052']
+    expected_modules_pathways_ids = ['map01100', 'map00052']
 
     found_reactions = [reaction.id for reaction in sbml_model.getListOfReactions()]
     found_metabolites = [reaction.id for reaction in sbml_model.getListOfSpecies()]
@@ -35,7 +35,7 @@ def test_draft_reconstruct_cli():
 
     expected_reactions = ['R10209', 'R01098']
     expected_metabolites = ['C01977', 'C16675', 'C20446', 'C00242', 'C00124', 'C00007', 'C00027', 'C00880']
-    expected_modules_pathways_ids = ['rn01100', 'rn00052']
+    expected_modules_pathways_ids = ['map01100', 'map00052']
 
     found_reactions = [reaction.id for reaction in sbml_model.getListOfReactions()]
     found_metabolites = [reaction.id for reaction in sbml_model.getListOfSpecies()]

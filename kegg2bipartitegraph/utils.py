@@ -1,4 +1,5 @@
 # Copyright (C) 2021-2023 Arnaud Belcour - Inria, Univ Rennes, CNRS, IRISA Dyliss
+# Univ. Grenoble Alpes, Inria, Microcosme
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -184,6 +185,13 @@ def get_rest_uniprot_release(options):
 
 
 def write_pathway_file(kegg_pathways, pathways_output_file_path, total_added_reactions):
+    """ From KEGG pathways and reactions found in an organism, write a pathway file.
+
+    Args:
+        kegg_pathways (dict): dictionary with pathway ID as key and a tuple with pathway name and pathway reactions as value
+        pathways_output_file_path (str): path to pathway output file
+        total_added_reactions (list): list of reactions found in organism
+    """
     organism_pathways = []
 
     with open(pathways_output_file_path, 'w') as open_pathways_output_file_path:
@@ -193,15 +201,25 @@ def write_pathway_file(kegg_pathways, pathways_output_file_path, total_added_rea
             pathway_reactions = kegg_pathways[pathway][1]
             pathway_reaction_in_taxon = set(pathway_reactions).intersection(set(total_added_reactions))
             if len(pathway_reaction_in_taxon) > 0:
-                organism_pathways.append(pathway)
                 pathway_name = kegg_pathways[pathway][0]
                 pathway_completion_ratio = len(pathway_reaction_in_taxon) / len(pathway_reactions)
-                csvwriter.writerow([pathway, pathway_name, pathway_completion_ratio, ','.join(pathway_reaction_in_taxon), ','.join(pathway_reactions)])
+                if pathway_completion_ratio > 0:
+                    organism_pathways.append(pathway)
+                    csvwriter.writerow([pathway, pathway_name, pathway_completion_ratio, ','.join(pathway_reaction_in_taxon), ','.join(pathway_reactions)])
 
     return organism_pathways
 
 
-def write_module_file(kegg_modules, modules_output_file_path, total_added_reactions):
+def write_module_file(kegg_modules, modules_output_file_path, total_added_reactions, min_nb_rxn=0, min_ratio_rxn=0):
+    """ From KEGG modules and reactions found in an organism, write a pathway file.
+
+    Args:
+        kegg_modules (dict): dictionary with module ID as key and a tuple with module name and module reactions as value
+        modules_output_file_path (str): path to module output file
+        total_added_reactions (list): list of reactions found in organism
+        min_nb_rxn (int): minimal number of reactions to keep a pathway
+        min_ratio_rxn (float): minimal ratio of reactions to keep a pathway
+    """
     organism_modules = []
 
     with open(modules_output_file_path, 'w') as open_modules_output_file_path:
@@ -210,10 +228,11 @@ def write_module_file(kegg_modules, modules_output_file_path, total_added_reacti
         for module in kegg_modules:
             module_reactions = kegg_modules[module][1]
             module_reaction_in_taxon = set(module_reactions).intersection(set(total_added_reactions))
-            if len(module_reaction_in_taxon) > 0:
-                organism_modules.append(module)
+            if len(module_reaction_in_taxon) > min_nb_rxn:
                 module_name = kegg_modules[module][0]
                 module_completion_ratio = len(module_reaction_in_taxon) / len(module_reactions)
-                csvwriter.writerow([module, module_name, module_completion_ratio, ','.join(module_reaction_in_taxon), ','.join(module_reactions)])
+                if module_completion_ratio > min_ratio_rxn:
+                    organism_modules.append(module)
+                    csvwriter.writerow([module, module_name, module_completion_ratio, ','.join(module_reaction_in_taxon), ','.join(module_reactions)])
 
     return organism_modules

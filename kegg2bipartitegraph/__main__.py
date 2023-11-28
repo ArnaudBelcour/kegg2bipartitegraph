@@ -1,4 +1,5 @@
 # Copyright (C) 2021-2023 Arnaud Belcour - Inria, Univ Rennes, CNRS, IRISA Dyliss
+# Univ. Grenoble Alpes, Inria, Microcosme
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -90,6 +91,15 @@ def main():
         help='Output directory path.',
         metavar='OUPUT_DIR')
 
+    parent_parser_o_reference = argparse.ArgumentParser(add_help=False)
+    parent_parser_o_reference.add_argument(
+        '-o',
+        '--output',
+        dest='output',
+        required=False,
+        help='Redict the creation of the reference database to another fodler from the one in the package repository.',
+        metavar='OUPUT_DIR')
+
     parent_parser_map_ko = argparse.ArgumentParser(add_help=False)
     parent_parser_map_ko.add_argument(
         '--map-ko',
@@ -127,7 +137,7 @@ def main():
     kegg_reference_parser = subparsers.add_parser(
         'reference',
         help='Create reference data from KEGG.',
-        parents=[],
+        parents=[parent_parser_o_reference],
         allow_abbrev=False)
 
     kegg_esmecata_parser = subparsers.add_parser(
@@ -190,7 +200,7 @@ def main():
     logger.addHandler(console_handler)
 
     if args.cmd == 'reference':
-        create_reference_base()
+        create_reference_base(args.output)
     elif args.cmd == 'reconstruct_from_esmecata':
         create_esmecata_network(args.input, args.output, args.map_ko, args.reference_folder)
     elif args.cmd == 'reconstruct_from_organism':

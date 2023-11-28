@@ -13,14 +13,14 @@ def test_draft_reconstruct():
 
     expected_len_reactions = 1768
     expected_len_metabolites = 1756
-    expected_len_pathways = 131
-    expected_len_modules = 205
+    expected_len_pathways = 98
+    expected_len_modules = 178
 
     found_reactions = [reaction.id for reaction in sbml_model.getListOfReactions()]
     found_metabolites = [reaction.id for reaction in sbml_model.getListOfSpecies()]
 
     model_groups = sbml_model.getPlugin("groups")
-    pathways_ids = [group.id for group in model_groups.getListOfGroups() if group.id.startswith('rn')]
+    pathways_ids = [group.id for group in model_groups.getListOfGroups() if group.id.startswith('map')]
     modules_ids = [group.id for group in model_groups.getListOfGroups() if group.id.startswith('M')]
 
     assert len(found_reactions) == expected_len_reactions
@@ -38,14 +38,14 @@ def test_draft_reconstruct_cli():
 
     expected_len_reactions = 1768
     expected_len_metabolites = 1756
-    expected_len_pathways = 131
-    expected_len_modules = 205
+    expected_len_pathways = 98
+    expected_len_modules = 178
 
     found_reactions = [reaction.id for reaction in sbml_model.getListOfReactions()]
     found_metabolites = [reaction.id for reaction in sbml_model.getListOfSpecies()]
 
     model_groups = sbml_model.getPlugin("groups")
-    pathways_ids = [group.id for group in model_groups.getListOfGroups() if group.id.startswith('rn')]
+    pathways_ids = [group.id for group in model_groups.getListOfGroups() if group.id.startswith('map')]
     modules_ids = [group.id for group in model_groups.getListOfGroups() if group.id.startswith('M')]
 
     assert len(found_reactions) == expected_len_reactions

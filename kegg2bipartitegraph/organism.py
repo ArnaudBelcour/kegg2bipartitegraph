@@ -1,4 +1,5 @@
-# Copyright (C) 2021-2023 Arnaud Belcour - Inria Dyliss
+# Copyright (C) 2021-2023 Arnaud Belcour - Inria, Univ Rennes, CNRS, IRISA Dyliss
+# Univ. Grenoble Alpes, Inria, Microcosme
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -42,6 +43,14 @@ KEGG_ARCHIVE = os.path.join(*[ROOT, 'data', 'kegg_model.zip'])
 
 
 def get_enzyme_org(organism):
+    """ From a KEGG organism ID, retrieve the organism enzymes.
+
+    Args:
+        organism (str): KEGG code for an organism.
+
+    Returns:
+        enzymes (dict): Gene ID as key and list of Enzyme commission number as value.
+    """
     response_text = KEGG_BIOSERVICES.link('enzyme', organism)
     if response_text != '':
         csvreader = csv.reader(response_text.splitlines(), delimiter='\t')
@@ -60,6 +69,14 @@ def get_enzyme_org(organism):
 
 
 def get_ko_org(organism):
+    """ From a KEGG organism ID, retrieve the organism KOs.
+
+    Args:
+        organism (str): KEGG code for an organism.
+
+    Returns:
+        enzymes (dict): Gene ID as key and list of KEGG Orthologs as value.
+    """
     response_text = KEGG_BIOSERVICES.link('ko', organism)
     if response_text != '':
         csvreader = csv.reader(response_text.splitlines(), delimiter='\t')
@@ -75,6 +92,58 @@ def get_ko_org(organism):
             kos[gene_id].append(ko_id)
 
     return kos
+
+
+def get_module_org(organism):
+    """ From a KEGG organism ID, retrieve the organism modules.
+
+    Args:
+        organism (str): KEGG code for an organism.
+
+    Returns:
+        modules (dict): Gene ID as key and list of Module as value.
+    """
+    response_text = KEGG_BIOSERVICES.link('module', organism)
+    if response_text != '':
+        csvreader = csv.reader(response_text.splitlines(), delimiter='\t')
+    else:
+        csvreader = []
+    modules = {}
+    for line in csvreader:
+        gene_id = line[0].replace(organism+':', '')
+        module_id = line[1].replace('md:'+organism+'_', '')
+        if module_id not in modules:
+            modules[module_id] = [gene_id]
+        else:
+            modules[module_id].append(gene_id)
+
+    return modules
+
+
+def get_pathway_org(organism):
+    """ From a KEGG organism ID, retrieve the organism pathways.
+
+    Args:
+        organism (str): KEGG code for an organism.
+
+    Returns:
+        pathways (dict): Gene ID as key and list of pathway as value.
+    """
+    response_text = KEGG_BIOSERVICES.link('pathway', organism)
+    if response_text != '':
+        csvreader = csv.reader(response_text.splitlines(), delimiter='\t')
+    else:
+        csvreader = []
+    pathways = {}
+    for line in csvreader:
+        gene_id = line[0].replace(organism+':', '')
+        pathway_id = line[1].replace('path:'+organism+'', 'map')
+        if pathway_id not in pathways:
+            pathways[pathway_id] = [gene_id]
+        else:
+            pathways[pathway_id].append(gene_id)
+
+    return pathways
 
 
 def create_organism_network(organism, output_folder, reference_folder=False):
@@ -137,6 +206,9 @@ def create_organism_network(organism, output_folder, reference_folder=False):
 
     kegg2bipartitegraph_organism_metadata['json_reference_metadata'] = json_data
 
+    # Retrieve organism pathway.
+    org_kegg_pathways = get_pathway_org(organism)
+
     kegg_pathways = {}
     with open(kegg_pathways_path, 'r') as open_kegg_pathways_path:
         csvreader = csv.reader(open_kegg_pathways_path, delimiter='\t')
@@ -145,17 +217,22 @@ def create_organism_network(organism, output_folder, reference_folder=False):
             pathway_id = line[0]
             pathway_name = line[1]
             pathway_reactions = line[2].split(',')
-            kegg_pathways[pathway_id] = (pathway_name, pathway_reactions)
+            if pathway_id in org_kegg_pathways:
+                kegg_pathways[pathway_id] = (pathway_name, pathway_reactions)
+
+    # Retrieve organism module.
+    org_kegg_modules = get_module_org(organism)
 
     kegg_modules = {}
     with open(kegg_modules_path, 'r') as open_kegg_modules_path:
         csvreader = csv.reader(open_kegg_modules_path, delimiter='\t')
         next(csvreader)
         for line in csvreader:
-            moudle_id = line[0]
+            module_id = line[0]
             module_name = line[1]
             module_reactions = line[3].split(',')
-            kegg_modules[moudle_id] = (module_name, module_reactions)
+            if module_id in org_kegg_modules:
+                kegg_modules[module_id] = (module_name, module_reactions)
 
     # Create SBML output folder.
     sbml_output_folder_path = os.path.join(output_folder, 'sbml')

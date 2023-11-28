@@ -1,4 +1,5 @@
-# Copyright (C) 2021-2023 Arnaud Belcour - Inria Dyliss
+# Copyright (C) 2021-2023 Arnaud Belcour - Inria, Univ Rennes, CNRS, IRISA Dyliss
+# Univ. Grenoble Alpes, Inria, Microcosme
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -103,30 +104,33 @@ def extract_reaction(reaction_id, equation_text):
         logger.critical('|kegg2bipartitegraph|reference| More than one <=> symbol in equation {0} of {1}.'.format(equation_text, reaction_id))
 
     # Find group pattern
-    equation_pattern = r'(?P<stoechiometry>\d|\w|\([\w\d\+]*\))*\ *(?P<compound>[CG]\d{5})|(?P<symbol><*=>*)'
+    equation_pattern = r'(?P<stoichiometry>\d|\w|\([\w\d\+]*\))*\ *(?P<compound>[CG]\d{5})|(?P<symbol><*=>*)'
     left_compounds = []
     right_compounds = []
     equation_symbol_passed = False
+    modify_stoichiometry = False
     for m in re.finditer(equation_pattern, equation_text):
-        stoechiometry = m.groupdict()['stoechiometry']
-        if stoechiometry is None:
-            stoechiometry = 1
+        stoichiometry = m.groupdict()['stoichiometry']
+        # If no stoichiometry is indicated, it is a stoichiometry of 1.
+        if stoichiometry is None:
+            stoichiometry = 1
         else:
             try:
-                stoechiometry = int(stoechiometry)
+                stoichiometry = int(stoichiometry)
             except:
-                logger.critical('|kegg2bipartitegraph|reference| Stochiometry is not an int ({0}) for {1}, replace by 1 as it is not relevant for topological analysis.'.format(stoechiometry, reaction_id))
-                stoechiometry = 1
+                logger.critical('|kegg2bipartitegraph|reference| Stoichiometry is not an int ({0}) for {1}, replace by 1 as it is not relevant for topological analysis.'.format(stoichiometry, reaction_id))
+                stoichiometry = 1
+                modify_stoichiometry = True
         compound = m.groupdict()['compound']
         symbol = m.groupdict()['symbol']
         if symbol is not None:
             equation_symbol_passed = True
         if equation_symbol_passed is False and compound is not None:
-            left_compounds.append((compound, stoechiometry))
+            left_compounds.append((compound, stoichiometry))
         elif equation_symbol_passed is True and compound is not None:
-            right_compounds.append((compound, stoechiometry))
+            right_compounds.append((compound, stoichiometry))
 
-    return left_compounds, right_compounds
+    return left_compounds, right_compounds, modify_stoichiometry
 
 
 def get_compound_names(compound_file):
@@ -164,25 +168,48 @@ def get_compound_names(compound_file):
             csvwriter.writerow([cpd_id, compounds[cpd_id]])
 
 
+def get_matching_elements(database_1, database_2, replace_id=None):
+    """Query KEGG suing link to match 2 databases (for example module and reaction) and returns a dict with matching element.
+    For example get_matching_elements('module', 'ko'): element_1_element_2['module_1'] = ['ko_1', 'ko_2']
+
+    Args:
+        database_1 (str): name of first database to match
+        database_2 (str): name of second database to match
+        replace_id (list): str to replace in element_id_1 (first element of list replace by second)
+    Returns:
+        element_1_element_2 (dict): dictionary of matching with element from database 1 as key and list of element of database 2 as key.
+    """
+    response_text = KEGG_BIOSERVICES.link(database_1, database_2)
+    if response_text != '':
+        csvreader = csv.reader(response_text.splitlines(), delimiter='\t')
+    else:
+        csvreader = []
+    element_1_element_2 = {}
+    for line in csvreader:
+        element_2_id = line[0].split(':')[1]
+        if replace_id is None:
+            element_1_id = line[1].split(':')[1]
+        else:
+            element_1_id = line[1].split(':')[1].replace(replace_id[0], replace_id[1])
+        if element_1_id not in element_1_element_2:
+            element_1_element_2[element_1_id] = [element_2_id]
+        else:
+            element_1_element_2[element_1_id].append(element_2_id)
+
+    return element_1_element_2
+
+
 def get_modules(module_file):
     """Using bioservices.KEGG to find the module associated with reactions.
 
     Args:
         module_file (str): output file which will contains module ID, name, formula and reactions
+    Returns:
+        module_data (dict): dictionary with module ID as key and module name, formula, reactions, kos and compounds as key.
     """
-    response_text = KEGG_BIOSERVICES.link('module', 'reaction')
-    if response_text != '':
-        csvreader = csv.reader(response_text.splitlines(), delimiter='\t')
-    else:
-        csvreader = []
-    module_reactions = {}
-    for line in csvreader:
-        reaction_id = line[0].split(':')[1]
-        module_id = line[1].split(':')[1]
-        if module_id not in module_reactions:
-            module_reactions[module_id] = [reaction_id]
-        else:
-            module_reactions[module_id].append(reaction_id)
+    module_reactions = get_matching_elements('module', 'reaction')
+    module_kos = get_matching_elements('module', 'ko')
+    module_compounds = get_matching_elements('module', 'compound')
 
     response_text = KEGG_BIOSERVICES.list('module')
     if response_text != '':
@@ -206,22 +233,87 @@ def get_modules(module_file):
     module_data= {}
     with open(module_file, 'w') as output_file:
         csvwriter = csv.writer(output_file, delimiter='\t')
-        csvwriter.writerow(['module_id', 'module_name', 'module_formula', 'module_reactions'])
+        csvwriter.writerow(['module_id', 'module_name', 'module_formula', 'module_reactions', 'module_kos', 'module_compounds'])
         for module_id in all_modules:
             if module_id in module_reactions:
                 module_reaction = ','.join(module_reactions[module_id])
             else:
                 module_reaction = ''
+            if module_id in module_kos:
+                module_ko = ','.join(module_kos[module_id])
+            else:
+                module_ko = ''
+            if module_id in module_compounds:
+                module_compound = ','.join(module_compounds[module_id])
+            else:
+                module_compound = ''
             if module_id in modules:
                 module_name = modules[module_id][0]
                 module_formula = modules[module_id][1]
             else:
                 module_name = ''
                 module_formula = ''
-            csvwriter.writerow([module_id, module_name, module_formula, module_reaction])
-            module_data[module_id] = [module_name, module_formula, module_reaction]
+            csvwriter.writerow([module_id, module_name, module_formula, module_reaction, module_ko, module_compound])
+            module_data[module_id] = [module_name, module_formula, module_reaction, module_ko, module_compound]
 
     return module_data
+
+
+def get_pathways(pathway_file):
+    """Using bioservices.KEGG to find the pathway associated with reactions.
+
+    Args:
+        pathway_file (str): output file which will contains pathway ID, name, formula and reactions.
+    Returns:
+        pathway_data (dict): dictionary with pathway ID as key and pathway name, reactions, kos and compounds as key.
+    """
+    # Get pathway matching with reactions.
+    pathway_reactions = get_matching_elements('pathway', 'reaction', ['rn', 'map'])
+    # Get pathway matching with KOs.
+    pathway_kos = get_matching_elements('pathway', 'ko', ['rn', 'map'])
+    # Get pathway matching with compounds.
+    pathway_compounds = get_matching_elements('pathway', 'compound', ['rn', 'map'])
+
+    # Get pathway names.
+    response_text = KEGG_BIOSERVICES.list('pathway')
+    if response_text != '':
+        csvreader = csv.reader(response_text.splitlines(), delimiter='\t')
+    else:
+        csvreader = []
+    pathways = {}
+    for line in csvreader:
+        pathway_id = line[0]
+        pathway_name = line[1]
+        pathways[pathway_id] = pathway_name
+
+    # Write pathway file.
+    all_pathways = set(list(pathways.keys()) + list(pathway_reactions.keys()))
+    pathway_data= {}
+    with open(pathway_file, 'w') as output_file:
+        csvwriter = csv.writer(output_file, delimiter='\t')
+        csvwriter.writerow(['pathway_id', 'pathway_name', 'pathway_reactions', 'pathway_kos', 'pathway_compounds'])
+        for pathway_id in all_pathways:
+            if pathway_id in pathway_reactions:
+                pathway_reaction = ','.join(pathway_reactions[pathway_id])
+            else:
+                pathway_reaction = ''
+            if pathway_id in pathway_kos:
+                pathway_ko = ','.join(pathway_kos[pathway_id])
+            else:
+                pathway_ko = ''
+            if pathway_id in pathway_compounds:
+                pathway_cpd = ','.join(pathway_compounds[pathway_id])
+            else:
+                pathway_cpd = ''
+            if pathway_id in pathways:
+                pathway_name = pathways[pathway_id]
+            else:
+                pathway_name = ''
+            csvwriter.writerow([pathway_id, pathway_name, pathway_reaction, pathway_ko, pathway_cpd])
+            pathway_data[pathway_id] = [pathway_name, pathway_reaction, pathway_ko, pathway_cpd]
+
+    return pathway_data
+
 
 def libsbml_check(value, message):
     """If 'value' is None, prints an error message constructed using
@@ -245,8 +337,9 @@ def libsbml_check(value, message):
         return
 
 
-def create_sbml_model_from_kegg_file_libsbml(reaction_folder, compound_file, output_sbml, output_tsv, pathways_tsv,
-                                     module_data, remove_ubiquitous=True, remove_glycan_reactions=True):
+def create_sbml_model_from_kegg_file_libsbml(reaction_folder, compound_file, output_sbml, output_tsv,
+                                             kegg_removed_changed_reaction_path, pathway_data, module_data,
+                                             remove_ubiquitous=True, remove_glycan_reactions=True):
     """Using the reaction keg files (from retrieve_reactions), the compound file (from get_compound_names),
     create a SBML file (containing all reactions of KEGG) and a tsv file (used to map EC and/or KO to reaction ID)
     Use python-libsbml instead of cobrapy as cobrapy does not handle metabolite being both in reactant and product of reaction:
@@ -257,7 +350,8 @@ def create_sbml_model_from_kegg_file_libsbml(reaction_folder, compound_file, out
         compound_file (str): path to the tsv file containing compound ID and name
         output_sbml (str): path to the sbml output file
         output_tsv (str): path to an output tsv file mapping reaction ID, with KO and EC
-        pathways_tsv (str): path to an output tsv showing the pathway, pathway ID and the associated reactions
+        kegg_removed_changed_reaction_path (str): path to an output tsv showing removed or modified reaction
+        pathway_data (dict): dictionary with pathway ID as key, list of pathway name and reaction as values
         module_data (dict): dictionary with module ID as key, list of module name, formula and reaction as values
         remove_ubiquitous (bool): remove ubiquitous metabolites
         remove_glycan_reactions (bool): remove glycan associated reactions
@@ -318,11 +412,11 @@ def create_sbml_model_from_kegg_file_libsbml(reaction_folder, compound_file, out
             compounds[line[0]] = line[1]
 
     reaction_ecs = {}
-    sbml_reactions = []
     reactions = {}
     genes = []
     pathways = {}
     metabolites = []
+    remove_or_modify_reactions = {}
 
     # Parse reaction file to extract information.
     for reaction_file in os.listdir(reaction_folder):
@@ -335,7 +429,7 @@ def create_sbml_model_from_kegg_file_libsbml(reaction_folder, compound_file, out
             reaction_name = reaction_data['NAME'][0]
         else:
             reaction_name = None
-        left_compounds, right_compounds = extract_reaction(reaction_id, reaction_data['EQUATION'])
+        left_compounds, right_compounds, modify_stoichiometry = extract_reaction(reaction_id, reaction_data['EQUATION'])
         if 'ORTHOLOGY' in reaction_data:
             kegg_orthologs = reaction_data['ORTHOLOGY'].keys()
         else:
@@ -373,8 +467,8 @@ def create_sbml_model_from_kegg_file_libsbml(reaction_folder, compound_file, out
 
         reactants = []
         # Create metabolites from left compounds, remove ubiquitous and mark glycan reactions.
-        for stochiometry_metabolite in left_compounds:
-            metabolite_id = stochiometry_metabolite[0]
+        for stoichiometry_metabolite in left_compounds:
+            metabolite_id = stoichiometry_metabolite[0]
             if metabolite_id.startswith('G'):
                 glycan_reaction = True
                 if remove_glycan_reactions is True:
@@ -399,14 +493,14 @@ def create_sbml_model_from_kegg_file_libsbml(reaction_folder, compound_file, out
             species_ref = reaction.createReactant()
             libsbml_check(species_ref, 'create reactant')
             libsbml_check(species_ref.setSpecies(metabolite_id), 'assign reactant species %s' %metabolite_id)
-            libsbml_check(species_ref.setStoichiometry(stochiometry_metabolite[1]), 'set stoichiometry {0}'.format(stochiometry_metabolite[1]))
+            libsbml_check(species_ref.setStoichiometry(stoichiometry_metabolite[1]), 'set stoichiometry {0}'.format(stoichiometry_metabolite[1]))
             libsbml_check(species_ref.setConstant(False), 'set constant %s' %False)
             reactants.append(metabolite_id)
 
         products = []
         # Create metabolites from right compounds, remove ubiquitous and mark glycan reactions.
-        for stochiometry_metabolite in right_compounds:
-            metabolite_id = stochiometry_metabolite[0]
+        for stoichiometry_metabolite in right_compounds:
+            metabolite_id = stoichiometry_metabolite[0]
             if metabolite_id.startswith('G'):
                 glycan_reaction = True
                 if remove_glycan_reactions is True:
@@ -431,7 +525,7 @@ def create_sbml_model_from_kegg_file_libsbml(reaction_folder, compound_file, out
             species_ref = reaction.createProduct()
             libsbml_check(species_ref, 'create product')
             libsbml_check(species_ref.setSpecies(metabolite_id), 'assign product species %s' %metabolite_id)
-            libsbml_check(species_ref.setStoichiometry(stochiometry_metabolite[1]), 'set stoichiometry {0}'.format(stochiometry_metabolite[1]))
+            libsbml_check(species_ref.setStoichiometry(stoichiometry_metabolite[1]), 'set stoichiometry {0}'.format(stoichiometry_metabolite[1]))
             libsbml_check(species_ref.setConstant(False), 'set constant %s' %False)
             products.append(metabolite_id)
 
@@ -452,58 +546,74 @@ def create_sbml_model_from_kegg_file_libsbml(reaction_folder, compound_file, out
             # Add gene to reaction with GPR.
             gpr = ' or '.join([ko for ko in kegg_orthologs])
             libsbml_check(gpr_association.setAssociation(gpr, True, True), "set gpr: " + gpr)
+        else:
+            gpr = ''
 
         remove_reaction = False
         reactions_metabolites = reactants + products
         # Remove reactions without reactants and products.
         if reactions_metabolites == []:
             logger.critical('|kegg2bipartitegraph|reference| No reactants and products for {0}, will be removed from model.'.format(reaction_id))
+            remove_or_modify_reactions[reaction_id] = ['no_reactant_and_product', reaction_name, ','.join(reactants), ','.join(products), left_compounds, right_compounds, gpr]
             remove_reaction = True
         # Remvoe glycan reactions.
         if remove_glycan_reactions is True and glycan_reaction is True:
             logger.critical('|kegg2bipartitegraph|reference| Do not add glycan reaction {0}.'.format(reaction_id))
+            remove_or_modify_reactions[reaction_id] = ['glycan', reaction_name, ','.join(reactants), ','.join(products), left_compounds, right_compounds, gpr]
             remove_reaction = True
         # Remove reactions if all left compounds are UBIQUITOUS_METABOLITES, because it unlocks metabolites freely.
         if all([compound[0] in UBIQUITOUS_METABOLITES for compound in left_compounds]):
             logger.critical('|kegg2bipartitegraph|reference| Remove reaction {0} as all its reactants are ubiquitous metabolites.'.format(reaction_id))
+            remove_or_modify_reactions[reaction_id] = ['ubiquitous_reactants', reaction_name, ','.join(reactants), ','.join(products), left_compounds, right_compounds, gpr]
             remove_reaction = True
         # Remove reactions if all right compounds are UBIQUITOUS_METABOLITES, because it unlocks metabolites freely.
         if all([compound[0] in UBIQUITOUS_METABOLITES for compound in right_compounds]):
             logger.critical('|kegg2bipartitegraph|reference| Remove reaction {0} as all its products are ubiquitous metabolites.'.format(reaction_id))
+            remove_or_modify_reactions[reaction_id] = ['ubiquitous_products', reaction_name, ','.join(reactants), ','.join(products), left_compounds, right_compounds, gpr]
             remove_reaction = True
 
         # Remove reaction if it contains glycan metabolite or it does not have reactants and products.
         if remove_reaction is True:
             model.removeReaction(reaction_id)
 
+        if modify_stoichiometry:
+            remove_or_modify_reactions[reaction_id] = ['change_stoichiometry', reaction_name, ','.join(reactants), ','.join(products), left_compounds, right_compounds, gpr]
+
     # Add pathways using groups:kind.
     # Help from: https://synonym.caltech.edu/software/libsbml/5.18.0/docs/formatted/python-api/groups_example1_8py-example.html
-    for pathway_id in pathways:
-        pathway_reactions = pathways[pathway_id]['reaction']
-        group = model_groups.createGroup()
-        group.setId(pathway_id)
-        group.setName(pathways[pathway_id]['name'])
-        group.setKind("partonomy")
-        for reaction in pathway_reactions:
-            member = group.createMember()
-            member.setId(reaction)
-            member.setIdRef(reaction)
+    for pathway_id in pathway_data:
+        pathway_name = pathway_data[pathway_id][0]
+        pathway_reactions = pathway_data[pathway_id][1].split(',')
+        if pathway_reactions != ['']:
+            group = model_groups.createGroup()
+            group.setId(pathway_id)
+            group.setName(pathway_name)
+            group.setKind("partonomy")
+            for reaction in pathway_reactions:
+                member = group.createMember()
+                member.setId(reaction)
+                member.setIdRef(reaction)
 
     # Add module using groups:kind.
     for module_id in module_data:
         module_name = module_data[module_id][0]
         module_reactions = module_data[module_id][2].split(',')
-        group = model_groups.createGroup()
-        group.setId(module_id)
-        group.setName(module_name)
-        group.setKind("partonomy")
-        for reaction in module_reactions:
-            member = group.createMember()
-            member.setId(reaction)
-            member.setIdRef(reaction)
+        if module_reactions != ['']:
+            group = model_groups.createGroup()
+            group.setId(module_id)
+            group.setName(module_name)
+            group.setKind("partonomy")
+            for reaction in module_reactions:
+                member = group.createMember()
+                member.setId(reaction)
+                member.setIdRef(reaction)
 
     libsbml.writeSBMLToFile(document, output_sbml)
     logger.info('|kegg2bipartitegraph|reference| {0} reactions and {1} metabolites in reference model.'.format(len(model.getListOfReactions()), len(model.getListOfSpecies())))
+    removed_reactions = set([rxn_id for rxn_id in remove_or_modify_reactions if remove_or_modify_reactions[rxn_id][0] != 'change_stoichiometry'])
+    logger.info('|kegg2bipartitegraph|reference| Remove {0} reactions in reference model (cause: glycan, ubiquitous metabolites, no reactants and products).'.format(len(removed_reactions)))
+    modified_reactions = set([rxn_id for rxn_id in remove_or_modify_reactions if remove_or_modify_reactions[rxn_id][0] == 'change_stoichiometry'])
+    logger.info('|kegg2bipartitegraph|reference| Modify {0} reaction stoichiometry in reference model.'.format(len(modified_reactions)))
 
     with open(output_tsv, 'w') as open_output_tsv:
         csvwriter = csv.writer(open_output_tsv, delimiter='\t')
@@ -511,13 +621,11 @@ def create_sbml_model_from_kegg_file_libsbml(reaction_folder, compound_file, out
         for reaction_id in reaction_ecs:
             csvwriter.writerow([reaction_id, ','.join(reaction_ecs[reaction_id][0]), ','.join(reaction_ecs[reaction_id][1])])
 
-    with open(pathways_tsv, 'w') as open_output_tsv:
-        csvwriter = csv.writer(open_output_tsv, delimiter='\t')
-        csvwriter.writerow(['pathway_id', 'pathway_name', 'pathway_reactions'])
-        for pathway_id in pathways:
-            pathway_name = pathways[pathway_id]['name']
-            pathway_reactions = ','.join(set(pathways[pathway_id]['reaction']))
-            csvwriter.writerow([pathway_id, pathway_name, pathway_reactions])
+    with open(kegg_removed_changed_reaction_path, 'w') as open_kegg_removed_changed_reaction_path:
+        csvwriter = csv.writer(open_kegg_removed_changed_reaction_path, delimiter='\t')
+        csvwriter.writerow(['reaction_id', 'reason', 'reaction_name', 'reactants', 'products', 'stoichiometry_left', 'stoichiometry_right', 'GPR'])
+        for reaction_id in remove_or_modify_reactions:
+            csvwriter.writerow([reaction_id, *remove_or_modify_reactions[reaction_id]])
 
 
 def get_kegg_database_version():
@@ -540,7 +648,12 @@ def get_kegg_database_version():
     return kegg_version
 
 
-def create_reference_base():
+def create_reference_base(output_folder=None):
+    """ Create kegg2bipartiegraph database by querying KEGG API and processing it.
+
+    Args:
+        output_folder (str): path to the folder that will contain reference data, by default it is in the package repository.
+    """
     starttime = time.time()
     logger.info('|kegg2bipartitegraph|reference| Begin KEGG metabolism reference model creation.')
 
@@ -564,7 +677,10 @@ def create_reference_base():
     kegg2bipartitegraph_reference_metadata['tool_options'] = options
     kegg2bipartitegraph_reference_metadata['kegg_release_number'] = get_kegg_database_version()
 
-    output_folder = DATA_ROOT
+    # If no path is indicated, create reference data in package folder.
+    if output_folder is None:
+        output_folder = DATA_ROOT
+
     is_valid_dir(output_folder)
 
     # Check if KEGG model files exist if not create them.
@@ -576,6 +692,7 @@ def create_reference_base():
     kegg_sbml_model_path = os.path.join(kegg_model_path, 'kegg_model.sbml')
     kegg_graphml_model_path = os.path.join(kegg_model_path, 'kegg_model.graphml')
     kegg_rxn_mapping_path = os.path.join(kegg_model_path, 'kegg_mapping.tsv')
+    kegg_removed_changed_reaction_path = os.path.join(kegg_model_path, 'kegg_removed_changed_reaction.tsv')
     kegg_pathways_path = os.path.join(kegg_model_path, 'kegg_pathways.tsv')
     kegg_modules_path = os.path.join(kegg_model_path, 'kegg_modules.tsv')
     kegg_metadata_path = os.path.join(kegg_model_path, 'kegg_metadata.json')
@@ -602,9 +719,32 @@ def create_reference_base():
         if not os.path.exists(kegg_compound_file_path):
             logger.info('|kegg2bipartitegraph|reference| Retrieve compound IDs and names from KEGG to create SBML model.')
             get_compound_names(kegg_compound_file_path)
+
+        if not os.path.exists(kegg_modules_path):
+            logger.info('|kegg2bipartitegraph|reference| Create KEGG reference module file.')
+            module_data = get_modules(kegg_modules_path)
+        else:
+            module_data = {}
+            with open(kegg_modules_path, 'r') as open_kegg_modules_path:
+                csvreader = csv.reader(open_kegg_modules_path, delimiter='\t')
+                next(csvreader)
+                for line in csvreader:
+                    module_data[line[0]] = line[1:]
+
+        if not os.path.exists(kegg_pathways_path):
+            logger.info('|kegg2bipartitegraph|reference| Create KEGG reference pathway file.')
+            pathway_data = get_pathways(kegg_pathways_path)
+        else:
+            pathway_data = {}
+            with open(kegg_pathways_path, 'r') as open_kegg_pathways_path:
+                csvreader = csv.reader(open_kegg_pathways_path, delimiter='\t')
+                next(csvreader)
+                for line in csvreader:
+                    pathway_data[line[0]] = line[1:]
+
         logger.info('|kegg2bipartitegraph|reference| Create KEGG reference SBML and mapping tsv file.')
-        module_data = get_modules(kegg_modules_path)
-        create_sbml_model_from_kegg_file_libsbml(kegg_reactions_folder_path, kegg_compound_file_path, kegg_sbml_model_path, kegg_rxn_mapping_path, kegg_pathways_path, module_data)
+        create_sbml_model_from_kegg_file_libsbml(kegg_reactions_folder_path, kegg_compound_file_path, kegg_sbml_model_path, kegg_rxn_mapping_path, kegg_removed_changed_reaction_path,
+                                                 pathway_data, module_data)
         sbml_to_graphml(kegg_sbml_model_path, kegg_graphml_model_path)
 
         # Create compress archive.
@@ -612,8 +752,6 @@ def create_reference_base():
         for filepath in input_files:
             file_name = os.path.basename(filepath)
             model_zipfile.write(filepath, file_name)
-
-        model_zipfile.write(kegg_compound_file_path, 'kegg_compound_name.tsv')
         model_zipfile.close()
     else:
         logger.info('|kegg2bipartitegraph|reference| No missing files.')
