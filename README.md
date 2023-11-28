@@ -1,4 +1,4 @@
-[![PyPI version](https://img.shields.io/pypi/v/kegg2bipartitegraph.svg)](https://pypi.org/project/kegg2bipartitegraph/) [![GitHub license](https://img.shields.io/github/license/AuReMe/metage2metabo.svg)](https://github.com/AuReMe/metage2metabo/blob/master/LICENSE) [![KEGG version](https://img.shields.io/badge/108-brightgreen)](https://www.genome.jp/kegg/docs/upd_all.html)
+[![PyPI version](https://img.shields.io/pypi/v/kegg2bipartitegraph.svg)](https://pypi.org/project/kegg2bipartitegraph/) [![GitHub license](https://img.shields.io/github/license/AuReMe/metage2metabo.svg)](https://github.com/AuReMe/metage2metabo/blob/master/LICENSE) [![KEGG version](https://img.shields.io/badge/KEGG-108-brightgreen)](https://www.genome.jp/kegg/docs/upd_all.html)
 
 # kegg2bipartitegraph
 
