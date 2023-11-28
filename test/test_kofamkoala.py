@@ -11,13 +11,19 @@ def test_draft_reconstruct():
     sbml_document = reader.readSBML('test_out/sbml/result.sbml')
     sbml_model = sbml_document.getModel()
 
-    expected_reactions = ['R10209']
-    expected_metabolites = ['C01977', 'C16675', 'C20446', 'C00242']
+    expected_reactions = ['R10209', 'R01098']
+    expected_metabolites = ['C01977', 'C16675', 'C20446', 'C00242', 'C00124', 'C00007', 'C00027', 'C00880']
+    expected_modules_pathways_ids = ['rn01100', 'rn00052']
 
     found_reactions = [reaction.id for reaction in sbml_model.getListOfReactions()]
     found_metabolites = [reaction.id for reaction in sbml_model.getListOfSpecies()]
+
+    model_groups = sbml_model.getPlugin("groups")
+    modules_pathways_ids = [group.id for group in model_groups.getListOfGroups()]
+
     assert found_reactions == expected_reactions
     assert sorted(found_metabolites) == sorted(expected_metabolites)
+    assert sorted(modules_pathways_ids) == sorted(expected_modules_pathways_ids)
 
     shutil.rmtree('test_out')
 
@@ -27,12 +33,18 @@ def test_draft_reconstruct_cli():
     sbml_document = reader.readSBML('test_out/sbml/result.sbml')
     sbml_model = sbml_document.getModel()
 
-    expected_reactions = ['R10209']
-    expected_metabolites = ['C01977', 'C16675', 'C20446', 'C00242']
+    expected_reactions = ['R10209', 'R01098']
+    expected_metabolites = ['C01977', 'C16675', 'C20446', 'C00242', 'C00124', 'C00007', 'C00027', 'C00880']
+    expected_modules_pathways_ids = ['rn01100', 'rn00052']
 
     found_reactions = [reaction.id for reaction in sbml_model.getListOfReactions()]
     found_metabolites = [reaction.id for reaction in sbml_model.getListOfSpecies()]
+
+    model_groups = sbml_model.getPlugin("groups")
+    modules_pathways_ids = [group.id for group in model_groups.getListOfGroups()]
+
     assert found_reactions == expected_reactions
     assert sorted(found_metabolites) == sorted(expected_metabolites)
+    assert sorted(modules_pathways_ids) == sorted(expected_modules_pathways_ids)
 
     shutil.rmtree('test_out')

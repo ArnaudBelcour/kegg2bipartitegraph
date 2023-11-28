@@ -18,6 +18,7 @@ import os
 import json
 import time
 import pandas as pd
+import re
 import sys
 import libsbml
 import urllib.request
@@ -39,18 +40,27 @@ KEGG_ARCHIVE = os.path.join(*[ROOT, 'data', 'kegg_model.zip'])
 
 def read_kofam_koala_txt(kofam_koala_result_file):
     """Read a kofam koala annotation file and retrieve KO with gene ID.
-    Very simple, I think it could easily break with other result files.
 
     Args:
         kofam_koala_result_file (str): path to kofam koala annotation file
     Returns:
         dict: dict of genes and their annotations as {gene1:[KO1, KO2]}
     """
-    df = pd.read_fwf(kofam_koala_result_file, comment='#', delimiter=r"\s+", header=None)
-    # In my example, columns 1 and 2 correspond to gene_id and ko but should be tested on more result files.
-    df = df[[1,2]]
-    df.columns = ['gene_id', 'ko']
-    gene_to_kos = df.groupby('gene_id')['ko'].apply(list).to_dict()
+    gene_to_kos = {}
+
+    ko_regex = r'K\d{5}'
+    with open(kofam_koala_result_file) as open_kofam_file:
+        for line in open_kofam_file.readlines():
+            if '*' in line:
+                # * indicates result above threshold and is followed by gene ID.
+                gene_id = line.split('* ')[1].split(' ')[0]
+                if re.search(ko_regex, line) is not None:
+                    # Search for associated KO.
+                    ko_match = re.search(ko_regex, line).group(0)
+                    if gene_id not in gene_to_kos:
+                        gene_to_kos[gene_id] = [ko_match]
+                    else:
+                        gene_to_kos[gene_id].append(ko_match)
 
     return gene_to_kos
 
@@ -148,12 +158,12 @@ def create_kofamkoala_network(kofam_koala_folder, output_folder, reference_folde
     ko_to_reactions, ec_to_reactions = retrieve_mapping_dictonaries(kegg_rxn_mapping_path)
 
     # Retrieve EC, KO and add reactions.
-    for kofamkoal_result_file in os.listdir(kofam_koala_folder):
+    for kofamkoala_result_file in os.listdir(kofam_koala_folder):
         taxon_reactions = {}
 
-        base_name = os.path.splitext(kofamkoal_result_file)[0]
-        eggnog_annotation_path = os.path.join(kofam_koala_folder, kofamkoal_result_file)
-        gene_to_kos = read_kofam_koala_txt(eggnog_annotation_path)
+        base_name = os.path.splitext(kofamkoala_result_file)[0]
+        kofamkoala_annotation_path = os.path.join(kofam_koala_folder, kofamkoala_result_file)
+        gene_to_kos = read_kofam_koala_txt(kofamkoala_annotation_path)
 
         # Use KO found to be associated to reference protein to retrieve KEGG reaction.
         ko_added_reactions = []
@@ -171,7 +181,7 @@ def create_kofamkoala_network(kofam_koala_folder, output_folder, reference_folde
                             taxon_reactions[reaction_id] = [gene_id]
                         else:
                             taxon_reactions[reaction_id].append(gene_id)
-        logger.info('|kegg2bipartitegraph|kofamkoala| Added {0} reactions from {1} KO for organism {2} from eggnog output.'.format(len(set(ko_added_reactions)), len(set(all_kos)) , base_name))
+        logger.info('|kegg2bipartitegraph|kofamkoala| Added {0} reactions from {1} KO for organism {2} from Kofam Koala output.'.format(len(set(ko_added_reactions)), len(set(all_kos)) , base_name))
 
         total_added_reactions = list(taxon_reactions.keys())
 
