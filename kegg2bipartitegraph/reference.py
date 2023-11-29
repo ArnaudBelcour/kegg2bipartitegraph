@@ -699,7 +699,8 @@ def create_reference_base(output_folder=None):
 
     logger.info('|kegg2bipartitegraph|reference| Check missing files in {0}.'.format(DATA_ROOT))
     input_files = [kegg_compound_file_path, kegg_sbml_model_path, kegg_rxn_mapping_path,
-                   kegg_pathways_path, kegg_modules_path, kegg_reactions_folder_path]
+                   kegg_pathways_path, kegg_modules_path, kegg_reactions_folder_path,
+                   kegg_removed_changed_reaction_path]
 
     missing_files = []
     for input_file in input_files:
