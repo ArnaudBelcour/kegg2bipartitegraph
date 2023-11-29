@@ -6,11 +6,9 @@ kegg2bipartitegraph is a Python package to create KEGG graphs. The main idea of 
 
 ## Installation
 
-This package can be installed as a python repository with:
+This package can be installed using pip:
 
-```pip install -e . ```
-
-If it becomes mature enough, a pip package could be created.
+```pip install kegg2bipartitegraph```
 
 ## Usage
 

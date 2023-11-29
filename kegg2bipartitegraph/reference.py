@@ -97,6 +97,7 @@ def extract_reaction(reaction_id, equation_text):
     Returns:
         left_compounds (list): compounds at the left of the reaction formula
         right_compounds (list): compounds at the right of the reaction formula
+        modify_stoichiometry (bool): if stoichiometry of reaction changed
     """
     if '<=>' not in equation_text:
         logger.critical('|kegg2bipartitegraph|reference| No <=> symbol in equation {0} of {1}.'.format(equation_text, reaction_id))
