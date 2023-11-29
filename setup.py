@@ -17,7 +17,7 @@ from setuptools import setup
 
 setup(
     name='kegg2bipartitegraph',
-    url='https://github.com/AuReMe/esmecata',
+    url='https://github.com/ArnaudBelcour/kegg2bipartitegraph',
     license='GPLv3+',
     description=
     'Reconstruct metabolic bipartite graph using KEGG',

@@ -1,5 +1,15 @@
 # Changelog
 
+# Kegg2bipartitegraph v0.0.2 (2023-11-29)
+
+## Add
+
+* GitHub Actions to publish on PyPI.
+
+## Fix
+
+* Wrong URL in setup.py.
+
 # Kegg2bipartitegraph v0.0.1 (2023-11-29)
 
 First release of `kegg2bipartitegraph` with reference database created from KEGG version `108`.
