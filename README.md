@@ -32,8 +32,8 @@ Multiple subcommands can be used to reconstruct draft networks. Some of them req
 | reconstruct_from_esmecata  | (Mapping of KOs)  | X (without mapping KOs)  |
 |  reconstruct_from_eggnog |   |  X |
 |  reconstruct_from_kofamkoala |   | X  |
-|  reconstruct_from_kofamkoala |   | X  |
 |  reconstruct_from_picrust |   | X  |
+|  reconstruct_from_organism | X  |   |
 |  reference | X  |   |
 
 ## Reference model
