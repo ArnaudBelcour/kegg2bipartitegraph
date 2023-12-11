@@ -4,7 +4,7 @@ import libsbml
 
 from kegg2bipartitegraph.organism import create_organism_network
 
-def test_draft_reconstruct():
+def test_create_organism_network():
     create_organism_network('eco', 'test_out')
 
     reader = libsbml.SBMLReader()
@@ -30,7 +30,7 @@ def test_draft_reconstruct():
 
     shutil.rmtree('test_out')
 
-def test_draft_reconstruct_cli():
+def test_create_organism_network_cli():
     subprocess.call(['kegg2bipartitegraph', 'reconstruct_from_organism', '-i', 'eco', '-o', 'test_out'])
     reader = libsbml.SBMLReader()
     sbml_document = reader.readSBML('test_out/sbml/eco.sbml')

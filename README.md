@@ -20,6 +20,7 @@ It is divided in different parts:
     - `kegg2bipartitegraph reconstruct_from_esmecata` takes as input the annotation output folder from [EsMeCaTa](https://github.com/AuReMe/esmecata) and reconstruct the metabolic networks associated with each taxon.
     - `kegg2bipartitegraph reconstruct_from_eggnog` takes as input the annotation output file from [eggnog-mapper](https://github.com/eggnogdb/eggnog-mapper) to map the EC to KEGG reactions.
     - `kegg2bipartitegraph reconstruct_from_kofamkoala` takes as input the result from [KofamKOALA](https://www.genome.jp/tools/kofamkoala/).
+    - `kegg2bipartitegraph reconstruct_from_picrust` takes as input the result folder from [picrust2](https://github.com/picrust/picrust2).
     - `kegg2bipartitegraph reconstruct_from_organism` takes as input an organism ID from KEGG (such as `hsa` for human or `eco` for *Escherichia coli*). You can find the list of the accessile organisms in [KEGG website](https://www.genome.jp/kegg/catalog/org_list.html).
 
 ## Online / Offline requirements
@@ -31,7 +32,8 @@ Multiple subcommands can be used to reconstruct draft networks. Some of them req
 | reconstruct_from_esmecata  | (Mapping of KOs)  | X (without mapping KOs)  |
 |  reconstruct_from_eggnog |   |  X |
 |  reconstruct_from_kofamkoala |   | X  |
-|  reconstruct_from_organism | X  |   |
+|  reconstruct_from_kofamkoala |   | X  |
+|  reconstruct_from_picrust | X  |   |
 |  reference | X  |   |
 
 ## Reference model

@@ -1,5 +1,11 @@
 # Changelog
 
+# Kegg2bipartitegraph v0.0.3 (2023-12-11)
+
+## Add
+
+* `reconstruct_from_picrust`: using KEGG Orthologs and EC numbers from picrust2 to create metabolic graphs for each sequences.
+
 # Kegg2bipartitegraph v0.0.2 (2023-11-29)
 
 ## Add

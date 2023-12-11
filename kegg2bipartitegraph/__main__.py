@@ -23,6 +23,7 @@ from kegg2bipartitegraph.esmecata import create_esmecata_network
 from kegg2bipartitegraph.organism import create_organism_network
 from kegg2bipartitegraph.eggnog import create_eggnog_network
 from kegg2bipartitegraph.kofamkoala import create_kofamkoala_network
+from kegg2bipartitegraph.picrust import create_picrust_network
 from kegg2bipartitegraph.reference import create_reference_base
 from kegg2bipartitegraph.utils import is_valid_dir
 from kegg2bipartitegraph import __version__ as VERSION
@@ -173,6 +174,14 @@ def main():
             ],
         allow_abbrev=False)
 
+    kegg_picrust_parser = subparsers.add_parser(
+        'reconstruct_from_picrust',
+        help='Create networks from picrust results.',
+        parents=[
+            parent_parser_i, parent_parser_o, parent_parser_r
+            ],
+        allow_abbrev=False)
+
     args = parser.parse_args()
 
     # If no argument print the help.
@@ -181,12 +190,12 @@ def main():
         sys.exit(1)
 
     if args.cmd in ['reconstruct_from_esmecata', 'reconstruct_from_organism', 'reconstruct_from_eggnogg',
-                    'reconstruct_from_kofamkoala']:
+                    'reconstruct_from_kofamkoala', 'reconstruct_from_picrust']:
         is_valid_dir(args.output)
 
     formatter = logging.Formatter('%(message)s')
     if args.cmd in ['reconstruct_from_esmecata', 'reconstruct_from_organism', 'reconstruct_from_eggnogg',
-                    'reconstruct_from_kofamkoala']:
+                    'reconstruct_from_kofamkoala', 'reconstruct_from_picrust']:
         # add logger in file
         log_file_path = os.path.join(args.output, f'kegg2bipartitegraph{args.cmd}.log')
         file_handler = logging.FileHandler(log_file_path, 'w+')
@@ -209,6 +218,8 @@ def main():
         create_eggnog_network(args.input, args.output, args.reference_folder)
     elif args.cmd == 'reconstruct_from_kofamkoala':
         create_kofamkoala_network(args.input, args.output, args.reference_folder)
+    elif args.cmd == 'reconstruct_from_picrust':
+        create_picrust_network(args.input, args.output, args.reference_folder)
 
     logger.info("--- Total runtime %.2f seconds ---" % (time.time() - start_time))
     if args.cmd in ['esmecata']:

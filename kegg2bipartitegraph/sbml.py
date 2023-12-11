@@ -19,7 +19,7 @@ def create_sbml_from_kegg_reactions(kegg_sbml_model_path, taxon_reactions, taxon
     """Create a SBML model from the KEGG reference model and reference found for the taxon.
 
     Args:
-        kegg_sbml_model_path (str): KEGG code for an organism
+        kegg_sbml_model_path (str): KEGG SBML reference file
         taxon_reactions (dict): reaction ID as key and associated genes as value
         taxon_pathways (list): list of pathways in organism
         taxon_modules (lsit): list of modules in organism

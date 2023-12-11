@@ -4,7 +4,7 @@ import libsbml
 
 from kegg2bipartitegraph.eggnog import create_eggnog_network
 
-def test_draft_reconstruct():
+def test_create_eggnog_network():
     create_eggnog_network('eggnog-mapper', 'test_out')
 
     reader = libsbml.SBMLReader()
@@ -27,7 +27,7 @@ def test_draft_reconstruct():
 
     shutil.rmtree('test_out')
 
-def test_draft_reconstruct_cli():
+def test_create_eggnog_network_cli():
     subprocess.call(['kegg2bipartitegraph', 'reconstruct_from_eggnog', '-i', 'eggnog-mapper', '-o', 'test_out'])
     reader = libsbml.SBMLReader()
     sbml_document = reader.readSBML('test_out/sbml/result.tsv.sbml')
