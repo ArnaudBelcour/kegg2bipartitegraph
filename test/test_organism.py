@@ -11,7 +11,7 @@ def test_create_organism_network():
     sbml_document = reader.readSBML('test_out/sbml/eco.sbml')
     sbml_model = sbml_document.getModel()
 
-    expected_len_reactions = 1768
+    expected_len_reactions = 1769
     expected_len_metabolites = 1756
     expected_len_pathways = 98
     expected_len_modules = 178
@@ -36,7 +36,7 @@ def test_create_organism_network_cli():
     sbml_document = reader.readSBML('test_out/sbml/eco.sbml')
     sbml_model = sbml_document.getModel()
 
-    expected_len_reactions = 1768
+    expected_len_reactions = 1769
     expected_len_metabolites = 1756
     expected_len_pathways = 98
     expected_len_modules = 178

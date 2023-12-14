@@ -137,6 +137,23 @@ def create_eggnog_network(eggnog_folder, output_folder, reference_folder=False):
     kegg_modules_path = os.path.join(kegg_model_path, 'kegg_modules.tsv')
     kegg_json_model_path = os.path.join(kegg_model_path, 'kegg_metadata.json')
 
+    # Read the reference KEGG sbml file.
+    # Use it to create the organism sbml file.
+    reader = libsbml.SBMLReader()
+    kegg_document = reader.readSBML(kegg_sbml_model_path)
+    reference_kegg_model = kegg_document.getModel()
+    reference_model_fbc = reference_kegg_model.getPlugin('fbc')
+
+    remove_gene_products = []
+    for gene_product in reference_model_fbc.getListOfGeneProducts():
+        remove_gene_products.append(gene_product.id)
+    for gene_product in remove_gene_products:
+        reference_model_fbc.removeGeneProduct(gene_product)
+
+    reference_reactions = {reaction.id: reaction for reaction in reference_kegg_model.getListOfReactions()}
+    reference_species = reference_kegg_model.getListOfSpecies()
+    reference_groups = reference_kegg_model.getPlugin("groups")
+
     with open(kegg_json_model_path, 'r') as input_metadata_json:
         json_data = json.load(input_metadata_json)
 
@@ -184,6 +201,7 @@ def create_eggnog_network(eggnog_folder, output_folder, reference_folder=False):
 
     ko_to_reactions, ec_to_reactions = retrieve_mapping_dictonaries(kegg_rxn_mapping_path)
 
+    stat_metabolic_networks = {}
     # Retrieve EC, KO and add reactions.
     for tsv_file in os.listdir(eggnog_folder):
         enzymes = {}
@@ -255,8 +273,9 @@ def create_eggnog_network(eggnog_folder, output_folder, reference_folder=False):
             modules_output_file_path = os.path.join(modules_output_folder_path, base_name+'.tsv')
             organism_modules = write_module_file(kegg_modules, modules_output_file_path, total_added_reactions)
 
-            kegg_document, kegg_model = create_sbml_from_kegg_reactions(kegg_sbml_model_path, taxon_reactions, organism_pathways, organism_modules)
+            kegg_document, kegg_model = create_sbml_from_kegg_reactions(base_name, reference_reactions, reference_species, reference_groups, taxon_reactions, organism_pathways, organism_modules)
 
+            stat_metabolic_networks[base_name] = (len(kegg_model.getListOfReactions()), len(kegg_model.getListOfSpecies()))
             # Create file if there is at least 1 reaction.
             if len(kegg_model.getListOfReactions()) > 0:
                 # Create SBML file.
@@ -269,7 +288,11 @@ def create_eggnog_network(eggnog_folder, output_folder, reference_folder=False):
                 logger.info('|kegg2bipartitegraph|eggnog| No reactions in model for {0}, no SBML file will be created.'.format(base_name))
 
     kegg_stat_file = os.path.join(output_folder, 'stat_number_kegg.tsv')
-    compute_stat_kegg(sbml_output_folder_path, kegg_stat_file)
+    with open(kegg_stat_file, 'w') as stat_file_open:
+        csvwriter = csv.writer(stat_file_open, delimiter='\t')
+        csvwriter.writerow(['observation_name', 'Number_reactions', 'Number_metabolites'])
+        for observation_name in stat_metabolic_networks:
+            csvwriter.writerow([observation_name, stat_metabolic_networks[observation_name][0], stat_metabolic_networks[observation_name][1]])
 
     endtime = time.time()
 

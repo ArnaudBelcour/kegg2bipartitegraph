@@ -15,11 +15,122 @@
 
 import libsbml
 
-def create_sbml_from_kegg_reactions(kegg_sbml_model_path, taxon_reactions, taxon_pathways, taxon_modules):
+SBML_CHARACTER_TO_REPLACE = ['-', '|', '/', '(', ')', "'", '=', '#', '*', '.',
+                        ':', '!', '+', '[', ']', ',', ' ']
+
+def gene_to_sbml(gene):
+    """ Replace incorrect character for SBML in gene by unicode value.
+
+    Args:
+        gene (str): gene with uncorrect character
+
+    Returns:
+        gene (str): gene with unicode value
+    """
+    for character in SBML_CHARACTER_TO_REPLACE:
+        gene = gene.replace(character, "__" + str(ord(character)) + "__")
+    return gene
+
+
+def libsbml_check(value, message):
+    """If 'value' is None, prints an error message constructed using
+    'message' and then exits with status code 1.  If 'value' is an integer,
+    it assumes it is a libSBML return status code.  If the code value is
+    LIBSBML_OPERATION_SUCCESS, returns without further action; if it is not,
+    prints an error message constructed using 'message' along with text from
+    libSBML explaining the meaning of the code, and exits with status code 1.
+
+    Args:
+        value (int): return value by a libsbml function or class
+        message (str): associated string message
+    """
+    if value == None:
+        raise SystemExit('LibSBML returned a null value trying to ' + message + '.')
+    elif type(value) is int:
+        if value == libsbml.LIBSBML_OPERATION_SUCCESS:
+            return
+        else:
+            err_msg = 'Error encountered trying to ' + message + '.' \
+                 + 'LibSBML returned error code ' + str(value) + ': "' \
+                 + libsbml.OperationReturnValue_toString(value).strip() + '"'
+            raise TypeError(err_msg)
+    else:
+        return
+
+
+def initiate_sbml_model(model_name):
+    """Initiate a libsbml model.
+
+    Args:
+        model_name (str): Name of the model
+        taxon_reactions (dict): reaction ID as key and associated genes as value
+        taxon_pathways (list): list of pathways in organism
+        taxon_modules (lsit): list of modules in organism
+
+    Returns:
+        document: libsbml document
+        model: libsbml model
+        model_fbc: FBC of libsbml model
+        model_groups: groups of libsbml model
+    """
+    # Set libsbml namespace.
+    sbml_ns = libsbml.SBMLNamespaces(3, 1, 'groups', 1)  # SBML L3V1 with groups
+    sbml_ns.addPackageNamespace("fbc", 2)  # fbc-v2
+
+    # Create document
+    document = libsbml.SBMLDocument(sbml_ns)
+    model = document.createModel(model_name)
+
+    document.enablePackage(libsbml.FbcExtension.getXmlnsL3V1V2(), 'fbc', True)
+    document.setPackageRequired("fbc", False)
+    model_fbc = model.getPlugin('fbc')
+    model_fbc.setStrict(True)
+    model_groups = model.getPlugin("groups")
+
+    # Set units.
+    libsbml_check(model,                              'create model')
+    libsbml_check(model.setTimeUnits("second"),       'set model-wide time units')
+    libsbml_check(model.setExtentUnits("mole"),       'set model units of extent')
+    libsbml_check(model.setSubstanceUnits('mole'),    'set model substance units')
+
+    math_ast = libsbml.parseL3Formula('FLUX_VALUE')
+    libsbml_check(math_ast, 'create AST for rate expression')
+
+    # Set compartments.
+    compart = model.createCompartment()
+    libsbml_check(compart,'create compartment')
+    libsbml_check(compart.setId('c'),'set compartment id c')
+    libsbml_check(compart.setSize(1),'set size for compartment id c')
+    libsbml_check(compart.setConstant(True),'set constant for compartment id c')
+    libsbml_check(compart.setName("cytosol"),'set compartment name cytosol')
+
+    # Set default bound values.
+    default_lb = model.createParameter()
+    default_lb.setId('default_lower_bound')
+    default_lb.setValue(-1000)
+    default_lb.setConstant(True)
+
+    default_ub = model.createParameter()
+    default_ub.setId('default_upper_bound')
+    default_ub.setValue(1000)
+    default_ub.setConstant(True)
+
+    zero_bound = model.createParameter()
+    zero_bound.setId('default_zero_bound')
+    zero_bound.setValue(0)
+    zero_bound.setConstant(True)
+
+    return document, model, model_fbc, model_groups
+
+
+def create_sbml_from_kegg_reactions(org_name, reference_reactions, reference_species, reference_groups, taxon_reactions, taxon_pathways, taxon_modules):
     """Create a SBML model from the KEGG reference model and reference found for the taxon.
 
     Args:
-        kegg_sbml_model_path (str): KEGG SBML reference file
+        org_name (str): name of the corresponding organism
+        reference_reactions (dict): dictionary of reference model reactions with reaction ID as key and libsbml reaction object as value
+        reference_species (list): list of libsbml species object
+        reference_groups (list): list of lisbml group object
         taxon_reactions (dict): reaction ID as key and associated genes as value
         taxon_pathways (list): list of pathways in organism
         taxon_modules (lsit): list of modules in organism
@@ -28,82 +139,70 @@ def create_sbml_from_kegg_reactions(kegg_sbml_model_path, taxon_reactions, taxon
         kegg_document: libsbml document
         kegg_model: libsbml model
     """
-    # Read the reference KEGG sbml file.
-    # Use it to create the organism sbml file.
-    reader = libsbml.SBMLReader()
-    kegg_document = reader.readSBML(kegg_sbml_model_path)
-    kegg_model = kegg_document.getModel()
+    # Create KEGG model.
+    document, model, model_fbc, model_groups = initiate_sbml_model(org_name)
 
-    # Remove all the gene products from the model.
-    model_fbc = kegg_model.getPlugin('fbc')
-    model_fbc.setStrict(True)
-
-    remove_gene_products = []
-    for gene_product in model_fbc.getListOfGeneProducts():
-        remove_gene_products.append(gene_product.id)
-    for gene_product in remove_gene_products:
-        model_fbc.removeGeneProduct(gene_product)
-
-    # Keep only the reactions find during the reconstruction process.
-    genes = []
-    remove_reactions = []
+    # Add reactions find during the reconstruction process.
+    already_added_genes = []
     kept_metabolites = []
-    for reaction in kegg_model.getListOfReactions():
-        if reaction.id in taxon_reactions:
-            # Add the gene associated with the organism.
-            r_fbc: "libsbml.FbcReactionPlugin" = reaction.getPlugin("fbc")
-            gpr_association = r_fbc.createGeneProductAssociation()
 
-            for gene in taxon_reactions[reaction.id]:
-                if gene not in genes:
-                    gene_prod = model_fbc.createGeneProduct()
-                    gene_prod.setId(gene), 'add gene %s' %gene
-                    gene_prod.setName(gene)
-                    gene_prod.setLabel(gene)
-                    genes.append(gene)
-            gpr = ' or '.join(taxon_reactions[reaction.id])
-            gpr_association.setAssociation(gpr, True, True)
-            kept_metabolites.extend([i.species for i in reaction.getListOfReactants()])
-            kept_metabolites.extend([i.species for i in reaction.getListOfProducts()])
-        else:
-            remove_reactions.append(reaction.id)
+    # Extract reaction found both in organism and in reference.
+    reaction_to_adds = set(list(taxon_reactions.keys())).intersection(set(list(reference_reactions.keys())))
+    for reaction_id in reaction_to_adds:
+        reaction = reference_reactions[reaction_id]
+        ref_r_fbc: "libsbml.FbcReactionPlugin" = reaction.getPlugin("fbc")
+        # Remove reference Gene Product Association.
+        ref_r_fbc.unsetGeneProductAssociation()
 
-    # Remove reactions not found in organism.
-    for reaction_id in remove_reactions:
-        kegg_model.removeReaction(reaction_id)
-    # Remove metabolites not found in organism.
-    remove_metabolites = set([m.id for m in kegg_model.getListOfSpecies()]) - set(kept_metabolites)
-    for metabolite_id in remove_metabolites:
-        kegg_model.removeSpecies(metabolite_id)
+        # Add genes to organism model. 
+        for gene in taxon_reactions[reaction_id]:
+            if gene not in already_added_genes:
+                gene_prod = model_fbc.createGeneProduct()
+                gene_prod.setId(gene), 'add gene %s' %gene
+                gene_prod.setName(gene)
+                gene_prod.setLabel(gene)
+                already_added_genes.append(gene)
 
-    # Keep only groups associated with pathway/module present in the organisms.
-    model_groups = kegg_model.getPlugin("groups")
-    group_to_delete = []
-    members_to_delete = {}
-
-    # If condition required for compatibility with kegg archive 106.
-    if model_groups is not None:
-        for group in model_groups.getListOfGroups():
-            group_id = group.id
-            if group_id not in taxon_pathways and group_id not in taxon_modules:
-                group_to_delete.append(group_id)
+        # Add new GPR association to reference reactions.
+        gpr_association = ref_r_fbc.createGeneProductAssociation()
+        if len(taxon_reactions[reaction_id]) > 0:
+            # Handle incorrect character in genes names.
+            characters_in_genes = set([char for gene in taxon_reactions[reaction_id] for char in list(gene)])
+            if len(set(SBML_CHARACTER_TO_REPLACE).intersection(characters_in_genes)) > 0:
+                genes = [gene_to_sbml(gene) for gene in taxon_reactions[reaction_id]]
             else:
+                genes = [gene for gene in taxon_reactions[reaction_id]]
+            libsbml_check(gpr_association.setAssociation(' or '.join(genes), True, True), "set gpr: ")
+
+        # Add reaction to organism model.
+        org_reaction = reaction.clone()
+        model.addReaction(org_reaction)
+
+        # Get list of metabolites to add in organism model.
+        kept_metabolites.extend([i.species for i in reaction.getListOfReactants()])
+        kept_metabolites.extend([i.species for i in reaction.getListOfProducts()])
+
+    # Add metabolites from reaction to organism model.
+    kept_metabolites = set(kept_metabolites)
+    for species in reference_species:
+        if species.id in kept_metabolites:
+            model.addSpecies(species)
+
+    # Add groups in metabolic networks.
+    # If condition required for compatibility with kegg archive 106.
+    if reference_groups is not None:
+        for group in reference_groups.getListOfGroups():
+            group_id = group.id
+            if group_id in taxon_pathways or group_id in taxon_modules:
+                org_group = model_groups.createGroup()
+                org_group.setId(group.id)
+                org_group.setName(group.name)
+                org_group.setKind("partonomy")
                 for rxn_member in group.getListOfMembers():
-                    if rxn_member.id not in taxon_reactions:
-                        if group_id not in members_to_delete:
-                            members_to_delete[group_id] = [rxn_member.id]
-                        else:
-                            members_to_delete[group_id].append(rxn_member.id)
+                    if rxn_member.id in taxon_reactions:
+                        member = org_group.createMember()
+                        member.setId(rxn_member.id)
+                        member.setIdRef(rxn_member.id)
 
-        # Remove group not present in modules/pathways of organism.
-        for group in group_to_delete:
-            model_groups.removeGroup(group)
-
-        # Remove reaction member of group not present in reaction list of organism.
-        for group in members_to_delete:
-            group_to_modify = model_groups.getGroup(group)
-            for member in members_to_delete[group]:
-                group_to_modify.removeMember(member)
-
-    return kegg_document, kegg_model
+    return document, model
 

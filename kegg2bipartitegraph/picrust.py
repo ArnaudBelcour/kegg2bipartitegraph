@@ -91,6 +91,23 @@ def create_picrust_network(input_folder, output_folder, reference_folder=False):
     kegg_modules_path = os.path.join(kegg_model_path, 'kegg_modules.tsv')
     kegg_json_model_path = os.path.join(kegg_model_path, 'kegg_metadata.json')
 
+   # Read the reference KEGG sbml file.
+    # Use it to create the organism sbml file.
+    reader = libsbml.SBMLReader()
+    reference_kegg_document = reader.readSBML(kegg_sbml_model_path)
+    reference_kegg_model = reference_kegg_document.getModel()
+    reference_model_fbc = reference_kegg_model.getPlugin('fbc')
+
+    remove_gene_products = []
+    for gene_product in reference_model_fbc.getListOfGeneProducts():
+        remove_gene_products.append(gene_product.id)
+    for gene_product in remove_gene_products:
+        reference_model_fbc.removeGeneProduct(gene_product)
+
+    reference_reactions = {reaction.id: reaction for reaction in reference_kegg_model.getListOfReactions()}
+    reference_species = reference_kegg_model.getListOfSpecies()
+    reference_groups = reference_kegg_model.getPlugin("groups")
+
     with open(kegg_json_model_path, 'r') as input_metadata_json:
         json_data = json.load(input_metadata_json)
 
@@ -166,6 +183,7 @@ def create_picrust_network(input_folder, output_folder, reference_folder=False):
     clust_sbml_output_folder_path = sbml_output_folder_path
     is_valid_dir(clust_sbml_output_folder_path)
 
+    stat_metabolic_networks = {}
     for org in all_orgs:
         taxon_reactions = {}
 
@@ -202,8 +220,9 @@ def create_picrust_network(input_folder, output_folder, reference_folder=False):
         modules_output_file_path = os.path.join(modules_output_folder_path, org+'.tsv')
         organism_modules = write_module_file(kegg_modules, modules_output_file_path, total_added_reactions)
 
-        kegg_document, kegg_model = create_sbml_from_kegg_reactions(kegg_sbml_model_path, taxon_reactions, organism_pathways, organism_modules)
+        kegg_document, kegg_model = create_sbml_from_kegg_reactions(org, reference_reactions, reference_species, reference_groups, taxon_reactions, organism_pathways, organism_modules)
 
+        stat_metabolic_networks[org] = (len(kegg_model.getListOfReactions()), len(kegg_model.getListOfSpecies()))
         # Create file if there is at least 1 reaction.
         if len(kegg_model.getListOfReactions()) > 0:
             # Create SBML file.
@@ -216,7 +235,11 @@ def create_picrust_network(input_folder, output_folder, reference_folder=False):
             logger.info('|kegg2bipartitegraph|picrust| No reactions in model for {0}, no SBML file will be created.'.format(org))
 
     clust_stat_file = os.path.join(output_folder, 'stat_number_kegg.tsv')
-    compute_stat_kegg(clust_sbml_output_folder_path, clust_stat_file)
+    with open(clust_stat_file, 'w') as stat_file_open:
+        csvwriter = csv.writer(stat_file_open, delimiter='\t')
+        csvwriter.writerow(['observation_name', 'Number_reactions', 'Number_metabolites'])
+        for observation_name in stat_metabolic_networks:
+            csvwriter.writerow([observation_name, stat_metabolic_networks[observation_name][0], stat_metabolic_networks[observation_name][1]])
 
     endtime = time.time()
 

@@ -30,6 +30,7 @@ from bioservices import KEGG
 from networkx import __version__ as networkx_version
 
 from kegg2bipartitegraph.utils import is_valid_dir
+from kegg2bipartitegraph.sbml import libsbml_check, initiate_sbml_model
 from kegg2bipartitegraph import __version__ as kegg2bipartitegraph_version
 from kegg2bipartitegraph.graph import sbml_to_graphml
 
@@ -316,28 +317,6 @@ def get_pathways(pathway_file):
     return pathway_data
 
 
-def libsbml_check(value, message):
-    """If 'value' is None, prints an error message constructed using
-    'message' and then exits with status code 1.  If 'value' is an integer,
-    it assumes it is a libSBML return status code.  If the code value is
-    LIBSBML_OPERATION_SUCCESS, returns without further action; if it is not,
-    prints an error message constructed using 'message' along with text from
-    libSBML explaining the meaning of the code, and exits with status code 1.
-    """
-    if value == None:
-        raise SystemExit('LibSBML returned a null value trying to ' + message + '.')
-    elif type(value) is int:
-        if value == libsbml.LIBSBML_OPERATION_SUCCESS:
-            return
-        else:
-            err_msg = 'Error encountered trying to ' + message + '.' \
-                 + 'LibSBML returned error code ' + str(value) + ': "' \
-                 + libsbml.OperationReturnValue_toString(value).strip() + '"'
-            raise TypeError(err_msg)
-    else:
-        return
-
-
 def create_sbml_model_from_kegg_file_libsbml(reaction_folder, compound_file, output_sbml, output_tsv,
                                              kegg_removed_changed_reaction_path, pathway_data, module_data,
                                              remove_ubiquitous=True, remove_glycan_reactions=True):
@@ -357,52 +336,8 @@ def create_sbml_model_from_kegg_file_libsbml(reaction_folder, compound_file, out
         remove_ubiquitous (bool): remove ubiquitous metabolites
         remove_glycan_reactions (bool): remove glycan associated reactions
     """
-    # Set libsbml namespace.
-    sbml_ns = libsbml.SBMLNamespaces(3, 1, 'groups', 1)  # SBML L3V1 with groups
-    sbml_ns.addPackageNamespace("fbc", 2)  # fbc-v2
-
-    # Create document
-    document = libsbml.SBMLDocument(sbml_ns)
-    model = document.createModel('KEGG')
-
-    document.enablePackage(libsbml.FbcExtension.getXmlnsL3V1V2(), 'fbc', True)
-    document.setPackageRequired("fbc", False)
-    model_fbc = model.getPlugin('fbc')
-    model_fbc.setStrict(True)
-    model_groups = model.getPlugin("groups")
-
-    # Set units.
-    libsbml_check(model,                              'create model')
-    libsbml_check(model.setTimeUnits("second"),       'set model-wide time units')
-    libsbml_check(model.setExtentUnits("mole"),       'set model units of extent')
-    libsbml_check(model.setSubstanceUnits('mole'),    'set model substance units')
-
-    math_ast = libsbml.parseL3Formula('FLUX_VALUE')
-    libsbml_check(math_ast, 'create AST for rate expression')
-
-    # Set compartments.
-    compart = model.createCompartment()
-    libsbml_check(compart,'create compartment')
-    libsbml_check(compart.setId('c'),'set compartment id c')
-    libsbml_check(compart.setSize(1),'set size for compartment id c')
-    libsbml_check(compart.setConstant(True),'set constant for compartment id c')
-    libsbml_check(compart.setName("cytosol"),'set compartment name cytosol')
-
-    # Set default bound values.
-    default_lb = model.createParameter()
-    default_lb.setId('default_lower_bound')
-    default_lb.setValue(-1000)
-    default_lb.setConstant(True)
-
-    default_ub = model.createParameter()
-    default_ub.setId('default_upper_bound')
-    default_ub.setValue(1000)
-    default_ub.setConstant(True)
-
-    zero_bound = model.createParameter()
-    zero_bound.setId('default_zero_bound')
-    zero_bound.setValue(0)
-    zero_bound.setConstant(True)
+    # Initiate libsbml model.
+    document, model, model_fbc, model_groups = initiate_sbml_model('KEGG')
 
     # Read compounds file.
     compounds = {}

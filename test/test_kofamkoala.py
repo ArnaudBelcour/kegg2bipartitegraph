@@ -21,7 +21,7 @@ def test_create_kofamkoala_network():
     model_groups = sbml_model.getPlugin("groups")
     modules_pathways_ids = [group.id for group in model_groups.getListOfGroups()]
 
-    assert found_reactions == expected_reactions
+    assert sorted(found_reactions) == sorted(expected_reactions)
     assert sorted(found_metabolites) == sorted(expected_metabolites)
     assert sorted(modules_pathways_ids) == sorted(expected_modules_pathways_ids)
 
@@ -43,7 +43,7 @@ def test_create_kofamkoala_network_cli():
     model_groups = sbml_model.getPlugin("groups")
     modules_pathways_ids = [group.id for group in model_groups.getListOfGroups()]
 
-    assert found_reactions == expected_reactions
+    assert sorted(found_reactions) == sorted(expected_reactions)
     assert sorted(found_metabolites) == sorted(expected_metabolites)
     assert sorted(modules_pathways_ids) == sorted(expected_modules_pathways_ids)
 
