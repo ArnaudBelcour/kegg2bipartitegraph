@@ -261,6 +261,34 @@ def get_modules(module_file):
     return module_data
 
 
+def get_module_hierarchy(module_hierarchy_file):
+    """Using bioservices.KEGG to find the module associated with reactions.
+
+    Args:
+        module_hierarchy_file (str): output file which will contains hierarchy of module
+    """
+    response_text = KEGG_BIOSERVICES.get('br:ko00002')
+
+    module_hierarchy = {}
+    for line in response_text.split('\n'):
+        if line.startswith('A'):
+            a_category = line[1:]
+            module_hierarchy[a_category] = {}
+        if line.startswith('B  '):
+            b_category = line.replace('B  ', '')
+            module_hierarchy[a_category][b_category] = {}
+        if line.startswith('C    '):
+            c_category = line.replace('C    ', '')
+            module_hierarchy[a_category][b_category][c_category] = []
+        if line.startswith('D      '):
+            d_category = line.replace('D      ', '')
+            module_id = d_category.split('  ')[0]
+            module_hierarchy[a_category][b_category][c_category].append(module_id)
+
+    with open(module_hierarchy_file, 'w') as open_json_file:
+        json.dump(module_hierarchy, open_json_file, indent=4)
+
+
 def get_pathways(pathway_file):
     """Using bioservices.KEGG to find the pathway associated with reactions.
 
@@ -631,12 +659,13 @@ def create_reference_base(output_folder=None):
     kegg_removed_changed_reaction_path = os.path.join(kegg_model_path, 'kegg_removed_changed_reaction.tsv')
     kegg_pathways_path = os.path.join(kegg_model_path, 'kegg_pathways.tsv')
     kegg_modules_path = os.path.join(kegg_model_path, 'kegg_modules.tsv')
+    kegg_modules_hierarchy_path = os.path.join(kegg_model_path, 'kegg_modules_hierarchy.json')
     kegg_metadata_path = os.path.join(kegg_model_path, 'kegg_metadata.json')
 
     logger.info('|kegg2bipartitegraph|reference| Check missing files in {0}.'.format(DATA_ROOT))
     input_files = [kegg_compound_file_path, kegg_sbml_model_path, kegg_rxn_mapping_path,
                    kegg_pathways_path, kegg_modules_path, kegg_reactions_folder_path,
-                   kegg_removed_changed_reaction_path]
+                   kegg_removed_changed_reaction_path, kegg_modules_hierarchy_path]
 
     missing_files = []
     for input_file in input_files:
@@ -667,6 +696,10 @@ def create_reference_base(output_folder=None):
                 next(csvreader)
                 for line in csvreader:
                     module_data[line[0]] = line[1:]
+
+        if not os.path.exists(kegg_modules_hierarchy_path):
+            logger.info('|kegg2bipartitegraph|reference| Create KEGG reference module hierarchy file.')
+            get_module_hierarchy(kegg_modules_hierarchy_path)
 
         if not os.path.exists(kegg_pathways_path):
             logger.info('|kegg2bipartitegraph|reference| Create KEGG reference pathway file.')
