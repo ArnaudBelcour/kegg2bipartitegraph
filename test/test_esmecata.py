@@ -28,7 +28,7 @@ def test_create_esmecata_network():
     shutil.rmtree('test_out')
 
 def test_create_esmecata_network_cli():
-    subprocess.call(['kegg2bipartitegraph', 'reconstruct_from_esmecata', '-i', 'esmecata_annotation_folder', '-o', 'test_out'])
+    subprocess.call(['k2bg', 'reconstruct_from_esmecata', '-i', 'esmecata_annotation_folder', '-o', 'test_out'])
     reader = libsbml.SBMLReader()
     sbml_document = reader.readSBML('test_out/sbml/taxon_test.sbml')
     sbml_model = sbml_document.getModel()

@@ -28,7 +28,7 @@ def test_create_picrust_network():
     shutil.rmtree('test_out')
 
 def test_create_picrust_network_cli():
-    subprocess.call(['kegg2bipartitegraph', 'reconstruct_from_picrust', '-i', 'picrust_folder', '-o', 'test_out'])
+    subprocess.call(['k2bg', 'reconstruct_from_picrust', '-i', 'picrust_folder', '-o', 'test_out'])
     reader = libsbml.SBMLReader()
     sbml_document = reader.readSBML('test_out/sbml/Cluster_1.sbml')
     sbml_model = sbml_document.getModel()

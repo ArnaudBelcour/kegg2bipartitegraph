@@ -28,7 +28,7 @@ def test_create_kofamkoala_network():
     shutil.rmtree('test_out')
 
 def test_create_kofamkoala_network_cli():
-    subprocess.call(['kegg2bipartitegraph', 'reconstruct_from_kofamkoala', '-i', 'kofam_koala', '-o', 'test_out'])
+    subprocess.call(['k2bg', 'reconstruct_from_kofamkoala', '-i', 'kofam_koala', '-o', 'test_out'])
     reader = libsbml.SBMLReader()
     sbml_document = reader.readSBML('test_out/sbml/result.sbml')
     sbml_model = sbml_document.getModel()

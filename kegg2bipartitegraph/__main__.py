@@ -38,7 +38,7 @@ def main():
     start_time = time.time()
 
     parser = argparse.ArgumentParser(
-        'kegg2bipartitegraph',
+        'k2bg',
         description=MESSAGE + ' For specific help on each subcommand use: esmecata {cmd} --help'
     )
     parser.add_argument(

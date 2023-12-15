@@ -27,7 +27,7 @@ setup(
     package_data={'kegg2bipartitegraph.data.kegg_model': ['*.tsv', '*.json', '*.sbml', '*.graphml']},
     entry_points={
         'console_scripts': [
-            'kegg2bipartitegraph = kegg2bipartitegraph.__main__:main',
+            'k2bg = kegg2bipartitegraph.__main__:main',
         ]
     },
     install_requires=['bioservices', 'python-libsbml', 'networkx'],
