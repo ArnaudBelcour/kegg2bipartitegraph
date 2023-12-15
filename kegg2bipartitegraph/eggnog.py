@@ -137,6 +137,15 @@ def create_eggnog_network(eggnog_folder, output_folder, reference_folder=False):
     kegg_modules_path = os.path.join(kegg_model_path, 'kegg_modules.tsv')
     kegg_json_model_path = os.path.join(kegg_model_path, 'kegg_metadata.json')
 
+    # Some code if we want to read zipfile instead of all the other file.
+    #import zipfile
+    #kegg_archive = zipfile.ZipFile(KEGG_ARCHIVE)
+    #kegg_sbml_model_str = kegg_archive.open('kegg_model.sbml').read().decode('utf-8')
+    #open_kegg_rxn_mapping_path = zipfile.Path(KEGG_ARCHIVE, at='kegg_mapping.tsv').open()
+    #open_kegg_pathways_path = zipfile.Path(KEGG_ARCHIVE, at='kegg_pathways.tsv').open()
+    #open_kegg_modules_path = zipfile.Path(KEGG_ARCHIVE, at='kegg_modules.tsv').open()
+    #open_kegg_json_model_path = zipfile.Path(KEGG_ARCHIVE, at='kegg_metadata.json').open()
+
     # Read the reference KEGG sbml file.
     # Use it to create the organism sbml file.
     reader = libsbml.SBMLReader()
