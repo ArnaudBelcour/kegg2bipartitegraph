@@ -1,0 +1,751 @@
+LOCUS       NC_000913_3            12642 bp    DNA              BCT 23-FEB-2021
+DEFINITION  Escherichia coli genome.
+ACCESSION   NC_000913_3
+VERSION     NC_000913_3
+KEYWORDS    Escherichia coli.
+SOURCE      .
+  ORGANISM  Escherichia coli
+            Bacteria; Proteobacteria; Gammaproteobacteria; Enterobacterales;
+            Enterobacteriaceae; Escherichia.
+FEATURES             Location/Qualifiers
+     source          1..12642
+                     /scaffold="NC_000913_3"
+                     /db_xref="taxon:562"
+     gene            complement(1..2445)
+                     /locus_tag="gene226"
+     CDS             complement(1..2445)
+                     /locus_tag="cds-gene226"
+                     /gene="fadE"
+                     /go_component="GO:0005575"
+                     /go_component="GO:0005623"
+                     /go_component="GO:0005886"
+                     /go_component="GO:0016020"
+                     /go_component="GO:0044464"
+                     /go_component="GO:0071944"
+                     /go_function="GO:0003674"
+                     /go_function="GO:0003824"
+                     /go_function="GO:0003995"
+                     /go_function="GO:0016491"
+                     /go_function="GO:0016627"
+                     /go_process="GO:0006082"
+                     /go_process="GO:0006629"
+                     /go_process="GO:0006631"
+                     /go_process="GO:0006635"
+                     /go_process="GO:0008150"
+                     /go_process="GO:0008152"
+                     /go_process="GO:0009056"
+                     /go_process="GO:0009062"
+                     /go_process="GO:0009987"
+                     /go_process="GO:0016042"
+                     /go_process="GO:0016054"
+                     /go_process="GO:0019395"
+                     /go_process="GO:0019752"
+                     /go_process="GO:0030258"
+                     /go_process="GO:0032787"
+                     /go_process="GO:0033539"
+                     /go_process="GO:0034440"
+                     /go_process="GO:0043436"
+                     /go_process="GO:0044237"
+                     /go_process="GO:0044238"
+                     /go_process="GO:0044242"
+                     /go_process="GO:0044248"
+                     /go_process="GO:0044255"
+                     /go_process="GO:0044281"
+                     /go_process="GO:0044282"
+                     /go_process="GO:0046395"
+                     /go_process="GO:0055114"
+                     /go_process="GO:0071704"
+                     /go_process="GO:0072329"
+                     /go_process="GO:1901575"
+                     /translation="MMILSILATVVLLGALFYHRVSLFISSLILLAWTAALGVAGLWSA
+                     WVLVPLAIILVPFNFAPMRKSMISAPVFRGFRKVMPPMSRTEKEAIDAGTTWWEGDLFQ
+                     GKPDWKKLHNYPQPRLTAEEQAFLDGPVEEACRMANDFQITHELADLPPELWAYLKEHR
+                     FFAMIIKKEYGGLEFSAYAQSRVLQKLSGVSGILAITVGVPNSLGPGELLQHYGTDEQK
+                     DHYLPRLARGQEIPCFALTSPEAGSDAGAIPDTGIVCMGEWQGQQVLGMRLTWNKRYIT
+                     LAPIATVLGLAFKLSDPEKLLGGAEDLGITCALIPTTTPGVEIGRRHFPLNVPFQNGPT
+                     RGKDVFVPIDYIIGGPKMAGQGWRMLVECLSVGRGITLPSNSTGGVKSVALATGAYAHI
+                     RRQFKISIGKMEGIEEPLARIAGNAYVMDAAASLITYGIMLGEKPAVLSAIVKYHCTHR
+                     GQQSIIDAMDITGGKGIMLGQSNFLARAYQGAPIAITVEGANILTRSMMIFGQGAIRCH
+                     PYVLEEMEAAKNNDVNAFDKLLFKHIGHVGSNKVRSFWLGLTRGLTSSTPTGDATKRYY
+                     QHLNRLSANLALLSDVSMAVLGGSLKRRERISARLGDILSQLYLASAVLKRYDDEGRNE
+                     ADLPLVHWGVQDALYQAEQAMDDLLQNFPNRVVAGLLNVVIFPTGRHYLAPSDKLDHKV
+                     AKILQVPNATRSRIGRGQYLTPSEHNPVGLLEEALVDVIAADPIHQRICKELGKNLPFT
+                     RLDELAHNALVKGLIDKDEAAILVKAEESRLRSINVDDFDPEELATKPVKLPEKVRKVE
+                     AA"
+     gene            2446..4146
+                     /locus_tag="gene1781"
+     CDS             2446..4146
+                     /locus_tag="cds-gene1781"
+                     /gene="fadK"
+                     /go_component="GO:0005575"
+                     /go_component="GO:0005623"
+                     /go_component="GO:0005886"
+                     /go_component="GO:0016020"
+                     /go_component="GO:0044464"
+                     /go_component="GO:0071944"
+                     /go_function="GO:0003674"
+                     /go_function="GO:0003824"
+                     /go_function="GO:0015645"
+                     /go_function="GO:0016405"
+                     /go_function="GO:0016874"
+                     /go_function="GO:0016877"
+                     /go_function="GO:0016878"
+                     /go_function="GO:0031956"
+                     /translation="MHPTGPHLGPDVLFRESNMKVTLTFNEQRRAAYRQQGLWGDASLA
+                     DYWQQTARAMPDKIAVVDNHGASYTYSALDHAASCLANWMLAKGIESGDRIAFQLPGWC
+                     EFTVIYLACLKIGAVSVPLLPSWREAELVWVLNKCQAKMFFAPTLFKQTRPVDLILPLQ
+                     NQLPQLQQIVGVDKLAPATSSLSLSQIIADNTSLTTAITTHGDELAAVLFTSGTEGLPK
+                     GVMLTHNNILASERAYCARLNLTWQDVFMMPAPLGHATGFLHGVTAPFLIGARSVLLDI
+                     FTPDACLALLEQQRCTCMLGATPFVYDLLNVLEKQPADLSALRFFLCGGTTIPKKVARE
+                     CQQRGIKLLSVYGSTESSPHAVVNLDDPLSRFMHTDGYAAAGVEIKVVDDARKTLPPGC
+                     EGEEASRGPNVFMGYFDEPELTARALDEEGWYYSGDLCRMDEAGYIKITGRKKDIIVRG
+                     GENISSREVEDILLQHPKIHDACVVAMSDERLGERSCAYVVLKAPHHSLSLEEVVAFFS
+                     RKRVAKYKYPEHIVVIEKLPRTTSGKIQKFLLRKDIMRRLTQDVCEEIE"
+     gene            complement(4147..5832)
+                     /locus_tag="gene1887"
+     CDS             complement(4147..5832)
+                     /locus_tag="cds-gene1887"
+                     /gene="fadD"
+                     /go_component="GO:0005575"
+                     /go_component="GO:0005622"
+                     /go_component="GO:0005623"
+                     /go_component="GO:0005737"
+                     /go_component="GO:0005829"
+                     /go_component="GO:0005886"
+                     /go_component="GO:0009898"
+                     /go_component="GO:0016020"
+                     /go_component="GO:0044424"
+                     /go_component="GO:0044425"
+                     /go_component="GO:0044444"
+                     /go_component="GO:0044459"
+                     /go_component="GO:0044464"
+                     /go_component="GO:0071944"
+                     /go_component="GO:0098552"
+                     /go_component="GO:0098562"
+                     /go_function="GO:0003674"
+                     /go_function="GO:0003824"
+                     /go_function="GO:0004467"
+                     /go_function="GO:0005488"
+                     /go_function="GO:0005504"
+                     /go_function="GO:0008289"
+                     /go_function="GO:0015645"
+                     /go_function="GO:0016405"
+                     /go_function="GO:0016874"
+                     /go_function="GO:0016877"
+                     /go_function="GO:0016878"
+                     /go_function="GO:0031406"
+                     /go_function="GO:0033293"
+                     /go_function="GO:0036041"
+                     /go_function="GO:0036094"
+                     /go_function="GO:0043167"
+                     /go_function="GO:0043168"
+                     /go_function="GO:0043177"
+                     /go_function="GO:0070538"
+                     /go_process="GO:0001676"
+                     /go_process="GO:0006082"
+                     /go_process="GO:0006139"
+                     /go_process="GO:0006163"
+                     /go_process="GO:0006629"
+                     /go_process="GO:0006631"
+                     /go_process="GO:0006635"
+                     /go_process="GO:0006637"
+                     /go_process="GO:0006644"
+                     /go_process="GO:0006725"
+                     /go_process="GO:0006732"
+                     /go_process="GO:0006753"
+                     /go_process="GO:0006790"
+                     /go_process="GO:0006793"
+                     /go_process="GO:0006796"
+                     /go_process="GO:0006807"
+                     /go_process="GO:0008150"
+                     /go_process="GO:0008152"
+                     /go_process="GO:0008610"
+                     /go_process="GO:0008654"
+                     /go_process="GO:0009056"
+                     /go_process="GO:0009058"
+                     /go_process="GO:0009062"
+                     /go_process="GO:0009117"
+                     /go_process="GO:0009150"
+                     /go_process="GO:0009259"
+                     /go_process="GO:0009314"
+                     /go_process="GO:0009411"
+                     /go_process="GO:0009416"
+                     /go_process="GO:0009628"
+                     /go_process="GO:0009987"
+                     /go_process="GO:0016042"
+                     /go_process="GO:0016054"
+                     /go_process="GO:0019395"
+                     /go_process="GO:0019637"
+                     /go_process="GO:0019693"
+                     /go_process="GO:0019752"
+                     /go_process="GO:0030258"
+                     /go_process="GO:0032787"
+                     /go_process="GO:0033865"
+                     /go_process="GO:0033875"
+                     /go_process="GO:0034032"
+                     /go_process="GO:0034440"
+                     /go_process="GO:0034641"
+                     /go_process="GO:0035383"
+                     /go_process="GO:0043436"
+                     /go_process="GO:0043603"
+                     /go_process="GO:0044237"
+                     /go_process="GO:0044238"
+                     /go_process="GO:0044242"
+                     /go_process="GO:0044248"
+                     /go_process="GO:0044249"
+                     /go_process="GO:0044255"
+                     /go_process="GO:0044281"
+                     /go_process="GO:0044282"
+                     /go_process="GO:0046395"
+                     /go_process="GO:0046483"
+                     /go_process="GO:0050896"
+                     /go_process="GO:0051186"
+                     /go_process="GO:0055086"
+                     /go_process="GO:0055114"
+                     /go_process="GO:0071704"
+                     /go_process="GO:0072329"
+                     /go_process="GO:0072521"
+                     /go_process="GO:0090407"
+                     /go_process="GO:1901135"
+                     /go_process="GO:1901360"
+                     /go_process="GO:1901564"
+                     /go_process="GO:1901575"
+                     /go_process="GO:1901576"
+                     /EC_number="6.2.1.3"
+                     /translation="LKKVWLNRYPADVPTEINPDRYQSLVDMFEQSVARYADQPAFVNM
+                     GEVMTFRKLEERSRAFAAYLQQGLGLKKGDRVALMMPNLLQYPVALFGILRAGMIVVNV
+                     NPLYTPRELEHQLNDSGASAIVIVSNFAHTLEKVVDKTAVQHVILTRMGDQLSTAKGTV
+                     VNFVVKYIKRLVPKYHLPDAISFRSALHNGYRMQYVKPELVPEDLAFLQYTGGTTGVAK
+                     GAMLTHRNMLANLEQVNATYGPLLHPGKELVVTALPLYHIFALTINCLLFIELGGQNLL
+                     ITNPRDIPGLVKELAKYPFTAITGVNTLFNALLNNKEFQQLDFSSLHLSAGGGMPVQQV
+                     VAERWVKLTGQYLLEGYGLTECAPLVSVNPYDIDYHSGSIGLPVPSTEAKLVDDDDNEV
+                     PPGQPGELCVKGPQVMLGYWQRPDATDEIIKNGWLHTGDIAVMDEEGFLRIVDRKKDMI
+                     LVSGFNVYPNEIEDVVMQHPGVQEVAAVGVPSGSSGEAVKIFVVKKDPSLTEESLVTFC
+                     RRQLTGYKVPKLVEFRDELPKSNVGKILRRELRDEARGKVDNKA"
+     gene            complement(5833..7977)
+                     /locus_tag="gene2441"
+     CDS             complement(5833..7977)
+                     /locus_tag="cds-gene2441"
+                     /gene="fadJ"
+                     /go_function="GO:0003674"
+                     /go_function="GO:0003824"
+                     /go_function="GO:0003857"
+                     /go_function="GO:0004165"
+                     /go_function="GO:0004300"
+                     /go_function="GO:0008691"
+                     /go_function="GO:0008692"
+                     /go_function="GO:0016491"
+                     /go_function="GO:0016614"
+                     /go_function="GO:0016616"
+                     /go_function="GO:0016829"
+                     /go_function="GO:0016835"
+                     /go_function="GO:0016836"
+                     /go_function="GO:0016853"
+                     /go_function="GO:0016854"
+                     /go_function="GO:0016856"
+                     /go_function="GO:0016860"
+                     /go_function="GO:0016863"
+                     /go_process="GO:0006082"
+                     /go_process="GO:0006629"
+                     /go_process="GO:0006631"
+                     /go_process="GO:0006635"
+                     /go_process="GO:0006725"
+                     /go_process="GO:0006805"
+                     /go_process="GO:0008150"
+                     /go_process="GO:0008152"
+                     /go_process="GO:0009056"
+                     /go_process="GO:0009062"
+                     /go_process="GO:0009404"
+                     /go_process="GO:0009407"
+                     /go_process="GO:0009410"
+                     /go_process="GO:0009636"
+                     /go_process="GO:0009850"
+                     /go_process="GO:0009852"
+                     /go_process="GO:0009987"
+                     /go_process="GO:0010124"
+                     /go_process="GO:0010817"
+                     /go_process="GO:0016042"
+                     /go_process="GO:0016054"
+                     /go_process="GO:0019395"
+                     /go_process="GO:0019439"
+                     /go_process="GO:0019748"
+                     /go_process="GO:0019752"
+                     /go_process="GO:0030258"
+                     /go_process="GO:0032787"
+                     /go_process="GO:0034440"
+                     /go_process="GO:0042178"
+                     /go_process="GO:0042221"
+                     /go_process="GO:0042445"
+                     /go_process="GO:0042447"
+                     /go_process="GO:0042537"
+                     /go_process="GO:0043436"
+                     /go_process="GO:0044237"
+                     /go_process="GO:0044238"
+                     /go_process="GO:0044242"
+                     /go_process="GO:0044248"
+                     /go_process="GO:0044255"
+                     /go_process="GO:0044281"
+                     /go_process="GO:0044282"
+                     /go_process="GO:0046395"
+                     /go_process="GO:0050896"
+                     /go_process="GO:0051716"
+                     /go_process="GO:0055114"
+                     /go_process="GO:0065007"
+                     /go_process="GO:0065008"
+                     /go_process="GO:0070887"
+                     /go_process="GO:0071466"
+                     /go_process="GO:0071704"
+                     /go_process="GO:0072329"
+                     /go_process="GO:0098754"
+                     /go_process="GO:1901360"
+                     /go_process="GO:1901361"
+                     /go_process="GO:1901575"
+                     /EC_number="1.1.1.157"
+                     /EC_number="1.1.1.35"
+                     /EC_number="4.2.1.17"
+                     /EC_number="5.1.2.3"
+                     /EC_number="5.3.3.8"
+                     /translation="MEMTSAFTLNVRLDNIAVITIDVPGEKMNTLKAEFASQVRAIIKQ
+                     LRENKELRGVVFVSAKPDNFIAGADINMIGNCKTAQEAEALARQGQQLMAEIHALPIQV
+                     IAAIHGACLGGGLELALACHGRVCTDDPKTVLGLPEVQLGLLPGSGGTQRLPRLIGVST
+                     ALEMILTGKQLRAKQALKLGLVDDVVPHSILLEAAVELAKKERPSSRPLPVRERILAGP
+                     LGRALLFKMVGKKTEHKTQGNYPATERILEVVETGLAQGTSSGYDAEARAFGELAMTPQ
+                     SQALRSIFFASTDVKKDPGSDAPPAPLNSVGILGGGLMGGGIAYVTACKAGIPVRIKDI
+                     NPQGINHALKYSWDQLEGKVRRRHLKASERDKQLALISGTTDYRGFAHRDLIIEAVFEN
+                     LELKQQMVAEVEQNCAAHTIFASNTSSLPIGDIAAHATRPEQVIGLHFFSPVEKMPLVE
+                     IIPHAGTSAQTIATTVKLAKKQGKTPIVVRDKAGFYVNRILAPYINEAIRMLTQGERVE
+                     HIDAALVKFGFPVGPIQLLDEVGIDTGTKIIPVLEAAYGERFSAPANVVSSILNDDRKG
+                     RKNGRGFYLYGQKGRKSKKQVDPAIYPLIGTQGQGRISAPQVAERCVMLMLNEAVRCVD
+                     EQVIRSVRDGDIGAVFGIGFPPFLGGPFRYIDSLGAGEVVAIMQRLATQYGSRFTPCER
+                     LVEMGARGESFWKTTATDLQ"
+     gene            complement(7978..9288)
+                     /locus_tag="gene2442"
+     CDS             complement(7978..9288)
+                     /locus_tag="cds-gene2442"
+                     /gene="fadI"
+                     /go_component="GO:0005575"
+                     /go_component="GO:0005622"
+                     /go_component="GO:0005623"
+                     /go_component="GO:0005737"
+                     /go_component="GO:0005829"
+                     /go_component="GO:0044424"
+                     /go_component="GO:0044444"
+                     /go_component="GO:0044464"
+                     /go_function="GO:0003674"
+                     /go_function="GO:0003824"
+                     /go_function="GO:0003857"
+                     /go_function="GO:0003988"
+                     /go_function="GO:0004300"
+                     /go_function="GO:0016408"
+                     /go_function="GO:0016491"
+                     /go_function="GO:0016614"
+                     /go_function="GO:0016616"
+                     /go_function="GO:0016740"
+                     /go_function="GO:0016746"
+                     /go_function="GO:0016747"
+                     /go_function="GO:0016829"
+                     /go_function="GO:0016835"
+                     /go_function="GO:0016836"
+                     /go_process="GO:0006082"
+                     /go_process="GO:0006629"
+                     /go_process="GO:0006631"
+                     /go_process="GO:0006635"
+                     /go_process="GO:0008150"
+                     /go_process="GO:0008152"
+                     /go_process="GO:0009056"
+                     /go_process="GO:0009062"
+                     /go_process="GO:0009987"
+                     /go_process="GO:0016042"
+                     /go_process="GO:0016054"
+                     /go_process="GO:0019395"
+                     /go_process="GO:0019752"
+                     /go_process="GO:0030258"
+                     /go_process="GO:0032787"
+                     /go_process="GO:0033542"
+                     /go_process="GO:0034440"
+                     /go_process="GO:0043436"
+                     /go_process="GO:0044237"
+                     /go_process="GO:0044238"
+                     /go_process="GO:0044242"
+                     /go_process="GO:0044248"
+                     /go_process="GO:0044255"
+                     /go_process="GO:0044281"
+                     /go_process="GO:0044282"
+                     /go_process="GO:0046395"
+                     /go_process="GO:0055114"
+                     /go_process="GO:0071704"
+                     /go_process="GO:0072329"
+                     /go_process="GO:1901575"
+                     /EC_number="2.3.1.16"
+                     /translation="MGQVLPLVTRQGDRIAIVSGLRTPFARQATAFHGIPAVDLGKMVV
+                     GELLARSEIPAEVIEQLVFGQVVQMPEAPNIAREIVLGTGMNVHTDAYSVSRACATSFQ
+                     AVANVAESLMAGTIRAGIAGGADSSSVLPIGVSKKLARVLVDVNKARTMSQRLKLFSRL
+                     RLRDLMPVPPAVAEYSTGLRMGDTAEQMAKTYGITREQQDALAHRSHQRAAQAWSDGKL
+                     KEEVMTAFIPPYKQPLVEDNNIRGNSSLADYAKLRPAFDRKHGTVTAANSTPLTDGAAA
+                     VILMTESRAKELGLVPLGYLRSYAFTAIDVWQDMLLGPAWSTPLALERAGLTMSDLTLI
+                     DMHEAFAAQTLANIQLLGSERFAREALGRAHATGEVDDSKFNVLGGSIAYGHPFAATGA
+                     RMITQTLHELRRRGGGFGLVTACAAGGLGAAMVLEAE"
+     gene            complement(9289..10452)
+                     /locus_tag="gene3987"
+     CDS             complement(9289..10452)
+                     /locus_tag="cds-gene3987"
+                     /gene="fadA"
+                     /go_component="GO:0005575"
+                     /go_component="GO:0005622"
+                     /go_component="GO:0005623"
+                     /go_component="GO:0005737"
+                     /go_component="GO:0044424"
+                     /go_component="GO:0044464"
+                     /go_function="GO:0003674"
+                     /go_function="GO:0003824"
+                     /go_function="GO:0003988"
+                     /go_function="GO:0016408"
+                     /go_function="GO:0016740"
+                     /go_function="GO:0016746"
+                     /go_function="GO:0016747"
+                     /go_process="GO:0006082"
+                     /go_process="GO:0006629"
+                     /go_process="GO:0006631"
+                     /go_process="GO:0006635"
+                     /go_process="GO:0008150"
+                     /go_process="GO:0008152"
+                     /go_process="GO:0009056"
+                     /go_process="GO:0009062"
+                     /go_process="GO:0009987"
+                     /go_process="GO:0016042"
+                     /go_process="GO:0016054"
+                     /go_process="GO:0019395"
+                     /go_process="GO:0019752"
+                     /go_process="GO:0030258"
+                     /go_process="GO:0032787"
+                     /go_process="GO:0034440"
+                     /go_process="GO:0043436"
+                     /go_process="GO:0044237"
+                     /go_process="GO:0044238"
+                     /go_process="GO:0044242"
+                     /go_process="GO:0044248"
+                     /go_process="GO:0044255"
+                     /go_process="GO:0044281"
+                     /go_process="GO:0044282"
+                     /go_process="GO:0046395"
+                     /go_process="GO:0055114"
+                     /go_process="GO:0071704"
+                     /go_process="GO:0072329"
+                     /go_process="GO:1901575"
+                     /EC_number="2.3.1.16"
+                     /translation="MEQVVIVDAIRTPMGRSKGGAFRNVRAEDLSAHLMRSLLARNPAL
+                     EAAALDDIYWGCVQQTLEQGFNIARNAALLAEVPHSVPAVTVNRLCGSSMQALHDAARM
+                     IMTGDAQACLVGGVEHMGHVPMSHGVDFHPGLSRNVAKAAGMMGLTAEMLARMHGISRE
+                     MQDAFAARSHARAWAATQSAAFKNEIIPTGGHDADGVLKQFNYDEVIRPETTVEALATL
+                     RPAFDPVNGMVTAGTSSALSDGAAAMLVMSESRAHELGLKPRARVRSMAVVGCDPSIMG
+                     YGPVPASKLALKKAGLSASDIGVFEMNEAFAAQILPCIKDLGLIEQIDEKINLNGGAIA
+                     LGHPLGCSGARISTTLLNLMERKDVQFGLATMCIGLGQGIATVFERV"
+     gene            complement(10453..12642)
+                     /locus_tag="gene3988"
+     CDS             complement(10453..12642)
+                     /locus_tag="cds-gene3988"
+                     /gene="fadB"
+                     /go_function="GO:0003674"
+                     /go_function="GO:0003824"
+                     /go_function="GO:0003857"
+                     /go_function="GO:0004165"
+                     /go_function="GO:0004300"
+                     /go_function="GO:0008691"
+                     /go_function="GO:0008692"
+                     /go_function="GO:0016491"
+                     /go_function="GO:0016614"
+                     /go_function="GO:0016616"
+                     /go_function="GO:0016829"
+                     /go_function="GO:0016835"
+                     /go_function="GO:0016836"
+                     /go_function="GO:0016853"
+                     /go_function="GO:0016854"
+                     /go_function="GO:0016856"
+                     /go_function="GO:0016860"
+                     /go_function="GO:0016863"
+                     /go_process="GO:0006082"
+                     /go_process="GO:0006629"
+                     /go_process="GO:0006631"
+                     /go_process="GO:0006635"
+                     /go_process="GO:0006725"
+                     /go_process="GO:0006805"
+                     /go_process="GO:0008150"
+                     /go_process="GO:0008152"
+                     /go_process="GO:0009056"
+                     /go_process="GO:0009062"
+                     /go_process="GO:0009404"
+                     /go_process="GO:0009407"
+                     /go_process="GO:0009410"
+                     /go_process="GO:0009636"
+                     /go_process="GO:0009850"
+                     /go_process="GO:0009852"
+                     /go_process="GO:0009987"
+                     /go_process="GO:0010124"
+                     /go_process="GO:0010817"
+                     /go_process="GO:0016042"
+                     /go_process="GO:0016054"
+                     /go_process="GO:0019395"
+                     /go_process="GO:0019439"
+                     /go_process="GO:0019748"
+                     /go_process="GO:0019752"
+                     /go_process="GO:0030258"
+                     /go_process="GO:0032787"
+                     /go_process="GO:0034440"
+                     /go_process="GO:0042178"
+                     /go_process="GO:0042221"
+                     /go_process="GO:0042445"
+                     /go_process="GO:0042447"
+                     /go_process="GO:0042537"
+                     /go_process="GO:0043436"
+                     /go_process="GO:0044237"
+                     /go_process="GO:0044238"
+                     /go_process="GO:0044242"
+                     /go_process="GO:0044248"
+                     /go_process="GO:0044255"
+                     /go_process="GO:0044281"
+                     /go_process="GO:0044282"
+                     /go_process="GO:0046395"
+                     /go_process="GO:0050896"
+                     /go_process="GO:0051716"
+                     /go_process="GO:0055114"
+                     /go_process="GO:0065007"
+                     /go_process="GO:0065008"
+                     /go_process="GO:0070887"
+                     /go_process="GO:0071466"
+                     /go_process="GO:0071704"
+                     /go_process="GO:0072329"
+                     /go_process="GO:0098754"
+                     /go_process="GO:1901360"
+                     /go_process="GO:1901361"
+                     /go_process="GO:1901575"
+                     /EC_number="1.1.1.157"
+                     /EC_number="1.1.1.35"
+                     /EC_number="4.2.1.17"
+                     /EC_number="5.1.2.3"
+                     /EC_number="5.3.3.8"
+                     /translation="MLYKGDTLYLDWLEDGIAELVFDAPGSVNKLDTATVASLGEAIGV
+                     LEQQSDLKGLLLRSNKAAFIVGADITEFLSLFLVPEEQLSQWLHFANSVFNRLEDLPVP
+                     TIAAVNGYALGGGCECVLATDYRLATPDLRIGLPETKLGIMPGFGGSVRMPRMLGADSA
+                     LEIIAAGKDVGADQALKIGLVDGVVKAEKLVEGAKAVLRQAINGDLDWKAKRQPKLEPL
+                     KLSKIEATMSFTIAKGMVAQTAGKHYPAPITAVKTIEAAARFGREEALNLENKSFVPLA
+                     HTNEARALVGIFLNDQYVKGKAKKLTKDVETPKQAAVLGAGIMGGGIAYQSAWKGVPVV
+                     MKDINDKSLTLGMTEAAKLLNKQLERGKIDGLKLAGVISTIHPTLDYAGFDRVDIVVEA
+                     VVENPKVKKAVLAETEQKVRQDTVLASNTSTIPISELANALERPENFCGMHFFNPVHRM
+                     PLVEIIRGEKSSDETIAKVVAWASKMGKTPIVVNDCPGFFVNRVLFPYFAGFSQLLRDG
+                     ADFRKIDKVMEKQFGWPMGPAYLLDVVGIDTAHHAQAVMAAGFPQRMQKDYRDAIDALF
+                     DANRFGQKNGLGFWRYKEDSKGKPKKEEDAAVEDLLAEVSQPKRDFSEEEIIARMMIPM
+                     VNEVVRCLEEGIIATPAEADMALVYGLGFPPFHGGAFRWLDTLGSAKYLDMAQQYQHLG
+                     PLYEVPEGLRNKARHNEPYYPPVEPARPVGDLKTA"
+ORIGIN
+        1 atgatgattt tgagtattct cgctacggtt gtcctgctcg gcgcgttgtt ctatcaccgc
+       61 gtgagcttat ttatcagcag tctgattttg ctcgcctgga cagccgccct cggcgttgct
+      121 ggtctgtggt cggcgtgggt actggtgcct ctggccatta tcctcgtgcc atttaacttt
+      181 gcgcctatgc gtaagtcgat gatttccgcg ccggtatttc gcggtttccg taaggtgatg
+      241 ccgccgatgt cgcgcactga gaaagaagcg attgatgcgg gcaccacctg gtgggagggc
+      301 gacttgttcc agggcaagcc ggactggaaa aagctgcata actatccgca gccgcgcctg
+      361 accgccgaag agcaagcgtt tctcgacggc ccggtagaag aagcctgccg gatggcgaat
+      421 gatttccaga tcacccatga gctggcggat ctgccgccgg agttgtgggc gtaccttaaa
+      481 gagcatcgtt tcttcgcgat gatcatcaaa aaagagtacg gcgggctgga gttctcggct
+      541 tatgcccagt ctcgcgtgct gcaaaaactc tccggcgtga gcgggatcct ggcgattacc
+      601 gtcggcgtgc caaactcatt aggcccgggc gaactgttgc aacattacgg cactgacgag
+      661 cagaaagatc actatctgcc gcgtctggcg cgtggtcagg agatcccctg ctttgcactg
+      721 accagcccgg aagcgggttc cgatgcgggc gcgattccgg acaccgggat tgtctgcatg
+      781 ggcgaatggc agggccagca ggtgctgggg atgcgtctga cctggaacaa acgctacatt
+      841 acgctggcac cgattgcgac cgtgcttggg ctggcgttta aactctccga cccggaaaaa
+      901 ttactcggcg gtgcagaaga tttaggcatt acctgtgcgc tgatcccaac caccacgccg
+      961 ggcgtggaaa ttggtcgtcg ccacttcccg ctgaacgtac cgttccagaa cggaccgacg
+     1021 cgcggtaaag atgtcttcgt gccgatcgat tacatcatcg gcgggccgaa aatggccggg
+     1081 caaggctggc ggatgctggt ggagtgcctc tcggtaggcc gcggcatcac cctgccttcc
+     1141 aactcaaccg gcggcgtgaa atcggtagcg ctggcaaccg gcgcgtatgc tcacattcgc
+     1201 cgtcagttca aaatctctat tggtaagatg gaagggattg aagagccgct ggcgcgtatt
+     1261 gccggtaatg cctacgtgat ggatgctgcg gcatcgctga ttacctacgg cattatgctc
+     1321 ggcgaaaaac ctgccgtgct gtcggctatc gttaagtatc actgtaccca ccgcgggcag
+     1381 cagtcgatta ttgatgcgat ggatattacc ggcggtaaag gcattatgct cgggcaaagc
+     1441 aacttcctgg cgcgtgctta ccagggcgca ccgattgcca tcaccgttga aggggctaac
+     1501 attctgaccc gcagcatgat gatcttcgga caaggagcga ttcgttgcca tccgtacgtg
+     1561 ctggaagaga tggaagcggc gaagaacaat gacgtcaacg cgttcgataa actgttgttc
+     1621 aaacatatcg gtcacgtcgg tagcaacaaa gttcgcagct tctggctggg cctgacgcgc
+     1681 ggtttaacca gcagcacgcc aaccggcgat gccactaaac gctactatca gcacctgaac
+     1741 cgcctgagcg ccaacctcgc cctgctttct gatgtctcga tggcagtgct gggcggcagc
+     1801 ctgaaacgtc gcgagcgcat ctcggcccgt ctgggggata ttttaagcca gctctacctc
+     1861 gcctctgccg tgctgaagcg ttatgacgac gaaggccgta atgaagccga cctgccgctg
+     1921 gtgcactggg gcgtacaaga tgcgctgtat caggctgaac aggcgatgga tgatttactg
+     1981 caaaacttcc cgaaccgcgt ggttgccggg ctgctgaatg tggtgatctt cccgaccgga
+     2041 cgtcattatc tggcaccttc tgacaagctg gatcataaag tggcgaagat tttacaagtg
+     2101 ccgaacgcca cccgttcccg cattggtcgc ggtcagtacc tgacgccgag cgagcataat
+     2161 ccggttggct tgctggaaga ggcgctggtg gatgtgattg ccgccgaccc aattcatcag
+     2221 cggatctgta aagagctggg taaaaacctg ccgtttaccc gtctggatga actggcgcac
+     2281 aacgcgctgg tgaaggggct gattgataaa gatgaagccg ctattctggt gaaagctgaa
+     2341 gaaagccgtc tgcgcagtat taacgttgat gactttgatc cggaagagct ggcgacgaag
+     2401 ccggtaaagt tgccggagaa agtgcggaaa gttgaagccg cgtaaatgca tcccacaggc
+     2461 ccgcatctcg ggcctgatgt tctgtttcga gagtccaaca tgaaagtgac attaacgttt
+     2521 aacgaacaac gtcgtgcggc gtatcgtcag caagggttat ggggcgatgc ttcgctggcc
+     2581 gattactggc agcagaccgc tcgtgcgatg ccagacaaaa ttgccgtggt cgataatcat
+     2641 ggtgcatcgt acacctatag cgcgctcgat cacgccgcga gctgtctggc aaactggatg
+     2701 ttagcgaagg gtattgaatc aggcgatcgc atcgcatttc aactgcctgg ctggtgtgaa
+     2761 tttaccgtta tctatcttgc ctgcctgaaa atcggtgcag tttccgtgcc gctgttgcct
+     2821 tcctggcggg aagcagaact ggtgtgggtg ctcaataagt gtcaggcaaa aatgttcttt
+     2881 gcaccgacgt tgtttaaaca aacgcgtccg gtagatttaa tcctgccgct gcaaaatcag
+     2941 cttccacaac tacaacaaat tgtcggcgtg gacaaactgg ctcccgccac ctcttccctc
+     3001 tcattaagtc agattatcgc cgacaatacc tcactgacca cggcgataac gacccacggc
+     3061 gatgaattag ctgcggtgct gtttacctcc ggaaccgagg gtctgccaaa gggcgtgatg
+     3121 ctaacgcata acaatattct cgccagtgag cgggcttatt gcgcgcgact gaatctgacc
+     3181 tggcaggatg tctttatgat gcctgcgcca cttggtcacg caacgggctt tctgcatggc
+     3241 gtaacggcac cattcttaat tggcgctcgc agcgtgttgt tagatatttt cactcctgat
+     3301 gcgtgtctcg cgctgcttga gcagcagcgt tgcacctgta tgctcggcgc aacgccgttt
+     3361 gtctatgatc ttttgaatgt actagagaaa caacccgcgg acctttcagc gctgcgtttc
+     3421 tttctttgcg gcggaaccac aatccccaaa aaagtggcgc gtgaatgcca gcagcgcggc
+     3481 attaaattat taagtgttta tggttccaca gaaagttcgc cgcatgcggt ggtgaatctc
+     3541 gatgatcctt tgtcgcgctt tatgcacacc gatggttacg ctgccgcagg tgtagagatt
+     3601 aaagtggtcg atgacgcacg caagacctta ccgccaggtt gcgaaggtga agaagcctcg
+     3661 cgtggcccca atgtgtttat ggggtatttt gatgaacctg aattaaccgc ccgtgccctg
+     3721 gatgaagaag gctggtatta cagcggcgat ctctgccgta tggatgaggc tggctatata
+     3781 aaaattaccg gacgcaaaaa agatattatt gtccgcggcg gcgaaaatat tagcagccgt
+     3841 gaagtggaag atattttatt gcagcatcct aaaattcacg atgcctgtgt ggttgcaatg
+     3901 tccgatgaac gtttaggtga acgatcatgc gcttatgtcg tgctgaaagc gccgcatcat
+     3961 tcattatcgc tggaagaggt agtggctttt tttagccgta aacgggtcgc aaaatataaa
+     4021 tatcctgaac atatcgtggt aatcgaaaaa ctaccgcgaa ctacctcagg taaaatacaa
+     4081 aagtttttgt taagaaaaga tattatgcgg cgtttaacgc aggatgtctg tgaagagatt
+     4141 gaataattga agaaggtttg gcttaaccgt tatcccgcgg acgttccgac ggagatcaac
+     4201 cctgaccgtt atcaatctct ggtagatatg tttgagcagt cggtcgcgcg ctacgccgat
+     4261 caacctgcgt ttgtgaatat gggggaggta atgaccttcc gcaagctgga agaacgcagt
+     4321 cgcgcgtttg ccgcttattt gcaacaaggg ttggggctga agaaaggcga tcgcgttgcg
+     4381 ttgatgatgc ctaatttatt gcaatatccg gtggcgctgt ttggcatttt gcgtgccggg
+     4441 atgatcgtcg taaacgttaa cccgttgtat accccgcgtg agcttgagca tcagcttaac
+     4501 gatagcggcg catcggcgat tgttatcgtg tctaactttg ctcacacact ggaaaaagtg
+     4561 gttgataaaa ccgccgttca gcacgtaatt ctgacccgta tgggcgatca gctatctacg
+     4621 gcaaaaggca cggtagtcaa tttcgttgtt aaatacatca agcgtttggt gccgaaatac
+     4681 catctgccag atgccatttc atttcgtagc gcactgcata acggctaccg gatgcagtac
+     4741 gtcaaacccg aactggtgcc ggaagattta gcttttctgc aatacaccgg cggcaccact
+     4801 ggtgtggcga aaggcgcgat gctgactcac cgcaatatgc tggcgaacct ggaacaggtt
+     4861 aacgcgacct atggtccgct gttgcatccg ggcaaagagc tggtggtgac ggcgctgccg
+     4921 ctgtatcaca tttttgccct gaccattaac tgcctgctgt ttatcgaact gggtgggcag
+     4981 aacctgctta tcactaaccc gcgcgatatt ccagggttgg taaaagagtt agcgaaatat
+     5041 ccgtttaccg ctatcacggg cgttaacacc ttgttcaatg cgttgctgaa caataaagag
+     5101 ttccagcagc tggatttctc cagtctgcat ctttccgcag gcggtgggat gccagtgcag
+     5161 caagtggtgg cagagcgttg ggtgaaactg accggacagt atctgctgga aggctatggc
+     5221 cttaccgagt gtgcgccgct ggtcagcgtt aacccatatg atattgatta tcatagtggt
+     5281 agcatcggtt tgccggtgcc gtcgacggaa gccaaactgg tggatgatga tgataatgaa
+     5341 gtaccaccag gtcaaccggg tgagctttgt gtcaaaggac cgcaggtgat gctgggttac
+     5401 tggcagcgtc ccgatgctac cgatgaaatc atcaaaaatg gctggttaca caccggcgac
+     5461 atcgcggtaa tggatgaaga aggattcctg cgcattgtcg atcgtaaaaa agacatgatt
+     5521 ctggtttccg gttttaacgt ctatcccaac gagattgaag atgtcgtcat gcagcatcct
+     5581 ggcgtacagg aagtcgcggc tgttggcgta ccttccggct ccagtggtga agcggtgaaa
+     5641 atcttcgtag tgaaaaaaga tccatcgctt accgaagagt cactggtgac tttttgccgc
+     5701 cgtcagctca cgggatacaa agtaccgaag ctggtggagt ttcgtgatga gttaccgaaa
+     5761 tctaacgtcg gaaaaatttt gcgacgagaa ttacgtgacg aagcgcgcgg caaagtggac
+     5821 aataaagcct gaatggaaat gacatcagcg tttaccctta atgttcgtct ggacaacatt
+     5881 gccgttatca ccatcgacgt accgggtgag aaaatgaata ccctgaaggc ggagtttgcc
+     5941 tcgcaggtgc gcgccattat taagcaactc cgtgaaaaca aagagttgcg aggcgtggtg
+     6001 tttgtctccg ctaaaccgga caacttcatt gctggcgcag acatcaacat gatcggcaac
+     6061 tgcaaaacgg cgcaagaagc ggaagctctg gcgcggcagg gccaacagtt gatggcggag
+     6121 attcatgctt tgcccattca ggttatcgcg gctattcatg gcgcttgcct gggtggtggg
+     6181 ctggagttgg cgctggcgtg ccacggtcgc gtttgtactg acgatcctaa aacggtgctc
+     6241 ggtttgcctg aagtacaact tggattgtta cccggttcag gcggcaccca gcgtttaccg
+     6301 cgtctgatag gcgtcagcac agcattagag atgatcctca ccggaaaaca acttcgggcg
+     6361 aaacaggcat taaagctggg gctggtggat gacgttgttc cgcactccat tctgctggaa
+     6421 gccgctgttg agctggcaaa gaaggagcgc ccatcttccc gccctctacc tgtacgcgag
+     6481 cgtattctgg cggggccgtt aggtcgtgcg ctgctgttca aaatggtcgg caagaaaaca
+     6541 gaacacaaaa ctcaaggcaa ttatccggcg acagaacgca tcctggaggt tgttgaaacg
+     6601 ggattagcgc agggcaccag cagcggttat gacgccgaag ctcgggcgtt tggcgaactg
+     6661 gcgatgacgc cacaatcgca ggcgctgcgt agtatctttt ttgccagtac ggacgtgaag
+     6721 aaagatcccg gcagtgatgc gccgcctgcg ccattaaaca gcgtggggat tttaggtggt
+     6781 ggcttgatgg gcggcggtat tgcttatgtc actgcttgta aagcggggat tccggtcaga
+     6841 attaaagata tcaacccgca gggcataaat catgcgctga agtacagttg ggatcagctg
+     6901 gagggcaaag ttcgccgtcg tcatctcaaa gccagcgaac gtgacaaaca gctggcatta
+     6961 atctccggaa cgacggacta tcgcggcttt gcccatcgcg atctgattat tgaagcggtg
+     7021 tttgaaaatc tcgaattgaa acaacagatg gtggcggaag ttgagcaaaa ttgcgccgct
+     7081 cataccatct ttgcttcgaa tacgtcatct ttaccgattg gtgatatcgc cgctcacgcc
+     7141 acgcgacctg agcaagttat cggcctgcat ttcttcagtc cggtggaaaa aatgccgctg
+     7201 gtggagatta ttcctcatgc ggggacatcg gcgcaaacca tcgctaccac agtaaaactg
+     7261 gcgaaaaaac agggtaaaac gccaattgtc gtgcgtgaca aagccggttt ttacgtcaat
+     7321 cgcatcttag cgccttacat taatgaagct atccgcatgt tgacccaagg tgaacgggta
+     7381 gagcacattg atgccgcgct agtgaaattt ggttttccgg taggcccaat ccaacttttg
+     7441 gatgaggtag gaatcgacac cgggactaaa attattcctg tactggaagc cgcttatgga
+     7501 gaacgtttta gcgcgcctgc aaatgttgtt tcttcaattt tgaacgacga tcgcaaaggc
+     7561 agaaaaaatg gccggggttt ctatctttat ggtcagaaag ggcgtaaaag caaaaaacag
+     7621 gtcgatcccg ccatttaccc gctgattggc acacaagggc aggggcgaat ctccgcaccg
+     7681 caggttgctg aacggtgtgt gatgttgatg ctgaatgaag cagtacgttg tgttgatgag
+     7741 caggttatcc gtagcgtgcg tgacggggat attggcgcgg tatttggcat tggttttccg
+     7801 ccatttctcg gtggaccgtt ccgctatatc gattctctcg gcgcgggcga agtggttgca
+     7861 ataatgcaac gacttgccac gcagtatggt tcccgtttta ccccttgcga gcgtttggtc
+     7921 gagatgggcg cgcgtgggga aagtttttgg aaaacaactg caactgacct gcaataaatg
+     7981 ggtcaggttt taccgctggt tacccgccag ggcgatcgta tcgccattgt tagcggttta
+     8041 cgtacgcctt ttgcccgtca ggcgacggct tttcatggca ttcccgcggt tgatttaggg
+     8101 aagatggtgg taggcgaact gctggcacgc agcgagatcc ccgccgaagt gattgaacaa
+     8161 ctggtctttg gtcaggtcgt acaaatgcct gaagccccca acattgcgcg tgaaattgtt
+     8221 ctcggtacgg gaatgaatgt acataccgat gcttacagcg tcagccgcgc ttgcgctacc
+     8281 agtttccagg cagttgcaaa cgtcgcagaa agcctgatgg cgggaactat tcgagcgggg
+     8341 attgccggtg gggcagattc ctcttcggta ttgccaattg gcgtcagtaa aaaactggcg
+     8401 cgcgtgctgg ttgatgtcaa caaagctcgt accatgagcc agcgactgaa actcttctct
+     8461 cgcctgcgtt tgcgcgactt aatgcccgta ccacctgcgg tagcagaata ttctaccggc
+     8521 ttgcggatgg gcgacaccgc agagcaaatg gcgaaaacct acggcatcac ccgagaacag
+     8581 caagatgcat tagcgcaccg ttcgcatcag cgtgccgctc aggcatggtc agacggaaaa
+     8641 ctcaaagaag aggtgatgac tgcctttatc cctccttata aacaaccgct tgtcgaagac
+     8701 aacaatattc gcggtaattc ctcgcttgcc gattacgcaa agctgcgccc ggcgtttgat
+     8761 cgcaaacacg gaacggtaac ggcggcaaac agtacgccgc tgaccgatgg cgcggcagcg
+     8821 gtgatcctga tgactgaatc ccgggcgaaa gaattagggc tggtgccgct ggggtatctg
+     8881 cgcagctacg catttactgc gattgatgtc tggcaggaca tgttgctcgg tccagcctgg
+     8941 tcaacaccgc tggcgctgga gcgtgccggt ttgacgatga gcgatctgac attgatcgat
+     9001 atgcacgaag cctttgcagc tcagacgctg gcgaatattc agttgctggg tagtgaacgt
+     9061 tttgctcgtg aagcactggg gcgtgcacat gccactggcg aagtggacga tagcaaattt
+     9121 aacgtgcttg gcggttcgat tgcttacggg catcccttcg cggcgaccgg cgcgcggatg
+     9181 attacccaga cattgcatga acttcgccgt cgcggcggtg gatttggttt agttaccgcc
+     9241 tgtgctgccg gtgggcttgg cgcggcaatg gttctggagg cggaataaat ggaacaggtt
+     9301 gtcattgtcg atgcaattcg caccccgatg ggccgttcga agggcggtgc ttttcgtaac
+     9361 gtgcgtgcag aagatctctc cgctcattta atgcgtagcc tgctggcgcg taacccggcg
+     9421 ctggaagcgg cggccctcga cgatatttac tggggttgtg tgcagcagac gctggagcag
+     9481 ggttttaata tcgcccgtaa cgcggcgctg ctggcagaag taccacactc tgtcccggcg
+     9541 gttaccgtta atcgcttgtg tggttcatcc atgcaggcac tgcatgacgc agcacgaatg
+     9601 atcatgactg gcgatgcgca ggcatgtctg gttggcggcg tggagcatat gggccatgtg
+     9661 ccgatgagtc acggcgtcga ttttcacccc ggcctgagcc gcaatgtcgc caaagcggcg
+     9721 ggcatgatgg gcttaacggc agaaatgctg gcgcgtatgc acggtatcag ccgtgaaatg
+     9781 caggatgcct ttgccgcgcg gtcacacgcc cgcgcctggg ccgccacgca gtcggccgca
+     9841 tttaaaaatg aaatcatccc gaccggtggt cacgatgccg acggcgtcct gaagcagttt
+     9901 aattacgacg aagtgattcg cccggaaacc accgtggaag ccctcgccac gctgcgtccg
+     9961 gcgtttgatc cagtaaacgg tatggtaacg gcgggcacat cttctgcact ttccgatggc
+    10021 gcagctgcca tgctggtgat gagtgaaagc cgcgcccatg aattaggtct taagccgcgc
+    10081 gctcgtgtgc gttcgatggc ggtcgttggt tgtgacccat cgattatggg ttacggcccg
+    10141 gttccggcct cgaaactggc gctgaaaaaa gcggggcttt ctgccagcga tatcggcgtg
+    10201 tttgaaatga acgaagcctt tgccgcgcag atcctgccat gtattaaaga tctgggacta
+    10261 attgagcaga ttgacgagaa gatcaacctc aacggtggcg cgatcgcgct gggtcatccg
+    10321 ctgggttgtt ccggtgcgcg tatcagcacc acgctgctga atctgatgga acgcaaagac
+    10381 gttcagtttg gtctggcgac gatgtgtatc ggtctgggtc agggtattgc gacggtgttt
+    10441 gagcgggttt aaatgcttta caaaggcgac accctgtacc ttgactggct ggaagatggc
+    10501 attgccgaac tggtatttga tgccccaggt tcagttaata aactcgacac tgcgaccgtc
+    10561 gccagcctcg gcgaggccat cggcgtgctg gaacagcaat cagatctaaa agggctgctg
+    10621 ctgcgttcga acaaagcagc ctttatcgtc ggtgctgata tcaccgaatt tttgtccctg
+    10681 ttcctcgttc ctgaagaaca gttaagtcag tggctgcact ttgccaatag cgtgtttaat
+    10741 cgcctggaag atctgccggt gccgaccatt gctgccgtca atggctatgc gctgggcggt
+    10801 ggctgcgaat gcgtgctggc gaccgattat cgtctggcga cgccggatct gcgcatcggt
+    10861 ctgccggaaa ccaaactggg catcatgcct ggctttggcg gttctgtacg tatgccacgt
+    10921 atgctgggcg ctgacagtgc gctggaaatc attgccgccg gtaaagatgt cggcgcggat
+    10981 caggcgctga aaatcggtct ggtggatggc gtagtcaaag cagaaaaact ggttgaaggc
+    11041 gcaaaggcgg ttttacgcca ggccattaac ggcgacctcg actggaaagc aaaacgtcag
+    11101 ccgaagctgg aaccactaaa actgagcaag attgaagcca ccatgagctt caccatcgct
+    11161 aaagggatgg tcgcacaaac agcggggaaa cattatccgg cccccatcac cgcagtaaaa
+    11221 accattgaag ctgcggcccg ttttggtcgt gaagaagcct taaacctgga aaacaaaagt
+    11281 tttgtcccgc tggcgcatac caacgaagcc cgcgcactgg tcggcatttt ccttaacgat
+    11341 caatatgtaa aaggcaaagc gaagaaactc accaaagacg ttgaaacccc gaaacaggcc
+    11401 gcggtgctgg gtgcaggcat tatgggcggc ggcatcgctt accagtctgc gtggaaaggc
+    11461 gtgccggttg tcatgaaaga tatcaacgac aagtcgttaa ccctcggcat gaccgaagcc
+    11521 gcgaaactgc tgaacaagca gcttgagcgc ggcaagatcg atggtctgaa actggctggc
+    11581 gtgatctcca caatccaccc aacgctcgac tacgccggat ttgaccgcgt ggatattgtg
+    11641 gtagaagcgg ttgttgaaaa cccgaaagtg aaaaaagccg tactggcaga aaccgaacaa
+    11701 aaagtacgcc aggataccgt gctggcgtct aacacttcaa ccattcctat cagcgaactg
+    11761 gccaacgcgc tggaacgccc ggaaaacttc tgcgggatgc acttctttaa cccggtccac
+    11821 cgaatgccgt tggtagaaat tattcgcggc gagaaaagct ccgacgaaac catcgcgaaa
+    11881 gttgtcgcct gggcgagcaa gatgggcaag acgccgattg tggttaacga ctgccccggc
+    11941 ttctttgtta accgcgtgct gttcccgtat ttcgccggtt tcagccagct gctgcgcgac
+    12001 ggcgcggatt tccgcaagat cgacaaagtg atggaaaaac agtttggctg gccgatgggc
+    12061 ccggcatatc tgctggacgt tgtgggcatt gataccgcgc atcacgctca ggctgtcatg
+    12121 gcagcaggct tcccgcagcg gatgcagaaa gattaccgcg atgccatcga cgcgctgttt
+    12181 gatgccaacc gctttggtca gaagaacggc ctcggtttct ggcgttataa agaagacagc
+    12241 aaaggtaagc cgaagaaaga agaagacgcc gccgttgaag acctgctggc agaagtgagc
+    12301 cagccgaagc gcgatttcag cgaagaagag attatcgccc gcatgatgat cccgatggtc
+    12361 aacgaagtgg tgcgctgtct ggaggaaggc attatcgcca ctccggcgga agcggatatg
+    12421 gcgctggtct acggcctggg cttccctccg ttccacggcg gcgcgttccg ctggctggac
+    12481 accctcggta gcgcaaaata cctcgatatg gcacagcaat atcagcacct cggcccgctg
+    12541 tatgaagtgc cggaaggtct gcgtaataaa gcgcgtcata acgaaccgta ctatcctccg
+    12601 gttgagccag cccgtccggt tggcgacctg aaaacggctt aa
+//

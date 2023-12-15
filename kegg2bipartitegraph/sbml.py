@@ -157,6 +157,11 @@ def create_sbml_from_kegg_reactions(org_name, reference_reactions, reference_spe
         # Add genes to organism model. 
         for gene in taxon_reactions[reaction_id]:
             if gene not in already_added_genes:
+                characters_in_genes = set([char for gene in taxon_reactions[reaction_id] for char in list(gene)])
+                if len(set(SBML_CHARACTER_TO_REPLACE).intersection(characters_in_genes)) > 0:
+                    gene = gene_to_sbml(gene)
+                else:
+                    gene = gene
                 gene_prod = model_fbc.createGeneProduct()
                 gene_prod.setId(gene), 'add gene %s' %gene
                 gene_prod.setName(gene)
