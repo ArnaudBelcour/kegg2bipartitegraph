@@ -90,6 +90,7 @@ def create_picrust_network(input_folder, output_folder, reference_folder=False):
     kegg_pathways_path = os.path.join(kegg_model_path, 'kegg_pathways.tsv')
     kegg_modules_path = os.path.join(kegg_model_path, 'kegg_modules.tsv')
     kegg_json_model_path = os.path.join(kegg_model_path, 'kegg_metadata.json')
+    kegg_json_hierarchy_path = os.path.join(kegg_model_path, 'kegg_hierarchy.json')
 
    # Read the reference KEGG sbml file.
     # Use it to create the organism sbml file.
@@ -183,6 +184,17 @@ def create_picrust_network(input_folder, output_folder, reference_folder=False):
     clust_sbml_output_folder_path = sbml_output_folder_path
     is_valid_dir(clust_sbml_output_folder_path)
 
+    with open(kegg_json_hierarchy_path, 'r') as open_hierarchy_json:
+        hierarchy_json_data = json.load(open_hierarchy_json)
+    hierarchy_json_data_module = hierarchy_json_data['module']['Pathway modules']
+
+    class_representation = {}
+    for module_class in hierarchy_json_data_module:
+        for module_subclass in hierarchy_json_data_module[module_class]:
+            class_representation[module_subclass] = set(hierarchy_json_data_module[module_class][module_subclass])
+
+    class_modules = [class_module for class_module in class_representation]
+    class_data = []
     stat_metabolic_networks = {}
     for org in all_orgs:
         taxon_reactions = {}
@@ -219,6 +231,7 @@ def create_picrust_network(input_folder, output_folder, reference_folder=False):
         # Create module file contening module with reactions in the taxon.
         modules_output_file_path = os.path.join(modules_output_folder_path, org+'.tsv')
         organism_modules = write_module_file(kegg_modules, modules_output_file_path, total_added_reactions)
+        class_data.append([org, *[len(class_representation[class_module].intersection(set(organism_modules))) for class_module in class_modules]])
 
         kegg_document, kegg_model = create_sbml_from_kegg_reactions(org, reference_reactions, reference_species, reference_groups, taxon_reactions, organism_pathways, organism_modules)
 
@@ -234,12 +247,19 @@ def create_picrust_network(input_folder, output_folder, reference_folder=False):
         else:
             logger.info('|kegg2bipartitegraph|picrust| No reactions in model for {0}, no SBML file will be created.'.format(org))
 
-    clust_stat_file = os.path.join(output_folder, 'stat_number_kegg.tsv')
-    with open(clust_stat_file, 'w') as stat_file_open:
+    stat_number_kegg_file = os.path.join(output_folder, 'stat_number_kegg.tsv')
+    with open(stat_number_kegg_file, 'w') as stat_file_open:
         csvwriter = csv.writer(stat_file_open, delimiter='\t')
         csvwriter.writerow(['observation_name', 'Number_reactions', 'Number_metabolites'])
         for observation_name in stat_metabolic_networks:
             csvwriter.writerow([observation_name, stat_metabolic_networks[observation_name][0], stat_metabolic_networks[observation_name][1]])
+
+    module_class_file = os.path.join(output_folder, 'module_class.tsv')
+    with open(module_class_file, 'w') as open_module_class_file:
+        csvwriter = csv.writer(open_module_class_file, delimiter='\t')
+        csvwriter.writerow(['observation_name', *class_modules])
+        for class_dat in class_data:
+            csvwriter.writerow(class_dat)
 
     endtime = time.time()
 
@@ -248,4 +268,4 @@ def create_picrust_network(input_folder, output_folder, reference_folder=False):
     kegg2bipartitgraph_metadata_file = os.path.join(output_folder, 'kegg2bipartitegraph_picrust_kegg.json')
     with open(kegg2bipartitgraph_metadata_file, 'w') as ouput_file:
         json.dump(kegg2bipartitegraph_picrust_metadata, ouput_file, indent=4)
-    logger.info('|kegg2bipartitegraph|picrust| Draft networks creation complete.')
+    logger.info('|kegg2bipartitegraph|picrust| Draft networks creation complete in {0}s.'.format(duration))
