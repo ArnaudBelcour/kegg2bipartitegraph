@@ -261,7 +261,7 @@ def get_modules(module_file):
     return module_data
 
 
-def get_kegg_hierarchy(hierarchy_file, sunburst_hierarchy_file):
+def get_kegg_hierarchy(hierarchy_file):
     """Using bioservices.KEGG to create hierarchy of metabolite IDs.
 
     Args:
@@ -390,40 +390,8 @@ def get_kegg_hierarchy(hierarchy_file, sunburst_hierarchy_file):
     global_hierarchy['metabolite'] = metabolite_hierarchy
     global_hierarchy['metabolite_lipid'] = lipid_hierarchy
 
-    def update_dict(dict_1, dict_2):
-        for key, value in dict_2.items():
-            if key not in dict_1:
-                dict_1[key] = value
-            else:
-                dict_1[key].extend(value)
-        return dict_1
-
-    def get_parents(data_dict):
-        parent_child = {}
-        for key, values in data_dict.items():
-            for value in values:
-                if value not in parent_child:
-                    parent_child[value] = [key]
-                else:
-                    parent_child[value].append(key)
-            if isinstance(values, dict):
-                parent_child = update_dict(parent_child, get_parents(values))
-        return parent_child
-
-    # Create dictionary for sunburst creation.
-    sunburst_hierarchy = {}
-    sunburst_hierarchy['module'] = get_parents(module_hierarchy)
-    sunburst_hierarchy['pathway'] = get_parents(pathway_hierarchy)
-    sunburst_hierarchy['ko'] = get_parents(ko_hierarchy)
-    sunburst_hierarchy['ko_transporter'] = get_parents(transporter_hierarchy)
-    sunburst_hierarchy['metabolite'] = get_parents(metabolite_hierarchy)
-    sunburst_hierarchy['metabolite_lipid'] = get_parents(lipid_hierarchy)
-
     with open(hierarchy_file, 'w') as open_json_file:
         json.dump(global_hierarchy, open_json_file, indent=4)
-
-    with open(sunburst_hierarchy_file, 'w') as open_json_file:
-        json.dump(sunburst_hierarchy, open_json_file, indent=4)
 
 
 def get_pathways(pathway_file):
@@ -797,14 +765,12 @@ def create_reference_base(output_folder=None):
     kegg_pathways_path = os.path.join(kegg_model_path, 'kegg_pathways.tsv')
     kegg_modules_path = os.path.join(kegg_model_path, 'kegg_modules.tsv')
     kegg_hierarchy_path = os.path.join(kegg_model_path, 'kegg_hierarchy.json')
-    kegg_sunburst_hierarchy_file = os.path.join(kegg_model_path, 'kegg_hierarchy_sunburst.json')
     kegg_metadata_path = os.path.join(kegg_model_path, 'kegg_metadata.json')
 
     logger.info('|kegg2bipartitegraph|reference| Check missing files in {0}.'.format(DATA_ROOT))
     input_files = [kegg_compound_file_path, kegg_sbml_model_path, kegg_rxn_mapping_path,
                    kegg_pathways_path, kegg_modules_path, kegg_reactions_folder_path,
-                   kegg_removed_changed_reaction_path, kegg_hierarchy_path,
-                   kegg_sunburst_hierarchy_file]
+                   kegg_removed_changed_reaction_path, kegg_hierarchy_path]
 
     missing_files = []
     for input_file in input_files:
@@ -812,7 +778,6 @@ def create_reference_base(output_folder=None):
             missing_files.append(input_file)
     
     if len(missing_files) > 0:
-        """
         logger.info('|kegg2bipartitegraph|reference| Missing: ' + ' '.join(missing_files))
         if not os.path.exists(kegg_reactions_folder_path):
             logger.info('|kegg2bipartitegraph|reference| Retrieve reactions from KEGG to create SBML model.')
@@ -836,10 +801,10 @@ def create_reference_base(output_folder=None):
                 next(csvreader)
                 for line in csvreader:
                     module_data[line[0]] = line[1:]
-        """
-        if not os.path.exists(kegg_hierarchy_path) or not os.path.exists(kegg_sunburst_hierarchy_file):
+
+        if not os.path.exists(kegg_hierarchy_path):
             logger.info('|kegg2bipartitegraph|reference| Create KEGG reference module hierarchy file.')
-            get_kegg_hierarchy(kegg_hierarchy_path, kegg_sunburst_hierarchy_file)
+            get_kegg_hierarchy(kegg_hierarchy_path)
 
         if not os.path.exists(kegg_pathways_path):
             logger.info('|kegg2bipartitegraph|reference| Create KEGG reference pathway file.')
