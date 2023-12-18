@@ -14,14 +14,15 @@ This package can be installed using pip:
 
 It is divided in different parts:
 
-- `kegg2bipartitegraph reference` an optional ones that creates the reference data (especially the universal reference metabolic graphs). By default, these data are precomputed and available within the package located in `kegg2bipartitegraph/data/kegg_model`.
+- `k2bg reference` an optional ones that creates the reference data (especially the universal reference metabolic graphs). By default, these data are precomputed and available within the package located in `kegg2bipartitegraph/data/kegg_model`. It is not meant to be used by the user as it takes a long time to process, only used the precomputed reference files or archived files.
 
 - subcommand to reconstruct metabolic graphs from different inputs:
-    - `kegg2bipartitegraph reconstruct_from_esmecata` takes as input the annotation output folder from [EsMeCaTa](https://github.com/AuReMe/esmecata) and reconstruct the metabolic networks associated with each taxon.
-    - `kegg2bipartitegraph reconstruct_from_eggnog` takes as input the annotation output file from [eggnog-mapper](https://github.com/eggnogdb/eggnog-mapper) to map the EC to KEGG reactions.
-    - `kegg2bipartitegraph reconstruct_from_kofamkoala` takes as input the result from [KofamKOALA](https://www.genome.jp/tools/kofamkoala/).
-    - `kegg2bipartitegraph reconstruct_from_picrust` takes as input the result folder from [picrust2](https://github.com/picrust/picrust2).
-    - `kegg2bipartitegraph reconstruct_from_organism` takes as input an organism ID from KEGG (such as `hsa` for human or `eco` for *Escherichia coli*). You can find the list of the accessile organisms in [KEGG website](https://www.genome.jp/kegg/catalog/org_list.html).
+    - `k2bg reconstruct_from_esmecata` takes as input the annotation output folder from [EsMeCaTa](https://github.com/AuReMe/esmecata) and reconstruct the metabolic networks associated with each taxon.
+    - `k2bg reconstruct_from_eggnog` takes as input the annotation output file from [eggnog-mapper](https://github.com/eggnogdb/eggnog-mapper) to map the EC to KEGG reactions.
+    - `k2bg reconstruct_from_kofamkoala` takes as input the result from [KofamKOALA](https://www.genome.jp/tools/kofamkoala/).
+    - `k2bg reconstruct_from_picrust` takes as input the result folder from [picrust2](https://github.com/picrust/picrust2).
+    - `k2bg reconstruct_from_organism` takes as input an organism ID from KEGG (such as `hsa` for human or `eco` for *Escherichia coli*). You can find the list of the accessile organisms in [KEGG website](https://www.genome.jp/kegg/catalog/org_list.html).
+    - `k2bg reconstruct_from_genbank` takes as input a folder containing GenBank files.
 
 ## Online / Offline requirements
 
@@ -33,18 +34,23 @@ Multiple subcommands can be used to reconstruct draft networks. Some of them req
 |  reconstruct_from_eggnog |   |  X |
 |  reconstruct_from_kofamkoala |   | X  |
 |  reconstruct_from_picrust |   | X  |
-|  reconstruct_from_organism | X  |   |
+|  reconstruct_from_picrust |   | X  |
+|  reconstruct_from_genbank | X  |   |
 |  reference | X  |   |
 
 ## Reference model
 
-The `kegg2bipartitegraph reference` is to be used only if you want to update the KEGG reference data. First, delete the data contain in `kegg2bipartitegraph/data/kegg_model`, then use this command to download all the required data. This step is long, it is advised to not use it.
+The `k2bg reference` is to be used only if you want to update the KEGG reference data. First, delete the data contain in `kegg2bipartitegraph/data/kegg_model`, then use this command to download all the required data. This step is long, it is advised to not use it.
 
-It will create 4 files:
+It will create several files:
 
 - `kegg_model.sbml`: a universal graph containing most of the reactions contained in KEGG database. Such as in the graph made by [Weber Zendrera et al. (2021)](https://www.nature.com/articles/s41598-021-91486-8), 14 cofactors have been removed (H2O, ATP, ADP, NAD+, NADH, NADP+, NADPH, CO2, ammonia, sulfate, thioredoxin, phosphate, pyrophosphate (PPi), and H+). Also the stoechiometry is simplified as these metabolic networks are created in order to be used in topological analysis. **So they are not supposed to be used with other methods (such as Constraint-Based Modelling)**.
 
-- several mapping files to go from annotation (especially EC number) to KEGG reactions: `kegg_compound_name.tsv`, `kegg_mapping.tsv` and `kegg_pathways.tsv`.
+- `kegg_model.graphml`: the metabolic bipartite graph associated with the `kegg_model.sbml` file.
+
+- several mapping files to go from annotation (especially EC number) to KEGG reactions: `kegg_compound_name.tsv`, `kegg_mapping.tsv` and `kegg_pathways.tsv`. Also a file to use KEGG hierarchy for pathway/module/metabolite: `kegg_hierarchy.json`.
+
+- `kegg_metadata.json`: a metadata file showing the metadata for the creation of the reference files for kegg2bipartitegraph.
 
 ## Output files of other command
 
