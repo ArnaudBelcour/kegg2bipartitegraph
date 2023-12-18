@@ -12,11 +12,11 @@ This package can be installed using pip:
 
 ## Usage
 
-It is divided in different parts:
+Kegg2bipartitegraph can be called by using the command `k2bg`. It is divided in different parts:
 
 - `k2bg reference` an optional ones that creates the reference data (especially the universal reference metabolic graphs). By default, these data are precomputed and available within the package located in `kegg2bipartitegraph/data/kegg_model`. It is not meant to be used by the user as it takes a long time to process, only used the precomputed reference files or archived files.
 
-- subcommand to reconstruct metabolic graphs from different inputs:
+- subcommands to reconstruct metabolic graphs from different inputs:
     - `k2bg reconstruct_from_esmecata` takes as input the annotation output folder from [EsMeCaTa](https://github.com/AuReMe/esmecata) and reconstruct the metabolic networks associated with each taxon.
     - `k2bg reconstruct_from_eggnog` takes as input the annotation output file from [eggnog-mapper](https://github.com/eggnogdb/eggnog-mapper) to map the EC to KEGG reactions.
     - `k2bg reconstruct_from_kofamkoala` takes as input the result from [KofamKOALA](https://www.genome.jp/tools/kofamkoala/).
@@ -34,8 +34,8 @@ Multiple subcommands can be used to reconstruct draft networks. Some of them req
 |  reconstruct_from_eggnog |   |  X |
 |  reconstruct_from_kofamkoala |   | X  |
 |  reconstruct_from_picrust |   | X  |
-|  reconstruct_from_picrust |   | X  |
-|  reconstruct_from_genbank | X  |   |
+|  reconstruct_from_genbank |   | X  |
+|  reconstruct_from_organism | X  |   |
 |  reference | X  |   |
 
 ## Reference model
