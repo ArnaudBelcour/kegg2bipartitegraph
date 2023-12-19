@@ -194,6 +194,7 @@ def create_esmecata_network(input_folder, output_folder, mapping_ko=False, refer
     kegg_pathways_path = os.path.join(kegg_model_path, 'kegg_pathways.tsv')
     kegg_modules_path = os.path.join(kegg_model_path, 'kegg_modules.tsv')
     kegg_json_model_path = os.path.join(kegg_model_path, 'kegg_metadata.json')
+    kegg_json_hierarchy_path = os.path.join(kegg_model_path, 'kegg_hierarchy.json')
 
     # Read the reference KEGG sbml file.
     # Use it to create the organism sbml file.
@@ -264,6 +265,18 @@ def create_esmecata_network(input_folder, output_folder, mapping_ko=False, refer
 
     clust_sbml_output_folder_path = sbml_output_folder_path
     is_valid_dir(clust_sbml_output_folder_path)
+
+    with open(kegg_json_hierarchy_path, 'r') as open_hierarchy_json:
+        hierarchy_json_data = json.load(open_hierarchy_json)
+    hierarchy_json_data_module = hierarchy_json_data['module']['Pathway modules']
+
+    class_representation = {}
+    for module_class in hierarchy_json_data_module:
+        for module_subclass in hierarchy_json_data_module[module_class]:
+            class_representation[module_subclass] = set(hierarchy_json_data_module[module_class][module_subclass])
+
+    class_modules = [class_module for class_module in class_representation]
+    class_data = []
 
     stat_metabolic_networks = {}
     for annot_file in os.listdir(annotation_reference_folder_path):
@@ -351,6 +364,7 @@ def create_esmecata_network(input_folder, output_folder, mapping_ko=False, refer
         # Create module file contening module with reactions in the taxon.
         modules_output_file_path = os.path.join(modules_output_folder_path, base_filename+'.tsv')
         organism_modules = write_module_file(kegg_modules, modules_output_file_path, total_added_reactions)
+        class_data.append([base_filename, *[len(class_representation[class_module].intersection(set(organism_modules))) for class_module in class_modules]])
 
         kegg_document, kegg_model = create_sbml_from_kegg_reactions(base_filename, reference_reactions, reference_species, reference_groups, taxon_reactions, organism_pathways, organism_modules)
 
@@ -366,6 +380,13 @@ def create_esmecata_network(input_folder, output_folder, mapping_ko=False, refer
             logger.info('|kegg2bipartitegraph|esmecata| Network of {0} contains {1} reactions and {2} metabolites.'.format(base_filename, len(kegg_model.getListOfReactions()), len(kegg_model.getListOfSpecies())))
         else:
             logger.info('|kegg2bipartitegraph|esmecata| No reactions in model for {0}, no SBML file will be created.'.format(base_filename))
+
+    module_class_file = os.path.join(output_folder, 'module_class.tsv')
+    with open(module_class_file, 'w') as open_module_class_file:
+        csvwriter = csv.writer(open_module_class_file, delimiter='\t')
+        csvwriter.writerow(['observation_name', *class_modules])
+        for class_dat in class_data:
+            csvwriter.writerow(class_dat)
 
     kegg_stat_file = os.path.join(output_folder, 'stat_number_kegg.tsv')
     with open(kegg_stat_file, 'w') as stat_file_open:
