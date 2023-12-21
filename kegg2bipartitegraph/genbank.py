@@ -60,6 +60,7 @@ def create_gbff_network(input_folder, output_folder, reference_folder=False):
     except:
         logger.critical('|kegg2bipartitegraph|genbank| kegg2bipartitegraph reconstruct_from_gbff needs biopython to parse gbff file.')
         logger.critical('|kegg2bipartitegraph|genbank| Install it with "pip install biopython.')
+        sys.exit()
 
     if reference_folder is not False:
         kegg_model_path = reference_folder
