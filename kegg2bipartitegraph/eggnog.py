@@ -26,7 +26,7 @@ import libsbml
 
 from kegg2bipartitegraph.utils import is_valid_dir, write_pathway_file, write_module_file
 from kegg2bipartitegraph import __version__ as kegg2bipartitegraph_version
-from kegg2bipartitegraph.mapping import retrieve_mapping_dictonaries, compute_stat_kegg
+from kegg2bipartitegraph.mapping import retrieve_mapping_dictonaries, compute_stat_kegg, get_go_to_ec
 from kegg2bipartitegraph.reference import sbml_to_graphml
 from kegg2bipartitegraph.sbml import create_sbml_from_kegg_reactions
 
@@ -136,6 +136,7 @@ def create_eggnog_network(eggnog_folder, output_folder, reference_folder=False):
     kegg_pathways_path = os.path.join(kegg_model_path, 'kegg_pathways.tsv')
     kegg_modules_path = os.path.join(kegg_model_path, 'kegg_modules.tsv')
     kegg_json_model_path = os.path.join(kegg_model_path, 'kegg_metadata.json')
+    ec_to_gos_path = os.path.join(kegg_model_path, 'ec_to_gos.tsv')
 
     # Some code if we want to read zipfile instead of all the other file.
     #import zipfile
@@ -209,11 +210,13 @@ def create_eggnog_network(eggnog_folder, output_folder, reference_folder=False):
     is_valid_dir(modules_output_folder_path)
 
     ko_to_reactions, ec_to_reactions = retrieve_mapping_dictonaries(kegg_rxn_mapping_path)
+    go_to_ecs = get_go_to_ec(ec_to_gos_path)
 
     stat_metabolic_networks = {}
     # Retrieve EC, KO and add reactions.
     for tsv_file in os.listdir(eggnog_folder):
         enzymes = {}
+        gos = {}
         org_kos = {}
         taxon_reactions = {}
         if 'emapper.annotations' in tsv_file:
@@ -221,6 +224,8 @@ def create_eggnog_network(eggnog_folder, output_folder, reference_folder=False):
             eggnog_annotation_path = os.path.join(eggnog_folder, tsv_file)
             eggnog_annotations = read_annotation(eggnog_annotation_path)
             for gene, annot_dict in eggnog_annotations:
+                if 'GOs' in annot_dict and annot_dict['GOs'] != '-':
+                    gos[gene] = annot_dict['GOs'].split(',')
                 if 'EC' in annot_dict and annot_dict['EC'] != '-':
                     enzymes[gene] = annot_dict['EC'].split(',')
                 if 'KEGG_ko' in annot_dict and annot_dict['KEGG_ko'] != '-':
@@ -233,6 +238,26 @@ def create_eggnog_network(eggnog_folder, output_folder, reference_folder=False):
                             taxon_reactions[kegg_reaction].append(gene)
             nb_reactions_from_eggnog = len(taxon_reactions)
             logger.info('|kegg2bipartitegraph|eggnog| Added {0} reactions for organism {1} from KEGG reaction of eggnog output.'.format(nb_reactions_from_eggnog, base_name))
+
+            # Use GO found to be associated to reference protein to retrieve KEGG reaction.
+            go_added_reactions = []
+            all_gos = []
+            for gene_id in gos:
+                go_ids = gos[gene_id]
+                all_gos.extend(go_ids)
+                for go_id in go_ids:
+                    if go_id in go_to_ecs:
+                        ec_ids = go_to_ecs[go_id]
+                        for ec_id in ec_ids:
+                            if ec_id in ec_to_reactions:
+                                reaction_ids = ec_to_reactions[ec_id]
+                                for reaction_id in reaction_ids:
+                                    go_added_reactions.append(reaction_id)
+                                    if reaction_id not in taxon_reactions:
+                                        taxon_reactions[reaction_id] = [gene_id]
+                                    else:
+                                        taxon_reactions[reaction_id].append(gene_id)
+            logger.info('|kegg2bipartitegraph|eggnog| Added {0} reactions from {1} GO for organism {2} from eggnog output.'.format(len(set(go_added_reactions)), len(set(all_gos)) , base_name))
 
             # Use EC found to be associated to reference protein to retrieve KEGG reaction.
             ec_added_reactions = []

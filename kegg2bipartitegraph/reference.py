@@ -29,7 +29,7 @@ from bioservices import version as bioservices_version
 from bioservices import KEGG
 from networkx import __version__ as networkx_version
 
-from kegg2bipartitegraph.utils import is_valid_dir
+from kegg2bipartitegraph.utils import is_valid_dir, urllib_query
 from kegg2bipartitegraph.sbml import libsbml_check, initiate_sbml_model
 from kegg2bipartitegraph import __version__ as kegg2bipartitegraph_version
 from kegg2bipartitegraph.graph import sbml_to_graphml
@@ -717,6 +717,34 @@ def get_kegg_database_version():
     return kegg_version
 
 
+def go_to_ec_and_kegg(ec2gos_file):
+    regex = r'GO:\d{7}'
+
+    response = urllib_query('http://current.geneontology.org/ontology/external2go/ec2go')
+    ec2gos = {}
+    for line in response.readlines():
+        read_line = line.decode('utf-8')
+        if not read_line.startswith('!'):
+
+            ec, gos = read_line.split(' >')
+            ec = ec.replace('EC:', '')
+            if ec in ec2gos:
+                print(ec)
+            go_id = re.search(regex, gos).group(0)
+            if '-' not in ec:
+                if ec not in ec2gos:
+                    ec2gos[ec] = [go_id]
+                else:
+                    ec2gos[ec].append(go_id)
+
+    output_tsv = os.path.join(ec2gos_file)
+    with open(output_tsv, 'w') as open_output_tsv:
+        csvwriter = csv.writer(open_output_tsv, delimiter='\t')
+        csvwriter.writerow(['ec_id', 'go_id'])
+        for ec_id in ec2gos:
+            csvwriter.writerow([ec_id, ','.join(ec2gos[ec_id])])
+
+
 def create_reference_base(output_folder=None):
     """ Create kegg2bipartiegraph database by querying KEGG API and processing it.
 
@@ -766,11 +794,13 @@ def create_reference_base(output_folder=None):
     kegg_modules_path = os.path.join(kegg_model_path, 'kegg_modules.tsv')
     kegg_hierarchy_path = os.path.join(kegg_model_path, 'kegg_hierarchy.json')
     kegg_metadata_path = os.path.join(kegg_model_path, 'kegg_metadata.json')
+    ec2gos_file = os.path.join(kegg_model_path, 'ec_to_gos.tsv')
 
     logger.info('|kegg2bipartitegraph|reference| Check missing files in {0}.'.format(DATA_ROOT))
     input_files = [kegg_compound_file_path, kegg_sbml_model_path, kegg_rxn_mapping_path,
                    kegg_pathways_path, kegg_modules_path, kegg_reactions_folder_path,
-                   kegg_removed_changed_reaction_path, kegg_hierarchy_path]
+                   kegg_removed_changed_reaction_path, kegg_hierarchy_path,
+                   ec2gos_file]
 
     missing_files = []
     for input_file in input_files:
@@ -787,6 +817,8 @@ def create_reference_base(output_folder=None):
                 logger.info('|kegg2bipartitegraph|reference| Retrieve reactions from KEGG to create SBML model.')
                 get_reactions(kegg_reactions_folder_path) 
 
+        if not os.path.exists(ec2gos_file):
+            go_to_ec_and_kegg(ec2gos_file)
         if not os.path.exists(kegg_compound_file_path):
             logger.info('|kegg2bipartitegraph|reference| Retrieve compound IDs and names from KEGG to create SBML model.')
             get_compound_names(kegg_compound_file_path)

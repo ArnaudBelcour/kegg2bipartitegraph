@@ -26,6 +26,21 @@ URLLIB_HEADERS = {'User-Agent': 'kegg2bipartitegraph annotation v' + kegg2bipart
 
 logger = logging.getLogger(__name__)
 
+def get_go_to_ec(ec_to_gos_file):
+    go_to_ecs = {}
+    with open(ec_to_gos_file, 'r') as open_ec_to_gos_file:
+        csvreader = csv.reader(open_ec_to_gos_file, delimiter='\t')
+        next(csvreader)
+        for line in csvreader:
+            ec_id = line[0]
+            gos = line[1].split(',')
+            for go in gos:
+                if go not in go_to_ecs:
+                    go_to_ecs[go] = [ec_id]
+                else:
+                    go_to_ecs[go].append(ec_id)
+    return go_to_ecs
+
 
 def retrieve_mapping_dictonaries(kegg_rxn_mapping_path):
     """From the KEGG tsv mapping file (creating at create_sbml_model_from_kegg_file)

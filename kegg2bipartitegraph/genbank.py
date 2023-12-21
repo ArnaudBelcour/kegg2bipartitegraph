@@ -29,7 +29,7 @@ from bioservices import version as bioservices_version
 
 from kegg2bipartitegraph.utils import is_valid_dir, write_pathway_file, write_module_file
 from kegg2bipartitegraph import __version__ as kegg2bipartitegraph_version
-from kegg2bipartitegraph.mapping import retrieve_mapping_dictonaries, compute_stat_kegg
+from kegg2bipartitegraph.mapping import retrieve_mapping_dictonaries, compute_stat_kegg, get_go_to_ec
 from kegg2bipartitegraph.reference import sbml_to_graphml
 from kegg2bipartitegraph.sbml import create_sbml_from_kegg_reactions
 
@@ -96,6 +96,7 @@ def create_gbff_network(input_folder, output_folder, reference_folder=False):
     kegg_pathways_path = os.path.join(kegg_model_path, 'kegg_pathways.tsv')
     kegg_modules_path = os.path.join(kegg_model_path, 'kegg_modules.tsv')
     kegg_json_model_path = os.path.join(kegg_model_path, 'kegg_metadata.json')
+    ec_to_gos_path = os.path.join(kegg_model_path, 'ec_to_gos.tsv')
 
    # Read the reference KEGG sbml file.
     # Use it to create the organism sbml file.
@@ -160,6 +161,7 @@ def create_gbff_network(input_folder, output_folder, reference_folder=False):
     is_valid_dir(modules_output_folder_path)
 
     ko_to_reactions, ec_to_reactions = retrieve_mapping_dictonaries(kegg_rxn_mapping_path)
+    go_to_ecs = get_go_to_ec(ec_to_gos_path)
 
     clust_pathways_output_folder_path = pathways_output_folder_path
     is_valid_dir(clust_pathways_output_folder_path)
@@ -175,7 +177,9 @@ def create_gbff_network(input_folder, output_folder, reference_folder=False):
 
         taxon_reactions = {}
         ec_orgs = []
+        go_orgs = []
         ec_added_reactions = []
+        go_added_reactions = []
         for record in SeqIO.parse(genbank_path, 'genbank'):
             for feature in record.features:
                 if 'EC_number' in feature.qualifiers:
@@ -191,9 +195,31 @@ def create_gbff_network(input_folder, output_folder, reference_folder=False):
                                     taxon_reactions[kegg_reaction] = [gene_id]
                                 else:
                                     taxon_reactions[kegg_reaction].append(gene_id)
+                gos = []
+                if 'go_component' in feature.qualifiers:
+                    gos.extend(feature.qualifiers['go_component'])
+                if 'go_function' in feature.qualifiers:
+                    gos.extend(feature.qualifiers['go_function'])
+                if 'go_process' in feature.qualifiers:
+                    gos.extend(feature.qualifiers['go_process'])
+                if len(gos) > 0:
+                    gene_id = feature.qualifiers['locus_tag'][0]
+                    for go in gos:
+                        go_orgs.append(go)
+                        if go in go_to_ecs:
+                            for ec_id in go_to_ecs[go]:
+                                if ec_id in ec_to_reactions:
+                                    reaction_ids = ec_to_reactions[ec_id]
+                                    for kegg_reaction in reaction_ids:
+                                        go_added_reactions.append(kegg_reaction)
+                                        if kegg_reaction not in taxon_reactions:
+                                            taxon_reactions[kegg_reaction] = [gene_id]
+                                        else:
+                                            taxon_reactions[kegg_reaction].append(gene_id)
         ec_orgs = set(ec_orgs)
-        ec_added_reactions
+        go_orgs = set(go_orgs)
         logger.info('|kegg2bipartitegraph|genbank| Added {0} reactions from {1} EC for taxon {2}.'.format(len(set(ec_added_reactions)), len(ec_orgs), base_filename))
+        logger.info('|kegg2bipartitegraph|genbank| Added {0} reactions from {1} GO for taxon {2}.'.format(len(set(go_added_reactions)), len(go_orgs), base_filename))
 
         total_added_reactions = list(taxon_reactions.keys())
         # Create pathway file contening pathway with reactions in the taxon.
