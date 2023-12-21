@@ -717,7 +717,12 @@ def get_kegg_database_version():
     return kegg_version
 
 
-def go_to_ec_and_kegg(ec2gos_file):
+def go_to_ec(ec_to_gos_file):
+    """Download the ec2go and extracts the association between EC and GO into a file.
+
+    Args:
+        ec_to_gos_file (str): output file which will contains association between EC and GO terms
+    """
     regex = r'GO:\d{7}'
 
     response = urllib_query('http://current.geneontology.org/ontology/external2go/ec2go')
@@ -737,7 +742,7 @@ def go_to_ec_and_kegg(ec2gos_file):
                 else:
                     ec2gos[ec].append(go_id)
 
-    output_tsv = os.path.join(ec2gos_file)
+    output_tsv = os.path.join(ec_to_gos_file)
     with open(output_tsv, 'w') as open_output_tsv:
         csvwriter = csv.writer(open_output_tsv, delimiter='\t')
         csvwriter.writerow(['ec_id', 'go_id'])
@@ -818,7 +823,7 @@ def create_reference_base(output_folder=None):
                 get_reactions(kegg_reactions_folder_path) 
 
         if not os.path.exists(ec2gos_file):
-            go_to_ec_and_kegg(ec2gos_file)
+            go_to_ec(ec2gos_file)
         if not os.path.exists(kegg_compound_file_path):
             logger.info('|kegg2bipartitegraph|reference| Retrieve compound IDs and names from KEGG to create SBML model.')
             get_compound_names(kegg_compound_file_path)

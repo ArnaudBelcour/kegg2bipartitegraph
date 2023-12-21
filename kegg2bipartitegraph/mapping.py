@@ -26,7 +26,17 @@ URLLIB_HEADERS = {'User-Agent': 'kegg2bipartitegraph annotation v' + kegg2bipart
 
 logger = logging.getLogger(__name__)
 
+
 def get_go_to_ec(ec_to_gos_file):
+    """From the EC to GO tsv mapping file (creating at go_to_ec in reference file)
+    retrieve a mapping dictionary between EC and GO
+
+    Args:
+        ec_to_gos_file (str): path to the EC to GO tsv file
+
+    Returns:
+        go_to_ecs (dict): mapping between GO term and list of EC numbers as value
+    """
     go_to_ecs = {}
     with open(ec_to_gos_file, 'r') as open_ec_to_gos_file:
         csvreader = csv.reader(open_ec_to_gos_file, delimiter='\t')
