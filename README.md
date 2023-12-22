@@ -2,7 +2,7 @@
 
 # kegg2bipartitegraph
 
-kegg2bipartitegraph is a Python package to create KEGG graphs. The main idea of this package is to create metabolic graphs from KEGG database according to the ones used in the article [Weber Zendrera et al. (2021)](https://www.nature.com/articles/s41598-021-91486-8). In this article, the authors creates the metabolic networks from the organism of KEGG (accessible in this [github repository](https://github.com/AWebZen/FunctionalPrediction5000species)). Using annotation (from EsMeCaTa, eggnog-mapper, KofamKOALA) or a KEGG organism ID, **kegg2bipartitegraph** maps the EC and reconstruct metabolic networks associated with the organism following the proposal of this article.
+kegg2bipartitegraph is a Python package to create KEGG graphs. The main idea of this package is to create metabolic graphs from KEGG database according to the ones used in the article [Weber Zendrera et al. (2021)](https://www.nature.com/articles/s41598-021-91486-8). In this article, the authors creates the metabolic networks from the organism of KEGG (accessible in this [github repository](https://github.com/AWebZen/FunctionalPrediction5000species)). Using annotation (from EsMeCaTa, eggnog-mapper, KofamKOALA or GenBank files) or a KEGG organism ID, **kegg2bipartitegraph** maps the EC (and Gene Ontology Terms) to KEGG reactions and reconstruct metabolic networks associated with the organism following the proposal of the article [Weber Zendrera et al. (2021)](https://www.nature.com/articles/s41598-021-91486-8).
 
 ## Installation
 
@@ -48,7 +48,7 @@ It will create several files:
 
 - `kegg_model.graphml`: the metabolic bipartite graph associated with the `kegg_model.sbml` file.
 
-- several mapping files to go from annotation (especially EC number) to KEGG reactions: `kegg_compound_name.tsv`, `kegg_mapping.tsv` and `kegg_pathways.tsv`. Also a file to use KEGG hierarchy for pathway/module/metabolite: `kegg_hierarchy.json`.
+- several mapping files to go from annotation (especially EC number) to KEGG reactions: `kegg_compound_name.tsv`, `kegg_mapping.tsv` and `kegg_pathways.tsv`. Also a file to use KEGG hierarchy for pathway/module/metabolite: `kegg_hierarchy.json`. A mapping file `ec_to_gos.tsv` to convert Gene Ontology terms to EC number using the [go2ec file](https://www.ebi.ac.uk/GOA/EC2GO) provided by the Gene Ontology Consortium.
 
 - `kegg_metadata.json`: a metadata file showing the metadata for the creation of the reference files for kegg2bipartitegraph.
 
@@ -65,6 +65,8 @@ Then it will create multiple files:
 - tsv files indicating the pathways/modules contained in the metabolic networks, their completness ratio and the associated reactions.
 
 - a tsv file showing KO information if the option has been used.
+
+- a `module_class.tsv` showing the absence/presence of generic module classes in the organism.
 
 - several statistics/metadata/log files.
 
@@ -98,3 +100,9 @@ Bornstein B. J., Keating S. M., Jouraku, A., Hucka, M., LibSBML: an API Library 
 
 Hagberg A. A., Schult D. A., Swart P. J. Exploring Network Structure, Dynamics, and Function using NetworkX, in: Varoquaux, G., Vaught, T., Millman, J. (Eds.), . Presented at the Proceedings of the Python in Science Conference (SciPy) 2008. 11–15. http://conference.scipy.org/proceedings/SciPy2008/paper_2/
 
+
+If you have used the subcommand `reconstruct_from_genbank`, please also cite:
+
+- `Biopython` for GenBank parsing:
+
+Cock, P.J.A., Antao, T., Chang, J.T., Chapman, B.A., Cox, C.J., Dalke, A., Friedberg, I., Hamelryck, T., Kauff, F., Wilczynski, B., de Hoon, M.J.L. Biopython: freely available Python tools for computational molecular biology and bioinformatics. Bioinformatics 2009, 25, 1422–1423 https://doi.org/10.1093/bioinformatics/btp163.

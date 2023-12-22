@@ -268,6 +268,7 @@ def create_esmecata_network(input_folder, output_folder, mapping_ko=False, refer
     clust_sbml_output_folder_path = sbml_output_folder_path
     is_valid_dir(clust_sbml_output_folder_path)
 
+    # Extract class modules
     with open(kegg_json_hierarchy_path, 'r') as open_hierarchy_json:
         hierarchy_json_data = json.load(open_hierarchy_json)
     hierarchy_json_data_module = hierarchy_json_data['module']['Pathway modules']
