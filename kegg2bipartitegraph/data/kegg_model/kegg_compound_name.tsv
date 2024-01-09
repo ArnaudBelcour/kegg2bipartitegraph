@@ -19284,7 +19284,7 @@ G00012	(GlcNAc)2 (Man)5 (Asn)1
 G00013	(GlcNAc)3 (Man)5 (Asn)1
 G00014	(GlcNAc)3 (Man)3 (Asn)1
 G00015	(GlcNAc)4 (Man)3 (Asn)1
-G00016	(GlcNAc)4 (LFuc)1 (Man)3 (Asn)1
+G00016	Core fucose
 G00017	(Gal)2 (GlcNAc)4 (LFuc)1 (Man)3 (Asn)1
 G00018	DS 3
 G00019	(GlcNAc)5 (Man)3 (Asn)1
@@ -19292,9 +19292,9 @@ G00020	(GlcNAc)5 (Man)3 (Asn)1
 G00021	(GlcNAc)6 (Man)3 (Asn)1
 G00022	(GlcNAc)7 (Man)3 (Asn)1
 G00023	Tn antigen
-G00024	T antigen
+G00024	Thomsen-Friedenreich antigen
 G00025	(Gal)1 (GalNAc)1 (GlcNAc)1 (Ser/Thr)1
-G00026	(Gal)1 (GalNAc)1 (Neu5Ac)1 (Ser/Thr)1
+G00026	Sialyl T antigen
 G00027	(Gal)1 (GalNAc)1 (Neu5Ac)2 (Ser/Thr)1
 G00028	(GalNAc)1 (GlcNAc)1 (Ser/Thr)1
 G00029	(GalNAc)1 (GlcNAc)2 (Ser/Thr)1
@@ -19347,7 +19347,7 @@ G00078	iso-nLc8Cer
 G00079	(Gal)4 (Glc)1 (GlcNAc)3 (LFuc)2 (Cer)1
 G00080	(Gal)6 (Glc)1 (GlcNAc)3 (LFuc)2 (Cer)1
 G00081	(Gal)3 (Glc)1 (GlcNAc)2 (LFuc)2 (Cer)1
-G00082	(Gal)3 (Glc)1 (GlcNAc)2 (LFuc)3 (Cer)1
+G00082	Trifucosyl Lewis y
 G00083	(Gal)4 (Glc)1 (GlcNAc)2 (LFuc)1 (Cer)1
 G00084	(Gal)4 (Glc)1 (GlcNAc)3 (LFuc)1 (Cer)1
 G00085	(Gal)4 (Glc)1 (GlcNAc)3 (LFuc)2 (Cer)1
@@ -19360,7 +19360,7 @@ G00091	(Gal)3 (Glc)1 (GlcNAc)2 (LFuc)1 (Neu5Ac)1 (Cer)1
 G00092	Lactosylceramide
 G00093	Globotriaosylceramide
 G00094	Globoside
-G00095	Forssman antigen, IV3GalNAca-Gb4Cer
+G00095	Forssman antigen
 G00096	IV3GalNAcb-Gb4Cer
 G00097	Galactosylgloboside
 G00098	Monosialylgalactosylgloboside
@@ -19389,7 +19389,7 @@ G00120	GT1c
 G00121	GQ1c
 G00122	GP1c
 G00123	GA2
-G00124	GA1
+G00124	Asialo-GM1
 G00125	GM1b
 G00126	GD1c
 G00127	GD1a
@@ -19506,7 +19506,7 @@ G00259	Digitoxin
 G00260	BI6F
 G00261	(Gal)1 (GalNAc)1 (Neu5Ac)1
 G00262	Ginsenoside
-G00263	IV2Fuc,III4Fuc-Lc4-Cer
+G00263	Lewis b antigen
 G00264	Abrisaponin
 G00265	6'-Sialyllactose
 G00266	Blood group substance A
@@ -20260,7 +20260,7 @@ G01143	(Gal)2 (GlcNAc)4 (Man)3 (Neu5Ac)2
 G01145	3',8'-isoLD1
 G01146	(GlcNAc)1 (Man)10
 G01147	(Gal)3 (Glc)1 (GlcNAc)2 (LFuc)1 (Neu5Ac)1 (Cer)1
-G01148	(Gal)2 (Glc)1 (GlcNAc)1 (LFuc)1 (Neu5Ac)2 (Cer)1
+G01148	Disialyl Lewis a
 G01150	Gpent1a
 G01151	(GlcNAc)7 (Man)3
 G01152	(Gal)2 (GalNAc)1 (Glc)1 (LFuc)1 (Neu5Gc)1 (Cer)1
@@ -20436,7 +20436,7 @@ G01352	(Gal)1 (Glc)1 (LRha)1 (Xyl)2
 G01353	(GlcNAc)3 (Man)3
 G01354	(3,6-Anhydro-Gal)2 (Gal)2 (S)1
 G01356	(Man)5
-G01357	(Gal)1 (GalNAc)1 (Neu5Ac)1
+G01357	Cad antigen
 G01359	(GlcNAc)1 (Kdo)3
 G01360	(Gal)3 (Glc)1
 G01362	(GlcNAc)1 (Man)2 (Tal)1
@@ -20822,7 +20822,7 @@ G01836	GD1a-KDN
 G01837	(Gal)1 (GalNAc)1 (GlcNAc)4 (LFuc)1 (Man)3
 G01839	XFFG
 G01841	(Gal)2 (GlcNAc)5 (Man)3
-G01843	(Gal)3 (Glc)1 (GlcNAc)2 (LFuc)3 (Cer)1
+G01843	Trifucosyl Lewis b
 G01844	(Gal)4 (GlcNAc)4
 G01846	PSGP
 G01847	(Glc)1 (GlcNAc)2 (Man)7
@@ -30171,7 +30171,6 @@ G13010	Escherichia coli O145 O-antigen
 G13011	Escherichia coli O149 O-antigen
 G13012	Escherichia coli O172 O-antigen
 G13013	Escherichia coli O173 O-antigen
-G13014	GM3 (Neu5Gc)
 G13015	Glucopsychosine
 G13017	K98 antigen
 G13019	Escherichia coli O171 O-antigen
@@ -30220,8 +30219,6 @@ G13062	(Gal)2 (GlcA)3 (GlcNAc)3 (Xyl)1 (Ser)1
 G13063	Binding domain for FGF2 in heparin/heparan sulfate
 G13064	Binding domain for HGF in heparin/heparan sulfate
 G13065	Polysialic acid (PSA)
-G13066	Bisecting GlcNAc
-G13067	Core fucose of N-glycan
 G13068	(Gal)1 (Glc)1 (Neu5Ac)1
 G13070	Fucosylated AFP
 G13071	Forssman antigen

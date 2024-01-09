@@ -20,6 +20,7 @@ WARNING: Rename command `kegg2bipartitegraph` into `k2bg`.
 * Rename command `kegg2bipartitegraph` into `k2bg`.
 * Several optimisation to increase speed on large dataset.
 * Update license year.
+* Update database to KEGG 109.
 
 # Kegg2bipartitegraph v0.0.3 (2023-12-11)
 

@@ -7,7 +7,7 @@ R11379	glycan				[('G10611', 1), ('G11492', 1)]	[('G10619', 1), ('G13080', 1)]	K
 R05913	glycan				[('G10616', 1), ('G00024', 1)]	[('G10621', 1), ('G00026', 1)]	K00780 or K03368
 R07816	glycan			C00140	[('G13038', 1), ('C00001', 1)]	[('G13039', 1), ('C00140', 1)]	K01205
 R05944	glycan				[('G10615', 1), ('G00110', 1)]	[('G10620', 1), ('G00166', 1)]	
-R02465	change_stoichiometry	Hyaluronate lyase	C00518	C04794	[('C00518', 1)]	[('C04794', 1)]	
+R02465	change_stoichiometry	hyaluronate lyase	C00518	C04794	[('C00518', 1)]	[('C04794', 1)]	
 R06075	glycan				[('G10615', 1), ('G00062', 1)]	[('G10620', 1), ('G00063', 1)]	K00716 or K07632 or K07633 or K07634 or K07635
 R10905	glycan				[('G10505', 1), ('C00001', 1)]	[('G10505', 1), ('G00526', 1)]	K01197
 R07821	glycan	L-iduronate-2-sulfate 2-sulfohydrolase			[('G13041', 1), ('C00001', 1)]	[('G13042', 1), ('C00059', 1)]	K01136
@@ -83,7 +83,7 @@ R06289	glycan	mycothiol:NAD(P)+ oxidoreductase;			[('G11174', 2), ('C00003', 1)]
 R12479	glycan			C00159	[('G10694', 1), ('C00001', 3)]	[('G00012', 1), ('C00159', 3)]	K01230
 R07625	glycan				[('G10610', 1), ('G13030', 1)]	[('G10619', 1), ('G13029', 1)]	K09661
 R02016	ubiquitous_reactants	NADPH:oxidized-thioredoxin oxidoreductase		C00343	[('C00342', 1), ('C00006', 1)]	[('C00343', 1), ('C00005', 1), ('C00080', 1)]	K00384
-R00103	ubiquitous_reactants	NAD+ phosphohydrolase		C00020,C00455	[('C00003', 1), ('C00001', 1)]	[('C00020', 1), ('C00455', 1)]	K01513 or K03426 or K04765
+R00103	ubiquitous_reactants	NAD+ phosphohydrolase		C00020,C00455	[('C00003', 1), ('C00001', 1)]	[('C00020', 1), ('C00455', 1)]	K01513 or K03426 or K04765 or K26956
 R00113	ubiquitous_products	NADPH:hydrogen-peroxide oxidoreductase	C00027		[('C00027', 1), ('C00005', 1), ('C00080', 1)]	[('C00006', 1), ('C00001', 2)]	
 R05961	glycan			C00124	[('C00001', 1), ('G00093', 1)]	[('C00124', 1), ('G00092', 1)]	K01189 or K07406 or K07407
 R06215	glycan				[('G10616', 1), ('G00050', 1)]	[('G10621', 1), ('G00061', 1)]	
@@ -168,7 +168,7 @@ R06016	glycan				[('G10613', 1), ('G00015', 1)]	[('G10619', 1), ('G00179', 1)]	K
 R12817	glycan				[('G10608', 1), ('G13195', 1)]	[('G10619', 1), ('G13196', 1)]	K25650
 R06038	glycan				[('G10615', 1), ('G00067', 1)]	[('G10620', 1), ('G00089', 1)]	K00716 or K03663 or K07632 or K07633 or K07634
 R05996	glycan		C00270		[('G00116', 1), ('C00270', 1)]	[('G00117', 1), ('C00001', 1)]	
-R02333	change_stoichiometry	Chitin amidohydrolase	C00461	C00734,C00033	[('C00461', 1), ('C00001', 1)]	[('C00734', 1), ('C00033', 1)]	K01452
+R02333	change_stoichiometry	chitin amidohydrolase	C00461	C00734,C00033	[('C00461', 1), ('C00001', 1)]	[('C00734', 1), ('C00033', 1)]	K01452
 R06044	glycan	trehalose 6-phosphate:phosphate beta-D-glucosyltransferase		C00092,C00663	[('G09795', 1), ('C00009', 1)]	[('C00092', 1), ('C00663', 1)]	
 R12874	change_stoichiometry				[('G10610', 1), ('G13173', 1)]	[('G10619', 1), ('G13178', 1)]	K25669
 R06051	glycan	UDP-glucose:glycogen 4-alpha-D-glucosyltransferase			[('G10495', 1), ('G10608', 1)]	[('G10495', 1), ('G10619', 1)]	
@@ -232,6 +232,7 @@ R06021	glycan				[('G10609', 1), ('G00077', 1)]	[('G10619', 1), ('G00078', 1)]
 R09295	glycan	GDP-beta-L-fucose:polypeptide O-alpha-L-fucosyltransferase	C02189		[('G10615', 1), ('C02189', 1)]	[('G10620', 1), ('G13052', 1)]	K03691
 R09296	glycan	UDP-D-GlcNAc:O-L-fucosylpeptide 3-beta-N-acetyl-D-glucosaminyltransferase			[('G10610', 1), ('G13052', 1)]	[('G10619', 1), ('G13053', 1)]	K05948
 R06217	glycan				[('G00370', 1)]	[('G01241', 1)]	
+R13205	ubiquitous_reactants	calvin cycle		C00118	[('C00002', 9), ('C00005', 6), ('C00011', 3), ('C00001', 5), ('C00080', 6)]	[('C00008', 9), ('C00006', 6), ('C00118', 1), ('C00009', 8)]	
 R11316	glycan			C00140	[('G13056', 1), ('C00001', 1)]	[('C00140', 1), ('G10665', 1)]	K12373
 R05946	glycan				[('G10611', 1), ('G00113', 1)]	[('G10619', 1), ('G00114', 1)]	K00725
 R05928	glycan				[('G10612', 1), ('G00156', 1)]	[('G10619', 1), ('G00157', 1)]	K10158
@@ -328,7 +329,7 @@ R05916	glycan		C01194		[('G10610', 1), ('C01194', 1)]	[('G10619', 1), ('G00143',
 R05981	glycan	GlcMan9GlcNAc2-[protein] 3-alpha-glucohydrolase (configuration-inverting)		C00031	[('C00001', 1), ('G00010', 1)]	[('C00031', 1), ('G00011', 1)]	K05546
 R06118	glycan			C01019,C03619	[('G10523', 1), ('C00001', 1)]	[('C01019', 1), ('C03619', 1)]	
 R12295	glycan		C00789		[('G13093', 1), ('C00789', 1)]	[('G13094', 1), ('G10621', 1)]	K19873
-R06170	glycan	Galactoside alpha-1,2-L-fucosyltransferase			[('G10615', 1), ('G00038', 1)]	[('G10620', 1), ('G00039', 1)]	K00718
+R06170	glycan	galactoside alpha-1,2-L-fucosyltransferase			[('G10615', 1), ('G00038', 1)]	[('G10620', 1), ('G00039', 1)]	K00718
 R05926	glycan				[('G10609', 1), ('G00154', 1)]	[('G10619', 1), ('G00155', 1)]	K00733
 R06145	glycan				[('G00246', 1), ('G10609', 1)]	[('G00304', 1), ('G10619', 1)]	K00743
 R13174	glycan	alpha-(1->3)-L-fucosyltransferase			[('G00052', 1), ('G10615', 1)]	[('G01439', 1), ('G10620', 1)]	K00716
@@ -384,7 +385,7 @@ R00126	ubiquitous_reactants	ADP:ATP adenylyltransferase		C01260	[('C00008', 1), 
 R06206	glycan				[('C00001', 1), ('G10499', 1)]	[('G10499', 1), ('G10499', 1)]	
 R06179	glycan			C04574	[('G10553', 1), ('G10554', 1)]	[('C04574', 1), ('G10554', 1)]	
 R12293	glycan				[('G13091', 1), ('C00002', 1)]	[('G13092', 1), ('G11113', 1)]	K17547
-R00131	ubiquitous_products	Urea amidohydrolase	C00086		[('C00086', 1), ('C00001', 1)]	[('C00011', 1), ('C00014', 2)]	K01427 or K01428 or K01429 or K01430 or K14048
+R00131	ubiquitous_products	urea amidohydrolase	C00086		[('C00086', 1), ('C00001', 1)]	[('C00011', 1), ('C00014', 2)]	K01427 or K01428 or K01429 or K01430 or K14048
 R00530	ubiquitous_reactants	ADP:sulfate adenylyltransferase		C00224	[('C00008', 1), ('C00059', 1)]	[('C00009', 1), ('C00224', 1)]	K00988 or K22966
 R06182	glycan	UDP-N-acetyl-D-glucosamine:poly(ribitol-phosphate) alpha-N-acetylglucosaminyltransferase			[('G10558', 1), ('G10610', 1)]	[('G10560', 1), ('G10619', 1)]	K22710
 R06059	glycan	sucrose:2,1-beta-D-fructan 1-beta-D-fructosyltransferase		C00031	[('G10497', 1), ('G00370', 1)]	[('G10497', 1), ('C00031', 1)]	
@@ -424,7 +425,7 @@ R07316	ubiquitous_products		C01563		[('C01563', 1)]	[('C00014', 1), ('C00011', 1
 R06244	glycan		C00007	C00027	[('G00289', 1), ('C00007', 1)]	[('G10590', 1), ('C00027', 1)]	
 R05975	glycan				[('G10610', 1), ('G00050', 1)]	[('G10619', 1), ('G00066', 1)]	K00741 or K07970 or K07971
 R10517	ubiquitous_products	NADH:oxygen oxidoreductase (H2O-forming)	C00007		[('C00004', 2), ('C00080', 2), ('C00007', 1)]	[('C00003', 2), ('C00001', 2)]	
-R00128	ubiquitous_products	Adenosine-tetraphosphate phosphohydrolase	C03483		[('C03483', 1), ('C00001', 1)]	[('C00002', 1), ('C00009', 1)]	
+R00128	ubiquitous_products	adenosine-tetraphosphate phosphohydrolase	C03483		[('C03483', 1), ('C00001', 1)]	[('C00002', 1), ('C00009', 1)]	
 R06030	glycan	GDP-glucose:1,4-beta-D-glucan 4-beta-D-glucosyltransferase			[('G10481', 1), ('G10620', 1)]	[('G10481', 1), ('G11108', 1)]	
 R06283	glycan			C00195	[('C00001', 1), ('G00332', 1)]	[('C00195', 1), ('G02952', 1)]	
 R06127	glycan	GDP-mannose:glycolipid 1,2-alpha-D-mannosyltransferase			[('G00005', 1), ('G10614', 1)]	[('G10526', 1), ('G10620', 1)]	K03844
@@ -438,7 +439,7 @@ R05968	glycan				[('G10615', 1), ('G00097', 1)]	[('G10620', 1), ('G00099', 1)]	K
 R07615	glycan				[('G10611', 1), ('G01977', 1)]	[('G10619', 1), ('G13024', 1)]	K09664
 R05911	glycan				[('G10616', 1), ('G00023', 1)]	[('G10621', 1), ('G00035', 1)]	K03479
 R06245	glycan				[('G00289', 1)]	[('G01630', 1)]	
-R02362	change_stoichiometry	Pectin pectylhydrolase	C00714	C00132,C00470	[('C00714', 1), ('C00001', 1)]	[('C00132', 1), ('C00470', 1)]	K01051
+R02362	change_stoichiometry	pectin pectylhydrolase	C00714	C00132,C00470	[('C00714', 1), ('C00001', 1)]	[('C00132', 1), ('C00470', 1)]	K01051
 R06073	glycan	UDP-glucose:D-fructose-6-phosphate 2-alpha-D-glucosyltransferase	C00085		[('G10608', 1), ('C00085', 1)]	[('G10619', 1), ('G10508', 1)]	
 R05966	glycan			C01132	[('C00001', 1), ('G00095', 1)]	[('C01132', 1), ('G00094', 1)]	K01204
 R07820	glycan		C00426	C00426	[('C00426', 1), ('C00001', 1)]	[('C00426', 1), ('G13041', 1)]	
@@ -446,7 +447,7 @@ R06225	glycan		C00329		[('C00329', 1), ('G10536', 1)]	[('G10536', 1), ('C00001',
 R12823	change_stoichiometry			C04574	[('G13201', 1)]	[('C04574', 1), ('G13202', 1)]	K25659
 R07628	glycan				[('G10609', 1), ('G00031', 1)]	[('G10619', 1), ('G00032', 1)]	K09905
 R12902	glycan		C00641		[('G10608', 1), ('C00641', 1)]	[('G10619', 1), ('G13187', 1)]	K19002
-R12806	change_stoichiometry	CDP-glycerol:4-O-[(2R)-1-Glycerophospho]-N-acetyl-beta-D-mannosaminyl-(1->4)-N-acetyl-alpha-D-glucosaminyl-diphospho-ditrans,octacis-undecaprenol glycerophosphotransferase	C00513,C21464	C00055,C22411	[('C00513', 1), ('C21464', 1)]	[('C00055', 1), ('C22411', 1)]	K09809
+R12806	change_stoichiometry	CDP-glycerol:4-O-[(2R)-1-glycerophospho]-N-acetyl-beta-D-mannosaminyl-(1->4)-N-acetyl-alpha-D-glucosaminyl-diphospho-ditrans,octacis-undecaprenol glycerophosphotransferase	C00513,C21464	C00055,C22411	[('C00513', 1), ('C21464', 1)]	[('C00055', 1), ('C22411', 1)]	K09809
 R06258	glycan				[('G10617', 1), ('G00006', 1)]	[('G10622', 1), ('G10595', 1)]	K03845
 R00124	ubiquitous_products	ATP:ADP phosphatransferase			[('C00002', 1), ('C00008', 1)]	[('C00008', 1), ('C00002', 1)]	K00940 or K18533
 R06147	glycan		C00270		[('G11121', 1), ('C00270', 1)]	[('G00317', 1), ('C00001', 1)]	K01186 or K12357
@@ -496,7 +497,7 @@ R11375	glycan				[('G10609', 1), ('G00050', 1)]	[('G10619', 1), ('G00428', 1)]	K
 R06080	glycan			C00267,C00031	[('G01318', 1), ('C00001', 1)]	[('C00267', 1), ('C00031', 1)]	
 R06221	glycan				[('G10615', 1), ('G00089', 1)]	[('G10620', 1), ('G00090', 1)]	K00716 or K03663 or K07632 or K07633 or K07634
 R06057	glycan	beta-D-galactopyranosyl-(1->3)-N-acetyl-D-hexosamine:phosphate galactosyltransferase		C00446,C00140	[('G00284', 1), ('C00009', 1)]	[('C00446', 1), ('C00140', 1)]	
-R00138	ubiquitous_products	Triphosphate phosphohydrolase	C00536		[('C00536', 1), ('C00001', 1)]	[('C00013', 1), ('C00009', 1)]	
+R00138	ubiquitous_products	triphosphate phosphohydrolase	C00536		[('C00536', 1), ('C00001', 1)]	[('C00013', 1), ('C00009', 1)]	
 R09139	ubiquitous_products		C18244		[('C18244', 1)]	[('C00011', 1)]	
 R11999	change_stoichiometry	cis-1,4-polyisoprene:oxygen dioxygenase [(4Z,8Z)-4,8-dimethyl-12-oxotrideca-4,8-dienal-forming]	C02321,C00007	C21834	[('C02321', 1), ('C00007', 1)]	[('C21834', 1)]	
 R09721	change_stoichiometry	peptidoglycan-N-acetylglucosamine amidohydrolase	C04394	C19842,C00033	[('C04394', 1), ('C00001', 1)]	[('C19842', 1), ('C00033', 1)]	
@@ -509,15 +510,15 @@ R06104	glycan			C00031	[('G00289', 1), ('C00001', 1)]	[('C00031', 2)]
 R11994	glycan				[('G10614', 1), ('G13108', 1)]	[('G10620', 1), ('G13103', 1)]	K14335
 R05967	glycan				[('G10616', 1), ('G00097', 1)]	[('G10621', 1), ('G00098', 1)]	K00780 or K03368
 R00090	ubiquitous_products	NADH:hydrogen-peroxide oxidoreductase	C00027		[('C00027', 1), ('C00004', 1), ('C00080', 1)]	[('C00003', 1), ('C00001', 2)]	
-R05196	change_stoichiometry	1,4-alpha-D-Glucan:1,4-alpha-D-glucan 4-alpha-D-glycosyltransferase	C00718,C00031	C00208	[('C00718', 1), ('C00031', 1)]	[('C00208', 1)]	K00705 or K22451
+R05196	change_stoichiometry	1,4-alpha-D-glucan:1,4-alpha-D-glucan 4-alpha-D-glycosyltransferase	C00718,C00031	C00208	[('C00718', 1), ('C00031', 1)]	[('C00208', 1)]	K00705 or K22451
 R06152	glycan			C00124	[('G00278', 1), ('C00001', 1)]	[('G00249', 1), ('C00124', 1)]	
 R06074	glycan		C04150	C02970	[('C04150', 1), ('G10509', 1)]	[('C02970', 1), ('G10509', 1)]	
 R06135	glycan	sucrose:sucrose 1F-beta-D-fructosyltransferase		C00031	[('G00370', 2)]	[('G02515', 1), ('C00031', 1)]	K21351
-R00153	ubiquitous_products	Reduced ferredoxin:dinitrogen oxidoreductase (ATP-hydrolysing)	C05361,C05359		[('C05361', 1), ('C05359', 2), ('C00080', 2)]	[('C00014', 2)]	
+R00153	ubiquitous_products	reduced ferredoxin:dinitrogen oxidoreductase (ATP-hydrolysing)	C05361,C05359		[('C05361', 1), ('C05359', 2), ('C00080', 2)]	[('C00014', 2)]	
 R12819	glycan				[('G10611', 1), ('G13197', 1)]	[('G10619', 1), ('G13198', 1)]	K25652
 R07621	glycan				[('G10610', 1), ('G13026', 1)]	[('G10619', 1), ('G13028', 1)]	K09661
 R06174	glycan				[('G10556', 1), ('G10610', 1)]	[('G10555', 1), ('G10619', 1)]	K02563
-R03917	change_stoichiometry	poly-cis-Polyprenyl-diphosphate:isopentenyl-diphosphate polyprenylcistransferase	C00129	C02321	[('C00129', 1)]	[('C02321', 1), ('C00013', 1)]	
+R03917	change_stoichiometry	poly-cis-polyprenyl-diphosphate:isopentenyl-diphosphate polyprenylcistransferase	C00129	C02321	[('C00129', 1)]	[('C02321', 1), ('C00013', 1)]	
 R05191	change_stoichiometry	UDP-D-galacturonate:1,4-alpha-poly-D-galacturonate 4-alpha-D-galacturonosyltransferase	C00617	C00015,C00714	[('C00617', 1)]	[('C00015', 1), ('C00714', 1)]	K13648
 R06012	glycan			C00270	[('G00109', 1), ('C00001', 1)]	[('G00123', 1), ('C00270', 1)]	
 R06055	glycan	UDP-galactose:N-acetyl-D-glucosamine 4-beta-D-galactosyltransferase	C00140		[('G10609', 1), ('C00140', 1)]	[('G00246', 1), ('G10619', 1)]	
@@ -531,7 +532,7 @@ R06130	glycan	UDP-galactose:sucrose 6F-alpha-D-galactosyltransferase			[('G00370
 R05923	glycan		C00350	C00641	[('C00350', 1), ('G00140', 1)]	[('C00641', 1), ('G00141', 1)]	
 R09300	glycan				[('G10614', 1), ('G13027', 1)]	[('G10620', 1), ('G10737', 1)]	K10967
 R06005	glycan				[('G10616', 1), ('G00110', 1)]	[('G10621', 1), ('G00115', 1)]	
-R13204	ubiquitous_reactants	Oxygenic photosynthesis		C00267,C00007	[('C00011', 6), ('C00001', 6)]	[('C00267', 1), ('C00007', 6)]	
+R13204	ubiquitous_reactants	oxygenic photosynthesis		C00267,C00007	[('C00011', 6), ('C00001', 6)]	[('C00267', 1), ('C00007', 6)]	
 R05970	glycan				[('G10610', 1), ('G00001', 1)]	[('G10619', 1), ('G00002', 1)]	K07432 or K07441
 R12039	glycan	acyl-CoA:phosphatidyl-myo-inositol-monomannoside acyltransferase	C00040	C00010	[('C00040', 1), ('G11291', 1)]	[('C00010', 1), ('G13107', 1)]	K22311
 R05988	glycan				[('G10615', 1), ('G00015', 1)]	[('G10620', 1), ('G00016', 1)]	K00717
@@ -575,7 +576,7 @@ R06163	glycan				[('G10615', 1), ('G00044', 1)]	[('G10620', 1), ('G00045', 1)]	K
 R07818	glycan			C00191	[('G13040', 1), ('C00001', 1)]	[('G09660', 1), ('C00191', 1)]	K01195
 R06084	glycan			C00267	[('G00275', 1), ('C00001', 1)]	[('C00267', 2)]	
 R12080	glycan				[('G13125', 1), ('G13121', 1)]	[('G10619', 1), ('G13122', 1)]	K16650
-R00149	ubiquitous_reactants	Carbon-dioxide:ammonia ligase (ADP-forming,carbamate-phosphorylating)		C00169	[('C00002', 2), ('C00014', 1), ('C00011', 1), ('C00001', 1)]	[('C00008', 2), ('C00009', 1), ('C00169', 1)]	K01948
+R00149	ubiquitous_reactants	carbon-dioxide:ammonia ligase (ADP-forming,carbamate-phosphorylating)		C00169	[('C00002', 2), ('C00014', 1), ('C00011', 1), ('C00001', 1)]	[('C00008', 2), ('C00009', 1), ('C00169', 1)]	K01948
 R12702	glycan		C00350	C00641	[('C00350', 1), ('G13044', 1)]	[('C00641', 1), ('G13152', 1)]	K05287 or K05310
 R02017	ubiquitous_products	2'-deoxyadenosine 5'-diphosphate:oxidized-thioredoxin 2'-oxidoreductase	C00206,C00343		[('C00206', 1), ('C00343', 1), ('C00001', 1)]	[('C00342', 1), ('C00008', 1)]	K00525 or K00526 or K10807 or K10808
 R12637	glycan	UDP-alpha-D-xylose:[EGF-like domain protein]-3-O-[alpha-D-xylosyl-(1->3)-beta-D-glucosyl]-L-serine 3-alpha-D-xylosyltransferase (configuration-retaining)			[('G10613', 1), ('G03532', 1)]	[('G10619', 1), ('G10913', 1)]	K23800
