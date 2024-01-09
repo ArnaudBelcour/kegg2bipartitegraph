@@ -1,6 +1,6 @@
 # Changelog
 
-# Kegg2bipartitegraph v0.0.4 (2024-01-09)
+# Kegg2bipartitegraph v0.1.0 (2024-01-09)
 
 WARNING: Rename command `kegg2bipartitegraph` into `k2bg`.
 
