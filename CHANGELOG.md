@@ -8,7 +8,7 @@ WARNING: Rename command `kegg2bipartitegraph` into `k2bg`.
 
 * `reconstruct_from_genbank`: using EC numbers from GenBank files to create metabolic graphs. Add also associated test.
 * Mapping between Gene Ontology terms and EC numbers using Gene Ontology `ec2go` into a new file `ec_to_gos.tsv`. Used in `reconstruct_from_esmecata`, `reconstruct_from_eggnog` and `reconstruct_from_genbank`.
-* Hierarchy for metabolites, pathways and modules. This is used in picrust and esmecata to identify classes of modules in organisms.
+* Hierarchy for metabolites, pathways and modules. This is used to identify classes of modules in organisms.
 * Function to handle gene compatibility to SBML.
 
 ## Fix
