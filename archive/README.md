@@ -6,6 +6,6 @@ The compatibility between the latest K2BG version and these reference models are
 
 | Reference model  | Kegg2BipartiteGraph   |
 |---|---|
-| 106  | 0.0.3 |
-| 108  | 0.0.4 |
 | 109  | 0.0.4 |
+| 108  | 0.0.4 |
+| 106  | 0.0.3 |
