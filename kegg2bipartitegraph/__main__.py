@@ -26,7 +26,7 @@ from kegg2bipartitegraph.kofamkoala import create_kofamkoala_network
 from kegg2bipartitegraph.picrust import create_picrust_network
 from kegg2bipartitegraph.genbank import create_gbff_network
 from kegg2bipartitegraph.reference import create_reference_base
-from kegg2bipartitegraph.utils import is_valid_dir
+from kegg2bipartitegraph.utils import is_valid_dir, get_internal_reference_model_path, get_current_database_version
 from kegg2bipartitegraph import __version__ as VERSION
 
 MESSAGE = '''
@@ -42,10 +42,16 @@ def main():
         'k2bg',
         description=MESSAGE + ' For specific help on each subcommand use: esmecata {cmd} --help'
     )
+
+    # Retrieve version of KEGG used for reference model.
+    reference_model_path = get_internal_reference_model_path()
+    kegg_database_version = 'Version of KEGG database used for reference model: ' + get_current_database_version(reference_model_path)
+    version_message = '%(prog)s version: ' + VERSION + ', '+ kegg_database_version
+
     parser.add_argument(
         '--version',
         action='version',
-        version='%(prog)s ' + VERSION + '\n')
+        version=version_message)
 
 
     parent_parser_i = argparse.ArgumentParser(add_help=False)

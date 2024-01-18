@@ -16,6 +16,7 @@
 import argparse
 import csv
 import datetime
+import json
 import logging
 import os
 import urllib.request
@@ -182,6 +183,33 @@ def get_rest_uniprot_release(options):
     uniprot_releases['tool_options'] = options
 
     return uniprot_releases
+
+
+def get_internal_reference_model_path():
+    """ Retrieve path to reference model.
+
+    Returns:
+        kegg_model_path (str): Path to reference model
+    """
+    reference_root = os.path.dirname(__file__)
+    kegg_model_path = os.path.join(reference_root, 'data', 'kegg_model')
+
+    return kegg_model_path
+
+
+def get_current_database_version(database_path):
+    """ Retrieve database version, using metadata file.
+
+    Returns:
+        database_version (str): KEGG database version of reference model
+    """
+    kegg_json_model_path = os.path.join(database_path, 'kegg_metadata.json')
+
+    with open(kegg_json_model_path, 'r') as input_metadata_json:
+        json_data = json.load(input_metadata_json)
+    database_version = json_data['kegg_release_number']
+
+    return database_version
 
 
 def write_pathway_file(kegg_pathways, pathways_output_file_path, total_added_reactions):
