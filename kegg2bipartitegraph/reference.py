@@ -222,12 +222,11 @@ def get_modules(module_file):
     modules = {}
     for line in csvreader:
         module_id = line[0]
-        module_data = line[1].split(', ')
-        if len(module_data) > 2:
-            module_name = module_data[0]
+        module_name = line[1]
+        if '=>' in line[1]:
+            module_data = line[1].split(', ')
             module_formula = module_data[-1]
         else:
-            module_name = module_data[0]
             module_formula = ''
         modules[module_id] = (module_name, module_formula)
 
