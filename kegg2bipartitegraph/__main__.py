@@ -26,6 +26,7 @@ from kegg2bipartitegraph.kofamkoala import create_kofamkoala_network
 from kegg2bipartitegraph.picrust import create_picrust_network
 from kegg2bipartitegraph.genbank import create_gbff_network
 from kegg2bipartitegraph.reference import create_reference_base
+from kegg2bipartitegraph.scope import compute_scope
 from kegg2bipartitegraph.utils import is_valid_dir, get_internal_reference_model_path, get_current_database_version
 from kegg2bipartitegraph import __version__ as VERSION
 
@@ -60,8 +61,26 @@ def main():
         '--input',
         dest='input',
         required=True,
-        help='Input folder corresponds to esmecata annotation folder.',
+        help='Input folder corresponding to esmecata annotation folder.',
         metavar='INPUT_DIR')
+
+    parent_parser_i_scope = argparse.ArgumentParser(add_help=False)
+    parent_parser_i_scope.add_argument(
+        '-i',
+        '--input',
+        dest='input',
+        required=True,
+        help='Input folder containing graphml file.',
+        metavar='INPUT_DIR')
+
+    parent_parser_s_scope = argparse.ArgumentParser(add_help=False)
+    parent_parser_s_scope.add_argument(
+        '-s',
+        '--seed',
+        dest='seed_file',
+        required=True,
+        help='Seed file for scoep analysis (txt file of KEGG ID, one per row).',
+        metavar='INPUT_FILE')
 
     parent_parser_i_eggnog = argparse.ArgumentParser(add_help=False)
     parent_parser_i_eggnog.add_argument(
@@ -69,7 +88,7 @@ def main():
         '--input',
         dest='input',
         required=True,
-        help='Input folder corresponds to a folder containing eggnog-mapper .emapper.annotations files.',
+        help='Input folder corresponding to a folder containing eggnog-mapper .emapper.annotations files.',
         metavar='INPUT_DIR')
 
     parent_parser_i_kofamkoala = argparse.ArgumentParser(add_help=False)
@@ -78,7 +97,7 @@ def main():
         '--input',
         dest='input',
         required=True,
-        help='Input folder corresponds to a folder containing multiple kofam koala result files.',
+        help='Input folder corresponding to a folder containing multiple kofam koala result files.',
         metavar='INPUT_DIR')
 
     parent_parser_i_org = argparse.ArgumentParser(add_help=False)
@@ -197,6 +216,12 @@ def main():
             ],
         allow_abbrev=False)
 
+    kegg_scope_parser = subparsers.add_parser(
+        'scope',
+        help='Compute scope from folder of graphml files.',
+        parents=[parent_parser_i_scope, parent_parser_o, parent_parser_s_scope],
+        allow_abbrev=False)
+
     args = parser.parse_args()
 
     # If no argument print the help.
@@ -205,12 +230,14 @@ def main():
         sys.exit(1)
 
     if args.cmd in ['reconstruct_from_esmecata', 'reconstruct_from_organism', 'reconstruct_from_eggnogg',
-                    'reconstruct_from_kofamkoala', 'reconstruct_from_picrust', 'reconstruct_from_genbank']:
+                    'reconstruct_from_kofamkoala', 'reconstruct_from_picrust', 'reconstruct_from_genbank',
+                    'scope']:
         is_valid_dir(args.output)
 
     formatter = logging.Formatter('%(message)s')
     if args.cmd in ['reconstruct_from_esmecata', 'reconstruct_from_organism', 'reconstruct_from_eggnogg',
-                    'reconstruct_from_kofamkoala', 'reconstruct_from_picrust', 'reconstruct_from_genbank']:
+                    'reconstruct_from_kofamkoala', 'reconstruct_from_picrust', 'reconstruct_from_genbank',
+                    'scope']:
         # add logger in file
         log_file_path = os.path.join(args.output, f'kegg2bipartitegraph{args.cmd}.log')
         file_handler = logging.FileHandler(log_file_path, 'w+')
@@ -237,6 +264,8 @@ def main():
         create_picrust_network(args.input, args.output, args.reference_folder)
     elif args.cmd == 'reconstruct_from_genbank':
         create_gbff_network(args.input, args.output, args.reference_folder)
+    elif args.cmd == 'scope':
+        compute_scope(args.input, args.output, args.seed_file)
 
     logger.info("--- Total runtime %.2f seconds ---" % (time.time() - start_time))
     if args.cmd in ['esmecata']:

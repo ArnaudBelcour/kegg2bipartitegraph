@@ -21,27 +21,57 @@
 # WARNING: I have modified the method so it does not work with matrix and graphml associated with the source article.
 
 import logging
+import time
+import os
+import csv
+import json
+import sys
 import networkx as nx
 import numpy as np
 
+from kegg2bipartitegraph import __version__ as kegg2bipartitegraph_version
+from kegg2bipartitegraph.utils import is_valid_dir
+
 logger = logging.getLogger(__name__)
+
+ROOT = os.path.dirname(__file__)
+DATA_ROOT = os.path.join(ROOT, 'data')
 
 
 def test_seeds_graph(seeds, model_graph) :
-    """ Tests if seeds exist in graph, else only selects compounds in graph,
-    otherwise throws an error """
+    """Function from the work of Adèle Webber Zendrera et al. (2021),
+    Tests if seeds exist in graph, else only selects compounds in graph,
+    otherwise throws an error.
+
+    Args:
+        seeds (list): list of seeds (KEGG IDs)
+        model_graph (networkx object): networkx object containing metabolic bipartite graph
+
+    Returns:
+        seeds (list): list of seeds in the graph
+    """
     if not np.all(np.in1d(list(seeds), list(model_graph.nodes)) == True):
         length = len(seeds)
-        logger.warning("At least one wrong compound name for inputs, will be removed")
         seeds = list(np.array(seeds)[np.in1d(list(seeds), list(model_graph.nodes))])
-        logger.warning("%d/%d kept from added inputs" %(len(seeds), length))
+
+        logger.warning("|kegg2bipartitegraph|scope| At least one metabolite absent from graph (or wrong compound name), will be removed: {0}/{1} kept from added inputs.".format(len(seeds), length))
         if len(seeds) < 1 :
-            logger.error("Not enough inputs")
+            logger.error("|kegg2bipartitegraph|scope| Not enough inputs")
             raise SystemExit()
     return seeds
 
 
 def compute_scope_from_graphml(graphml_file, seeds):
+    """Function modified from the work of Adèle Webber Zendrera et al. (2021),
+    compute the scope using the list of seeds and metaoblic bipartite graph.
+
+    Args:
+        graphml_file (str): path to the input graphml file
+        seeds (list): list of seeds (KEGG IDs)
+
+    Returns:
+        accessibility (dict): dictionary showing the accessible and not accessible reactions and metabolites
+    """
     # Read the bipartite graph in graphml format. 
     model_graph = nx.read_graphml(graphml_file)
     # Remove isolated nodes
@@ -86,3 +116,80 @@ def compute_scope_from_graphml(graphml_file, seeds):
                     accessibility[successor] = "Accessible"
 
     return accessibility
+
+
+def compute_scope(input_graphml_folder, output_folder, seed_file, reference_folder=False):
+    """Using graphml files created by k2bg compute scope using seed file.
+
+    Args:
+        input_graphml_folder (str): path to the input folder containing graphml files
+        output_folder (str): path to the output folder
+        seed_file (str): path to txt file containing seeds
+        reference_folder (str): path to a reference KEGG folder, to use it instead of the default ones contained in kegg2bipartitegraph
+    """
+    starttime = time.time()
+    logger.info('|kegg2bipartitegraph|scope| Begin scope computation for grpahml filesi n {0}.'.format(input_graphml_folder))
+
+    if reference_folder is not False:
+        kegg_model_path = reference_folder
+        logger.info('|kegg2bipartitegraph|eggnog| Use reference KEGG model given at {0}.'.format(reference_folder))
+    else:
+        logger.info('|kegg2bipartitegraph|eggnog| Use default reference KEGG model from {0}.'.format(DATA_ROOT))
+        kegg_model_path = os.path.join(DATA_ROOT, 'kegg_model')
+
+    # Download Uniprot metadata and create a json file containing them.
+    options = {'input_graphml_folder': input_graphml_folder, 'output_folder': output_folder, 'seed_file': seed_file}
+
+    options['tool_dependencies'] = {}
+    options['tool_dependencies']['python_package'] = {}
+    options['tool_dependencies']['python_package']['Python_version'] = sys.version
+    options['tool_dependencies']['python_package']['kegg2bipartitegraph'] = kegg2bipartitegraph_version
+    options['tool_dependencies']['python_package']['networkx'] = nx.__version__
+
+    kegg2bipartitegraph_scope_metadata = {}
+    kegg2bipartitegraph_scope_metadata['tool_options'] = options
+    is_valid_dir(output_folder)
+
+    # Get compound names.
+    compound_file_path = os.path.join(kegg_model_path, 'kegg_compound_name.tsv')
+    compound_names = {}
+    with open(compound_file_path, 'r') as output_file:
+        csvreader = csv.reader(output_file, delimiter='\t')
+        next(csvreader)
+        for line in csvreader:
+            compound_names[line[0]] = line[1]
+
+    seed_metabolites = []
+    with open(seed_file, 'r') as open_seed_file:
+        for line in open_seed_file.readlines():
+            seed_metabolites.append(line.strip('\n'))
+
+    producible_metabolites = {}
+    activated_reactions = {}
+    for graphml_file in os.listdir(input_graphml_folder):
+        organism_name = graphml_file.replace('.graphml', '')
+        logger.info('|kegg2bipartitegraph|scope| -- Check producibility of {0}'.format(organism_name))
+        graphml_path = os.path.join(input_graphml_folder, graphml_file)
+        accessibility = compute_scope_from_graphml(graphml_path, seed_metabolites)
+        producible_compounds = [compound_names[compound] for compound in accessibility if accessibility[compound] == 'Accessible' and compound.startswith('C') and compound not in seed_metabolites]
+        reachable_reactions = [reaction for reaction in accessibility if accessibility[reaction] == 'Accessible' and reaction.startswith('R')]
+        producible_metabolites[organism_name] = producible_compounds
+        activated_reactions[organism_name] = reachable_reactions
+        logger.info('|kegg2bipartitegraph|scope| {0} producible metabolites.'.format(len(producible_compounds)))
+
+    result_json = {}
+    result_json['producible_metabolites'] = producible_metabolites
+    result_json['activated_reactions'] = activated_reactions
+
+    output_json_file = os.path.join(output_folder, 'accessibility.json')
+    with open(output_json_file, 'w') as open_output_json_file:
+        json.dump(result_json, open_output_json_file, indent=4)
+
+    endtime = time.time()
+
+    duration = endtime - starttime
+    kegg2bipartitegraph_scope_metadata['kegg2bipartitegraph_esmecata_duration'] = duration
+    kegg2bipartitgraph_metadata_file = os.path.join(output_folder, 'kegg2bipartitegraph_esmecata_kegg.json')
+    with open(kegg2bipartitgraph_metadata_file, 'w') as ouput_file:
+        json.dump(kegg2bipartitegraph_scope_metadata, ouput_file, indent=4)
+    logger.info('|kegg2bipartitegraph|scope| Computation of scope analysis of metabolic networks done.')
