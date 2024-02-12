@@ -292,6 +292,7 @@ def create_esmecata_network(input_folder, output_folder, mapping_ko=False, refer
         # Extract protein IDs and EC number from anntotation reference folder.
         protein_ec_numbers = {}
         protein_go_numbers = {}
+        protein_kegg_reactions = {}
         protein_clusters = {}
         with open(annot_file_path, 'r') as open_annot_file_path:
             csvreader = csv.DictReader(open_annot_file_path, delimiter='\t')
@@ -300,9 +301,14 @@ def create_esmecata_network(input_folder, output_folder, mapping_ko=False, refer
                 protein_cluster = line['cluster_members'].split(',')
                 ec_numbers = line['EC'].split(',')
                 go_numbers = line['GO'].split(',')
+                if 'KEGG_reaction' in line:
+                    kegg_reactions = line['KEGG_reaction'].split(',')
+                else:
+                    kegg_reactions = []
 
                 protein_ec_numbers[protein_id] = ec_numbers
                 protein_go_numbers[protein_id] = [go for go in go_numbers if go != '']
+                protein_kegg_reactions[protein_id] = kegg_reactions
                 protein_clusters[protein_id] = protein_cluster
 
         # If mapping KO option is used, search for KO terms associated to proteins.
@@ -342,7 +348,21 @@ def create_esmecata_network(input_folder, output_folder, mapping_ko=False, refer
                                 taxon_reactions[reaction_id].append(protein_cluster)
             logger.info('|kegg2bipartitegraph|esmecata| Added {0} reactions from {1} KO for taxon {2}.'.format(len(set(ko_added_reactions)), len(set(all_kos)), base_filename))
 
-        # Use GO found to be associated to reference protein to retrieve KEGG reaction.
+        # Extract KEGG reacitons form results.
+        kegg_reaction_added_reactions = []
+        all_kegg_reactions = []
+        for protein in protein_kegg_reactions:
+            kegg_reactions = protein_kegg_reactions[protein]
+            all_kegg_reactions.extend(kegg_reactions)
+            for kegg_reaction in kegg_reactions:
+                kegg_reaction_added_reactions.append(kegg_reaction)
+                if kegg_reaction not in taxon_reactions:
+                    taxon_reactions[kegg_reaction] = [protein]
+                else:
+                    taxon_reactions[kegg_reaction].append(protein)
+        logger.info('|kegg2bipartitegraph|esmecata| Added {0} reactions from {1} KEGG reactions for taxon {2}.'.format(len(set(kegg_reaction_added_reactions)), len(set(all_kegg_reactions)), base_filename))
+
+        # Extract GO terms and map them to KEGG reaction.
         go_added_reactions = []
         all_gos = []
         for protein in protein_go_numbers:
@@ -362,7 +382,7 @@ def create_esmecata_network(input_folder, output_folder, mapping_ko=False, refer
                                     taxon_reactions[reaction_id].append(protein)
         logger.info('|kegg2bipartitegraph|esmecata| Added {0} reactions from {1} GO for taxon {2}.'.format(len(set(go_added_reactions)), len(set(all_gos)), base_filename))
 
-        # Use EC found to be associated to reference protein to retrieve KEGG reaction.
+        # Extract EC numbers and map them to KEGG reaction.
         ec_added_reactions = []
         all_ecs = []
         for protein in protein_ec_numbers:
