@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "kegg2bipartitegraph"
+dynamic = ["version"]
+readme = "README.md"
+authors = [{name = "Arnaud Belcour"}]
+description = "Reconstruct metabolic bipartite graph using KEGG"
+license = {text = "GPL-3.0-or-later"}
+
+dependencies = [
+  'bioservices',
+  'python-libsbml',
+  'networkx'
+]
+
+[project.scripts]
+k2bg = "kegg2bipartitegraph.__main__:main"
+
+[project.urls]
+Homepage = "https://github.com/ArnaudBelcour/kegg2bipartitegraph"
+Changelog = "https://github.com/ArnaudBelcour/kegg2bipartitegraph/blob/main/CHANGELOG.md"
+
+[tool.setuptools]
+packages = ['kegg2bipartitegraph', 'kegg2bipartitegraph.data', 'kegg2bipartitegraph.data.kegg_model']
+package-dir = {'kegg2bipartitegraph'= 'kegg2bipartitegraph'}
+package-data = {'kegg2bipartitegraph.data.kegg_model'= ['*.tsv', '*.json', '*.sbml', '*.graphml']}
+
+[tool.setuptools.dynamic]
+version = { attr = "kegg2bipartitegraph.__version__" }
+dependencies = {file = ["requirements.txt"]}
