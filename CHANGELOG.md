@@ -1,5 +1,11 @@
 # Changelog
 
+# Kegg2bipartitegraph v0.1.2 (2024-11-26)
+
+## Fix
+
+* Issue with GitHub Actions.
+
 # Kegg2bipartitegraph v0.1.1 (2024-11-26)
 
 ## Fix
