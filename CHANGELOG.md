@@ -1,5 +1,12 @@
 # Changelog
 
+# Kegg2bipartitegraph v0.1.1 (2024-11-26)
+
+## Fix
+
+* An issue with gene setAssociation when gene ID is only numeric.
+* Test with organism.
+
 # Kegg2bipartitegraph v0.1.0 (2024-01-09)
 
 WARNING: Rename command `kegg2bipartitegraph` into `k2bg`.

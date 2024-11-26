@@ -162,6 +162,8 @@ def create_sbml_from_kegg_reactions(org_name, reference_reactions, reference_spe
                     gene = gene_to_sbml(gene)
                 else:
                     gene = gene
+                if gene.isnumeric():
+                    gene = 'g' + gene
                 gene_prod = model_fbc.createGeneProduct()
                 gene_prod.setId(gene), 'add gene %s' %gene
                 gene_prod.setName(gene)
@@ -177,6 +179,8 @@ def create_sbml_from_kegg_reactions(org_name, reference_reactions, reference_spe
                 genes = [gene_to_sbml(gene) for gene in taxon_reactions[reaction_id]]
             else:
                 genes = [gene for gene in taxon_reactions[reaction_id]]
+            if any([gene.isnumeric() for gene in genes]):
+                genes = ['g'+gene for gene in taxon_reactions[reaction_id]]
             libsbml_check(gpr_association.setAssociation(' or '.join(genes), True, True), "set gpr: ")
 
         # Add reaction to organism model.

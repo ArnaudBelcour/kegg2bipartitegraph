@@ -11,9 +11,9 @@ def test_create_organism_network():
     sbml_document = reader.readSBML('test_out/sbml/eco.sbml')
     sbml_model = sbml_document.getModel()
 
-    expected_len_reactions = 1769
-    expected_len_metabolites = 1756
-    expected_len_pathways = 98
+    expected_len_reactions = 1771
+    expected_len_metabolites = 1760
+    expected_len_pathways = 100
     expected_len_modules = 181
 
     found_reactions = [reaction.id for reaction in sbml_model.getListOfReactions()]
@@ -36,9 +36,9 @@ def test_create_organism_network_cli():
     sbml_document = reader.readSBML('test_out/sbml/eco.sbml')
     sbml_model = sbml_document.getModel()
 
-    expected_len_reactions = 1769
-    expected_len_metabolites = 1756
-    expected_len_pathways = 98
+    expected_len_reactions = 1771
+    expected_len_metabolites = 1760
+    expected_len_pathways = 100
     expected_len_modules = 181
 
     found_reactions = [reaction.id for reaction in sbml_model.getListOfReactions()]
