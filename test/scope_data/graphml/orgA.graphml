@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd"><graph edgedefault="directed"><node id="C01977"/>
+<node id="R1"/>
+<node id="C_A"/>
+<node id="C_B"/>
+<node id="C_C"/>
+<node id="C_D"/>
+<node id="R2"/>
+<node id="C_E"/>
+<node id="C_F"/>
+<node id="C_G"/>
+<node id="R3"/>
+<node id="C_H"/>
+<edge source="C_A" target="R1"/>
+<edge source="C_B" target="R1"/>
+<edge source="R1" target="C_C"/>
+<edge source="R1" target="C_D"/>
+<edge source="C_D" target="R2"/>
+<edge source="C_E" target="R2"/>
+<edge source="R2" target="C_F"/>
+<edge source="R2" target="C_G"/>
+<edge source="C_F" target="R3"/>
+<edge source="R3" target="C_G"/>
+<edge source="R3" target="C_H"/>
+</graph></graphml>

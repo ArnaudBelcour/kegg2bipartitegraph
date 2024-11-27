@@ -132,9 +132,9 @@ def compute_scope(input_graphml_folder, output_folder, seed_file, reference_fold
 
     if reference_folder is not False:
         kegg_model_path = reference_folder
-        logger.info('|kegg2bipartitegraph|eggnog| Use reference KEGG model given at {0}.'.format(reference_folder))
+        logger.info('|kegg2bipartitegraph|scope| Use reference KEGG model given at {0}.'.format(reference_folder))
     else:
-        logger.info('|kegg2bipartitegraph|eggnog| Use default reference KEGG model from {0}.'.format(DATA_ROOT))
+        logger.info('|kegg2bipartitegraph|scope| Use default reference KEGG model from {0}.'.format(DATA_ROOT))
         kegg_model_path = os.path.join(DATA_ROOT, 'kegg_model')
 
     # Download Uniprot metadata and create a json file containing them.
@@ -171,9 +171,10 @@ def compute_scope(input_graphml_folder, output_folder, seed_file, reference_fold
         logger.info('|kegg2bipartitegraph|scope| -- Check producibility of {0}'.format(organism_name))
         graphml_path = os.path.join(input_graphml_folder, graphml_file)
         accessibility = compute_scope_from_graphml(graphml_path, seed_metabolites)
-        producible_compounds = [compound_names[compound] for compound in accessibility if accessibility[compound] == 'Accessible' and compound.startswith('C') and compound not in seed_metabolites]
+        print(accessibility)
+        producible_compounds = [compound for compound in accessibility if accessibility[compound] == 'Accessible' and compound.startswith('C') and compound not in seed_metabolites]
         reachable_reactions = [reaction for reaction in accessibility if accessibility[reaction] == 'Accessible' and reaction.startswith('R')]
-        producible_metabolites[organism_name] = producible_compounds
+        producible_metabolites[organism_name] = [compound_names[compound] if compound in compound_names else compound for compound in producible_compounds]
         activated_reactions[organism_name] = reachable_reactions
         logger.info('|kegg2bipartitegraph|scope| {0} producible metabolites.'.format(len(producible_compounds)))
 
