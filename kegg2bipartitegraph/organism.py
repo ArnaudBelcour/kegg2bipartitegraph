@@ -27,10 +27,10 @@ from networkx import __version__ as networkx_version
 from bioservices import version as bioservices_version
 from bioservices import KEGG
 
-from kegg2bipartitegraph.utils import is_valid_dir, write_pathway_file, write_module_file
+from kegg2bipartitegraph.utils import is_valid_dir, write_pathway_file, write_module_file, get_current_database_version
 from kegg2bipartitegraph import __version__ as kegg2bipartitegraph_version
 from kegg2bipartitegraph.mapping import retrieve_mapping_dictonaries, compute_stat_kegg
-from kegg2bipartitegraph.reference import sbml_to_graphml
+from kegg2bipartitegraph.reference import sbml_to_graphml, get_kegg_database_version
 from kegg2bipartitegraph.sbml import create_sbml_from_kegg_reactions
 
 URLLIB_HEADERS = {'User-Agent': 'kegg2bipartitegraph annotation v' + kegg2bipartitegraph_version + ', request by urllib package v' + urllib.request.__version__}
@@ -200,6 +200,12 @@ def create_organism_network(organism, output_folder, reference_folder=False):
     kegg_pathways_path = os.path.join(kegg_model_path, 'kegg_pathways.tsv')
     kegg_modules_path = os.path.join(kegg_model_path, 'kegg_modules.tsv')
     kegg_json_model_path = os.path.join(kegg_model_path, 'kegg_metadata.json')
+
+    # Retrieve version of KEGG used for reference model.
+    database_version = get_current_database_version(kegg_model_path)
+    kegg_current_version = get_kegg_database_version()
+    if database_version != kegg_current_version:
+        logger.info('|kegg2bipartitegraph|organism| Warning: kegg2bipartitegraph database version ({0}) different from KEGG online current version ({1}). This can lead to inconsistencies in reaction/compound/module/pathway IDs.'.format(database_version, kegg_current_version))
 
     # Read the reference KEGG sbml file.
     # Use it to create the organism sbml file.
