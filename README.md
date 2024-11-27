@@ -24,6 +24,8 @@ Kegg2bipartitegraph can be called by using the command `k2bg`. It is divided in 
     - `k2bg reconstruct_from_organism` takes as input an organism ID from KEGG (such as `hsa` for human or `eco` for *Escherichia coli*). You can find the list of the accessile organisms in [KEGG website](https://www.genome.jp/kegg/catalog/org_list.html).
     - `k2bg reconstruct_from_genbank` takes as input a folder containing GenBank files.
 
+- `k2bg scope` subcommand to compute scope according to the procedure presented in the article of [Weber Zendrera et al. (2021)](https://www.nature.com/articles/s41598-021-91486-8). It expects a folder containing graphml files and a seed text file containing seed metabolites. It computes the scoep and returns in a json file the activated reactions and the accessible metabolites for each graphml file of the input folder. 
+
 ## Online / Offline requirements
 
 Multiple subcommands can be used to reconstruct draft networks. Some of them required an internet connection to work, you can see which ones in the following table:
@@ -52,9 +54,9 @@ It will create several files:
 
 - `kegg_metadata.json`: a metadata file showing the metadata for the creation of the reference files for kegg2bipartitegraph.
 
-## Output files of other command
+## Output files of reconstruction command
 
-The other subcommands will reconstruct draft metabolic networks by mapping the annotation with the metabolic graphs contained in kegg2bipartitegraph.
+The reconstruction subcommands will reconstruct draft metabolic networks by mapping the annotation with the metabolic graphs contained in kegg2bipartitegraph.
 
 Then it will create multiple files:
 

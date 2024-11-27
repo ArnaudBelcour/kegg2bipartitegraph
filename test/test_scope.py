@@ -16,7 +16,7 @@ def test_compute_scope():
     with open(output_json_file, 'r') as open_output_json_file:
         json_data = json.load(open_output_json_file)
 
-    expected_scope = ['C_C', 'C_D', 'C_F', 'C_G', 'C_H']
+    expected_scope = ['C_A', 'C_B', 'C_C', 'C_D', 'C_E', 'C_F', 'C_G', 'C_H']
     expected_activated_reactions = ['R1', 'R2', 'R3']
 
     found_scope = json_data['producible_metabolites']['orgA']
@@ -37,7 +37,7 @@ def test_compute_scope_cli():
     with open(output_json_file, 'r') as open_output_json_file:
         json_data = json.load(open_output_json_file)
 
-    expected_scope = ['C_C', 'C_D', 'C_F', 'C_G', 'C_H']
+    expected_scope = ['C_A', 'C_B', 'C_C', 'C_D', 'C_E', 'C_F', 'C_G', 'C_H']
     expected_activated_reactions = ['R1', 'R2', 'R3']
 
     found_scope = json_data['producible_metabolites']['orgA']

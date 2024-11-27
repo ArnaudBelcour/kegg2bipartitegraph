@@ -171,8 +171,7 @@ def compute_scope(input_graphml_folder, output_folder, seed_file, reference_fold
         logger.info('|kegg2bipartitegraph|scope| -- Check producibility of {0}'.format(organism_name))
         graphml_path = os.path.join(input_graphml_folder, graphml_file)
         accessibility = compute_scope_from_graphml(graphml_path, seed_metabolites)
-        print(accessibility)
-        producible_compounds = [compound for compound in accessibility if accessibility[compound] == 'Accessible' and compound.startswith('C') and compound not in seed_metabolites]
+        producible_compounds = [compound for compound in accessibility if accessibility[compound] == 'Accessible' and compound.startswith('C')]
         reachable_reactions = [reaction for reaction in accessibility if accessibility[reaction] == 'Accessible' and reaction.startswith('R')]
         producible_metabolites[organism_name] = [compound_names[compound] if compound in compound_names else compound for compound in producible_compounds]
         activated_reactions[organism_name] = reachable_reactions
