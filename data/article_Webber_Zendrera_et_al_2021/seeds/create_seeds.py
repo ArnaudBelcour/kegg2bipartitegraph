@@ -143,6 +143,11 @@ THERM_MED = [ #https://mediadb.systemsbiology.net/defined_media/media/227/ Suzuk
 "C00038", #Zinc sulfate
 ]
 
+def write_txt_seed_file(metabolites, txt_file):
+    with open(txt_file, 'w') as open_output_file:
+        for metabolite in metabolites:
+            open_output_file.write(metabolite)
+
 
 kegg_model_sbml = os.path.join(kegg2bipartitegraph_path, 'data', 'kegg_model', 'kegg_model.sbml')
 kegg_model = read_sbml_model(kegg_model_sbml)
@@ -152,24 +157,29 @@ meso_medium_seeds = [metabolite for metabolite in kegg_model.metabolites if meta
 species_model = Model('Seeds_Meso_Medium')
 species_model.add_metabolites(meso_medium_seeds)
 write_sbml_model(species_model, 'seeds_meso_medium.sbml')
+write_txt_seed_file(MESO_MEDIUM, 'seeds_meso_medium.txt')
 
 psychromed_seeds = [metabolite for metabolite in kegg_model.metabolites if metabolite.id in PSYCHROMED]
 species_model = Model('Seeds_Psychromed')
 species_model.add_metabolites(psychromed_seeds)
 write_sbml_model(species_model, 'seeds_psychromed.sbml')
+write_txt_seed_file(PSYCHROMED, 'seeds_psychromed.txt')
 
 hyperterm_med_seeds = [metabolite for metabolite in kegg_model.metabolites if metabolite.id in HYPERTHERM_MED]
 species_model = Model('Seeds_Hypertherm_Med')
 species_model.add_metabolites(hyperterm_med_seeds)
-write_sbml_model(species_model, 'hyperterm_med_seeds.sbml')
+write_sbml_model(species_model, 'seed_hyperterm_med.sbml')
+write_txt_seed_file(HYPERTHERM_MED, 'seed_hyperterm_med.txt')
 
-therm_med_seeds = [metabolite for metabolite in kegg_model.metabolites if metabolite.id in PSYCHROMED]
+therm_med_seeds = [metabolite for metabolite in kegg_model.metabolites if metabolite.id in THERM_MED]
 species_model = Model('Therm_Med')
 species_model.add_metabolites(therm_med_seeds)
 write_sbml_model(species_model, 'seeds_therm_med.sbml')
+write_txt_seed_file(THERM_MED, 'seeds_therm_med.txt')
 
 union_all_seeds = set(MESO_MEDIUM).union(set(PSYCHROMED)).union(set(HYPERTHERM_MED)).union(set(PSYCHROMED))
-union_all_seeds = [metabolite for metabolite in kegg_model.metabolites if metabolite.id in union_all_seeds]
+kegg_model_union_all_seeds = [metabolite for metabolite in kegg_model.metabolites if metabolite.id in union_all_seeds]
 species_model = Model('Union_All_Seeds')
-species_model.add_metabolites(union_all_seeds)
+species_model.add_metabolites(kegg_model_union_all_seeds)
 write_sbml_model(species_model, 'union_all_seeds.sbml')
+write_txt_seed_file(union_all_seeds, 'union_all_seeds.txt')
