@@ -205,11 +205,16 @@ def get_current_database_version(database_path):
     """
     kegg_json_model_path = os.path.join(database_path, 'kegg_metadata.json')
 
-    with open(kegg_json_model_path, 'r') as input_metadata_json:
-        json_data = json.load(input_metadata_json)
-    database_version = json_data['kegg_release_number']
+    if os.path.exists(kegg_json_model_path):
 
-    return database_version
+        with open(kegg_json_model_path, 'r') as input_metadata_json:
+            json_data = json.load(input_metadata_json)
+        database_version = json_data['kegg_release_number']
+
+        return database_version
+
+    else:
+        return False
 
 
 def write_pathway_file(kegg_pathways, pathways_output_file_path, total_added_reactions):

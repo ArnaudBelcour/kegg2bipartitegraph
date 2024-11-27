@@ -46,14 +46,17 @@ def main():
 
     # Retrieve version of KEGG used for reference model.
     reference_model_path = get_internal_reference_model_path()
-    kegg_database_version = 'Version of KEGG database used for reference model: ' + get_current_database_version(reference_model_path)
-    version_message = '%(prog)s version: ' + VERSION + ', '+ kegg_database_version
+    database_version = get_current_database_version(reference_model_path)
+    if database_version is not False:
+        kegg_database_version = 'Version of KEGG database used for reference model: ' + database_version
+        version_message = '%(prog)s version: ' + VERSION + ', '+ kegg_database_version
+    else:
+        version_message = '%(prog)s version: ' + VERSION + ', no database version found'
 
     parser.add_argument(
         '--version',
         action='version',
         version=version_message)
-
 
     parent_parser_i = argparse.ArgumentParser(add_help=False)
     parent_parser_i.add_argument(
