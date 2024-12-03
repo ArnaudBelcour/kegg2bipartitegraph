@@ -1,4 +1,4 @@
-[![PyPI version](https://img.shields.io/pypi/v/kegg2bipartitegraph.svg)](https://pypi.org/project/kegg2bipartitegraph/) [![GitHub license](https://img.shields.io/github/license/AuReMe/metage2metabo.svg)](https://github.com/AuReMe/metage2metabo/blob/master/LICENSE) [![KEGG version](https://img.shields.io/badge/KEGG-109-brightgreen)](https://www.genome.jp/kegg/docs/upd_all.html)
+[![PyPI version](https://img.shields.io/pypi/v/kegg2bipartitegraph.svg)](https://pypi.org/project/kegg2bipartitegraph/) [![GitHub license](https://img.shields.io/github/license/AuReMe/metage2metabo.svg)](https://github.com/AuReMe/metage2metabo/blob/master/LICENSE) [![KEGG version](https://img.shields.io/badge/KEGG-112-brightgreen)](https://www.genome.jp/kegg/docs/upd_all.html)
 
 # kegg2bipartitegraph
 
@@ -24,7 +24,7 @@ Kegg2bipartitegraph can be called by using the command `k2bg`. It is divided in 
     - `k2bg reconstruct_from_organism` takes as input an organism ID from KEGG (such as `hsa` for human or `eco` for *Escherichia coli*). You can find the list of the accessile organisms in [KEGG website](https://www.genome.jp/kegg/catalog/org_list.html).
     - `k2bg reconstruct_from_genbank` takes as input a folder containing GenBank files.
 
-- `k2bg scope` subcommand to compute scope according to the procedure presented in the article of [Weber Zendrera et al. (2021)](https://www.nature.com/articles/s41598-021-91486-8). It expects a folder containing graphml files and a seed text file containing seed metabolites. It computes the scoep and returns in a json file the activated reactions and the accessible metabolites for each graphml file of the input folder. 
+- `k2bg scope` subcommand to compute scope according to the procedure presented in the article of [Weber Zendrera et al. (2021)](https://www.nature.com/articles/s41598-021-91486-8). It expects as input a folder containing graphml files. By default, it uses seed file from the article of [Weber Zendrera et al. (2021)](https://www.nature.com/articles/s41598-021-91486-8) but you can prodive your own seed fiel as a text file containing KEGG metabolites. It computes the scope and returns in a json file the activated reactions and the accessible metabolites for each graphml file of the input folder. 
 
 ## Online / Offline requirements
 
@@ -46,7 +46,7 @@ The `k2bg reference` is to be used only if you want to update the KEGG reference
 
 It will create several files:
 
-- `kegg_model.sbml`: a universal graph containing most of the reactions contained in KEGG database. Such as in the graph made by [Weber Zendrera et al. (2021)](https://www.nature.com/articles/s41598-021-91486-8), 14 cofactors have been removed (H2O, ATP, ADP, NAD+, NADH, NADP+, NADPH, CO2, ammonia, sulfate, thioredoxin, phosphate, pyrophosphate (PPi), and H+). Also the stoechiometry is simplified as these metabolic networks are created in order to be used in topological analysis. **So they are not supposed to be used with other methods (such as Constraint-Based Modelling)**.
+- `kegg_model.sbml`: a universal graph containing most of the reactions contained in KEGG database. The stoechiometry is simplified as these metabolic networks are created in order to be used in topological analysis, these changed can be looked at in file `kegg_removed_changed_reaction.tsv`. **So they are not supposed to be used with other methods (such as Constraint-Based Modelling)**.
 
 - `kegg_model.graphml`: the metabolic bipartite graph associated with the `kegg_model.sbml` file.
 
@@ -56,7 +56,7 @@ It will create several files:
 
 ## Output files of reconstruction command
 
-The reconstruction subcommands will reconstruct draft metabolic networks by mapping the annotation with the metabolic graphs contained in kegg2bipartitegraph.
+The reconstruction subcommands will reconstruct draft metabolic networks by mapping the annotation with the metabolic graphs contained in kegg2bipartitegraph. Such as in the graph made by [Weber Zendrera et al. (2021)](https://www.nature.com/articles/s41598-021-91486-8), 14 cofactors are removed (H2O, ATP, ADP, NAD+, NADH, NADP+, NADPH, CO2, ammonia, sulfate, thioredoxin, phosphate, pyrophosphate (PPi), and H+) when creating these networks.
 
 Then it will create multiple files:
 

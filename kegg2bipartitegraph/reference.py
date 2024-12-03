@@ -33,6 +33,7 @@ from kegg2bipartitegraph.utils import is_valid_dir, urllib_query
 from kegg2bipartitegraph.sbml import libsbml_check, initiate_sbml_model
 from kegg2bipartitegraph import __version__ as kegg2bipartitegraph_version
 from kegg2bipartitegraph.graph import sbml_to_graphml
+from kegg2bipartitegraph.seeds import create_seeds_file
 
 URLLIB_HEADERS = {'User-Agent': 'kegg2bipartitegraph annotation v' + kegg2bipartitegraph_version + ', request by urllib package v' + urllib.request.__version__}
 
@@ -450,8 +451,7 @@ def get_pathways(pathway_file):
 
 
 def create_sbml_model_from_kegg_file_libsbml(reaction_folder, compound_file, output_sbml, output_tsv,
-                                             kegg_removed_changed_reaction_path, pathway_data, module_data,
-                                             remove_ubiquitous=True, remove_glycan_reactions=True):
+                                             kegg_removed_changed_reaction_path, pathway_data, module_data):
     """Using the reaction keg files (from retrieve_reactions), the compound file (from get_compound_names),
     create a SBML file (containing all reactions of KEGG) and a tsv file (used to map EC and/or KO to reaction ID)
     Use python-libsbml instead of cobrapy as cobrapy does not handle metabolite being both in reactant and product of reaction:
@@ -465,8 +465,6 @@ def create_sbml_model_from_kegg_file_libsbml(reaction_folder, compound_file, out
         kegg_removed_changed_reaction_path (str): path to an output tsv showing removed or modified reaction
         pathway_data (dict): dictionary with pathway ID as key, list of pathway name and reaction as values
         module_data (dict): dictionary with module ID as key, list of module name, formula and reaction as values
-        remove_ubiquitous (bool): remove ubiquitous metabolites
-        remove_glycan_reactions (bool): remove glycan associated reactions
     """
     # Initiate libsbml model.
     document, model, model_fbc, model_groups = initiate_sbml_model('KEGG')
@@ -534,17 +532,12 @@ def create_sbml_model_from_kegg_file_libsbml(reaction_folder, compound_file, out
         r_fbc.setUpperFluxBound('default_upper_bound')
 
         reactants = []
-        # Create metabolites from left compounds, remove ubiquitous and mark glycan reactions.
+        # Create metabolites from left compounds.
         for stoichiometry_metabolite in left_compounds:
             metabolite_id = stoichiometry_metabolite[0]
-            if metabolite_id.startswith('G'):
-                glycan_reaction = True
-                if remove_glycan_reactions is True:
-                    continue
-            if remove_ubiquitous is True:
-                if metabolite_id in UBIQUITOUS_METABOLITES:
-                    continue
             if metabolite_id not in metabolites:
+                if metabolite_id.startswith('G'):
+                    glycan_reaction = True
                 # Create species if not in SBML.
                 s = model.createSpecies()
                 libsbml_check(s, 'create species')
@@ -566,17 +559,12 @@ def create_sbml_model_from_kegg_file_libsbml(reaction_folder, compound_file, out
             reactants.append(metabolite_id)
 
         products = []
-        # Create metabolites from right compounds, remove ubiquitous and mark glycan reactions.
+        # Create metabolites from right compounds.
         for stoichiometry_metabolite in right_compounds:
             metabolite_id = stoichiometry_metabolite[0]
-            if metabolite_id.startswith('G'):
-                glycan_reaction = True
-                if remove_glycan_reactions is True:
-                    continue
-            if remove_ubiquitous is True:
-                if metabolite_id in UBIQUITOUS_METABOLITES:
-                    continue
             if metabolite_id not in metabolites:
+                if metabolite_id.startswith('G'):
+                    glycan_reaction = True
                 # Create species if not in SBML.
                 s = model.createSpecies()
                 libsbml_check(s, 'create species')
@@ -617,32 +605,29 @@ def create_sbml_model_from_kegg_file_libsbml(reaction_folder, compound_file, out
         else:
             gpr = ''
 
-        remove_reaction = False
         reactions_metabolites = reactants + products
+        reactions_metabolites_without_ubiquitous = list(set(reactions_metabolites) - set(UBIQUITOUS_METABOLITES))
         # Remove reactions without reactants and products.
-        if reactions_metabolites == []:
-            logger.critical('|kegg2bipartitegraph|reference| No reactants and products for {0}, will be removed from model.'.format(reaction_id))
+        if reactions_metabolites == [] or reactions_metabolites_without_ubiquitous == []:
+            logger.critical('|kegg2bipartitegraph|reference| No reactants and products for {0}, will be tagged as to remove from model.'.format(reaction_id))
             remove_or_modify_reactions[reaction_id] = ['no_reactant_and_product', reaction_name, ','.join(reactants), ','.join(products), left_compounds, right_compounds, gpr]
-            remove_reaction = True
-        # Remvoe glycan reactions.
-        if remove_glycan_reactions is True and glycan_reaction is True:
-            logger.critical('|kegg2bipartitegraph|reference| Do not add glycan reaction {0}.'.format(reaction_id))
+        # Remove glycan reactions.
+        if glycan_reaction is True:
+            logger.critical('|kegg2bipartitegraph|reference| Tag as "to_remove" for glycan reaction {0}.'.format(reaction_id))
             remove_or_modify_reactions[reaction_id] = ['glycan', reaction_name, ','.join(reactants), ','.join(products), left_compounds, right_compounds, gpr]
-            remove_reaction = True
         # Remove reactions if all left compounds are UBIQUITOUS_METABOLITES, because it unlocks metabolites freely.
         if all([compound[0] in UBIQUITOUS_METABOLITES for compound in left_compounds]):
-            logger.critical('|kegg2bipartitegraph|reference| Remove reaction {0} as all its reactants are ubiquitous metabolites.'.format(reaction_id))
+            logger.critical('|kegg2bipartitegraph|reference| Tag as "to_remove" reaction {0} as all its reactants are ubiquitous metabolites.'.format(reaction_id))
             remove_or_modify_reactions[reaction_id] = ['ubiquitous_reactants', reaction_name, ','.join(reactants), ','.join(products), left_compounds, right_compounds, gpr]
-            remove_reaction = True
         # Remove reactions if all right compounds are UBIQUITOUS_METABOLITES, because it unlocks metabolites freely.
         if all([compound[0] in UBIQUITOUS_METABOLITES for compound in right_compounds]):
-            logger.critical('|kegg2bipartitegraph|reference| Remove reaction {0} as all its products are ubiquitous metabolites.'.format(reaction_id))
+            logger.critical('|kegg2bipartitegraph|reference| Tag as "to_remove" reaction {0} as all its products are ubiquitous metabolites.'.format(reaction_id))
             remove_or_modify_reactions[reaction_id] = ['ubiquitous_products', reaction_name, ','.join(reactants), ','.join(products), left_compounds, right_compounds, gpr]
-            remove_reaction = True
 
+        # Old way of removing reactions (now it keeps them n reference SBML and remove them in sbml.create_sbml_from_kegg_reactions())
         # Remove reaction if it contains glycan metabolite or it does not have reactants and products.
-        if remove_reaction is True:
-            model.removeReaction(reaction_id)
+        # if remove_reaction is True:
+        #    model.removeReaction(reaction_id)
 
         if modify_stoichiometry:
             remove_or_modify_reactions[reaction_id] = ['change_stoichiometry', reaction_name, ','.join(reactants), ','.join(products), left_compounds, right_compounds, gpr]
@@ -679,7 +664,7 @@ def create_sbml_model_from_kegg_file_libsbml(reaction_folder, compound_file, out
     libsbml.writeSBMLToFile(document, output_sbml)
     logger.info('|kegg2bipartitegraph|reference| {0} reactions and {1} metabolites in reference model.'.format(len(model.getListOfReactions()), len(model.getListOfSpecies())))
     removed_reactions = set([rxn_id for rxn_id in remove_or_modify_reactions if remove_or_modify_reactions[rxn_id][0] != 'change_stoichiometry'])
-    logger.info('|kegg2bipartitegraph|reference| Remove {0} reactions in reference model (cause: glycan, ubiquitous metabolites, no reactants and products).'.format(len(removed_reactions)))
+    logger.info('|kegg2bipartitegraph|reference| Tag as "to_remove" {0} reactions in reference model (cause: glycan, ubiquitous metabolites, no reactants and products).'.format(len(removed_reactions)))
     modified_reactions = set([rxn_id for rxn_id in remove_or_modify_reactions if remove_or_modify_reactions[rxn_id][0] == 'change_stoichiometry'])
     logger.info('|kegg2bipartitegraph|reference| Modify {0} reaction stoichiometry in reference model.'.format(len(modified_reactions)))
 
@@ -857,6 +842,9 @@ def create_reference_base(output_folder=None):
         create_sbml_model_from_kegg_file_libsbml(kegg_reactions_folder_path, kegg_compound_file_path, kegg_sbml_model_path, kegg_rxn_mapping_path, kegg_removed_changed_reaction_path,
                                                  pathway_data, module_data)
         sbml_to_graphml(kegg_sbml_model_path, kegg_graphml_model_path)
+
+        # Create seed file.
+        create_seeds_file(kegg_model_path)
 
         # Create compress archive.
         model_zipfile = zipfile.ZipFile(KEGG_ARCHIVE, mode="w")

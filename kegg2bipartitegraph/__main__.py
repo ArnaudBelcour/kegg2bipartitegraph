@@ -36,6 +36,13 @@ Reconstruct draft metabolic networks using KEGG.
 logger = logging.getLogger()
 logger.setLevel(logging.DEBUG)
 
+ROOT = os.path.dirname(__file__)
+DATA_ROOT = os.path.join(ROOT, 'data')
+KEGG_MODEL = os.path.join(DATA_ROOT, 'kegg_model')
+SEED_FILES = {'HYPERTHERM_MED': os.path.join(KEGG_MODEL, 'seed_hyperterm_med.txt'), 'MESO_MEDIUM': os.path.join(KEGG_MODEL, 'seeds_meso_medium.txt'),
+              'PSYCHROMED': os.path.join(KEGG_MODEL, 'seeds_psychromed.txt'), 'THERM_MED': os.path.join(KEGG_MODEL, 'seeds_therm_med.txt'),
+              'UNION': os.path.join(KEGG_MODEL, 'seed_union_all.txt')}
+
 def main():
     start_time = time.time()
 
@@ -81,8 +88,8 @@ def main():
         '-s',
         '--seed',
         dest='seed_file',
-        required=True,
-        help='Seed file for scoep analysis (txt file of KEGG ID, one per row).',
+        required=False,
+        help='Seed file for scope analysis (txt file of KEGG IDs, one per row). By default, use ones from kegg2bipartitegraph. If you want a specific ones, select one among: MESO_MEDIUM, PSYCHROMED, HYPERTHERM_MED, THERM_MED',
         metavar='INPUT_FILE')
 
     parent_parser_i_eggnog = argparse.ArgumentParser(add_help=False)
@@ -268,7 +275,29 @@ def main():
     elif args.cmd == 'reconstruct_from_genbank':
         create_gbff_network(args.input, args.output, args.reference_folder)
     elif args.cmd == 'scope':
-        compute_scope(args.input, args.output, args.seed_file)
+        output_folder = args.output
+        is_valid_dir(output_folder)
+        seed_file = args.seed_file
+        input_seed_files = []
+        if seed_file is None:
+            for seed_file in ['MESO_MEDIUM', 'PSYCHROMED', 'HYPERTHERM_MED', 'THERM_MED', 'UNION']:
+                input_seed_files.append(SEED_FILES[seed_file])
+        elif ',' in seed_file:
+            seed_files = seed_file.split(',')
+            for seed_file in seed_files:
+                if seed_file in ['MESO_MEDIUM', 'PSYCHROMED', 'HYPERTHERM_MED', 'THERM_MED', 'UNION']:
+                    input_seed_files.append(SEED_FILES[seed_file])
+                else:
+                    input_seed_files.append(seed_file)
+        else:
+            if seed_file in ['MESO_MEDIUM', 'PSYCHROMED', 'HYPERTHERM_MED', 'THERM_MED', 'UNION']:
+                input_seed_files.append(SEED_FILES[seed_file])
+            else:
+                input_seed_files.append(seed_file)
+        for seed_file in input_seed_files:
+            seed_name = os.path.splitext(os.path.basename(seed_file))[0]
+            seed_output_folder = os.path.join(output_folder, seed_name)
+            compute_scope(args.input, seed_output_folder, seed_file)
 
     logger.info("--- Total runtime %.2f seconds ---" % (time.time() - start_time))
     if args.cmd in ['esmecata']:

@@ -1774,7 +1774,7 @@ C02144	Dehydropeptide
 C02146	Dialkyl ketone
 C02147	Dihydrolipoate
 C02150	Formylpyruvate
-C02151	Geissoschizine
+C02151	(19E)-Geissoschizine
 C02153	Glucotropaeolin
 C02154	Glyceraldehyde
 C02155	Glycyl-leucine
@@ -2855,7 +2855,7 @@ C03684	6-Pyruvoyltetrahydropterin
 C03685	7-Methyl-3-oxooctanoyl-CoA
 C03686	O-Methylsterigmatocystin
 C03687	Alkane-alpha,omega-diamine
-C03688	Apo-[acyl-carrier-protein]
+C03688	Apo-[acyl-carrier protein]
 C03690	Bis(2-ethylhexyl)phthalate
 C03691	CMP-N-glycoloylneuraminate
 C03692	1,2-Diacyl-3-beta-D-galactosyl-sn-glycerol
@@ -4717,7 +4717,7 @@ C06406	Precorrin 3B
 C06407	Precorrin 4
 C06408	Precorrin 8X
 C06409	[Methionine synthase]-cob(II)alamin
-C06410	[Methionine synthase]-methylcob(I)alamin
+C06410	[Methionine synthase]-methylcob(III)alamin
 C06412	Palmitoyl-protein
 C06413	Quinoline
 C06414	4-Quinolinecarboxylic acid
@@ -10702,7 +10702,7 @@ C13837	Dehydrosoyasaponin I
 C13838	Lactobacillic acid
 C13840	1-Ethyl-2-benzimidazolinone
 C13841	Zoxazolamine
-C13842	alpha-Semegma mycolic acid
+C13842	alpha-Smegma-mycolic acid
 C13843	17R,18S-Epoxy-5Z,8Z,11Z,14Z-icosatetraenoic acid
 C13844	DCEBIO
 C13845	1,3-Di-(octadec-9Z-enoyl)-1-cyano-2-methylene-propane-1,3-diol
@@ -11445,7 +11445,7 @@ C14706	Diethyl sulfate
 C14707	Bromoform
 C14708	Bromodichloromethane
 C14709	1,1-Dimethylethyl benzoate
-C14710	Isobutyl alcohol
+C14710	Isobutanol
 C14711	Nickel chloride
 C14712	2,5-Dichloroaniline
 C14713	2,4-Dinitroaniline
@@ -12793,7 +12793,7 @@ C16086	Prolactin-releasing peptide-31
 C16087	Prolactin-releasing peptide-20
 C16088	Pituitary adenylate cyclase-activating peptide-38
 C16089	Pituitary adenylate cyclase-activating peptide-27
-C16090	Metastin
+C16090	Kisspeptin-54
 C16091	Kisspeptin-14
 C16092	Kisspeptin-13
 C16093	Kisspeptin-10
@@ -14032,6 +14032,7 @@ C17477	D-Galacturonic acid calcium salt
 C17478	Calcium oxalate
 C17479	Fraxidin
 C17480	Isofraxidin
+C17481	AGP
 C17482	(-)-Deltoin
 C17483	Hamaudol
 C17484	sec-o-Glucosylhamaudol
@@ -16737,7 +16738,7 @@ C20230	(+)-Sabinene
 C20231	(Z)-3-Ureidoacrylate peracid
 C20232	(Z)-2-Methylureidoacrylate peracid
 C20233	17-Hydroxylupanine
-C20234	5-Guanidino-3-methyl-2-oxopentanoate
+C20234	(3R)-5-Guanidino-3-methyl-2-oxopentanoate
 C20235	(E)-2-Methylgeranyl diphosphate
 C20236	4-O-beta-D-Mannopyranosyl-D-glucopyranose
 C20237	alpha-Maltose 1-phosphate
@@ -17233,9 +17234,9 @@ C20752	2-Methylthio-N6-L-threonylcarbamoyladenine in tRNA
 C20753	2-Methylthio-N6-dimethylallyladenine in tRNA
 C20754	2-Thio-N6-L-threonylcarbamoyladenine in tRNA
 C20755	2-Thio-N6-dimethylallyladenine in tRNA
-C20756	[Ribosomal protein S12]-L-aspartate
-C20757	[Ribosomal protein S12]-3-thioaspartate
-C20758	[Ribosomal protein S12]-3-methylthioaspartate
+C20756	[Ribosomal protein uS12]-L-aspartate
+C20757	[Ribosomal protein uS12]-3-thioaspartate
+C20758	[Ribosomal protein uS12]-3-methylthioaspartate
 C20759	Desulfo-A47934
 C20760	20-Oxo-5-O-beta-mycaminosyltylactone
 C20761	alpha-D-Man-(1->2)-alpha-D-Man-(1->2)-[alpha-D-Man-(1->3)-alpha-D-Man-(1->3)-alpha-D-Man-(1->2)-alpha-D-Man-(1->2)]n-alpha-D-Man-(1->3)-alpha-D-Man-(1->3)-alpha-D-Man-(1->3)-alpha-D-GlcNAc-diphospho-ditrans,octacis-undecaprenol
@@ -18050,7 +18051,7 @@ C21580	12ADT-Asp
 C21581	Simvastatin acid
 C21582	Bacteriochlorophyllide e
 C21583	6-O-Methyl-N-deacetylisoipecoside aglycon
-C21584	7'-O-Dmethylcephaeline
+C21584	7'-O-Demethylcephaeline
 C21585	4-Phospho-D-threonate
 C21586	(S)-1-Hydroxy-cis-N-methylcanadine
 C21587	(13S,14R)-1,13-Dihydroxy-cis-N-methylcanadine
@@ -18251,7 +18252,7 @@ C21786	Oleuropein aglycone
 C21787	S-Sulfinatoglutathione
 C21788	Tulathromycin A
 C21789	Tulathromycin B
-C21790	Trehalose dimycolate
+C21790	Mycobacterial trehalose dimycolate
 C21791	Rhodocytin
 C21792	ManLAM
 C21793	4-Phenylbutyrate
@@ -18359,7 +18360,7 @@ C21900	[SAMP]-Gly-Gly
 C21901	[SAMP]-Gly-Gly-AMP
 C21902	Archaeal dolichyl beta-D-glucuronosyl-(1->4)-alpha-D-glucosyl phosphate
 C21903	Delta9-Tetrahydrocannabinolate
-C21904	Trehalose monomycolate
+C21904	Mycobacterial trehalose monomycolate
 C21905	3-Oxocholan-24-oyl-CoA
 C21906	3-Oxochol-4-en-24-oyl-CoA
 C21907	12alpha-Hydroxy-3-oxocholan-24-oyl-CoA
@@ -18665,7 +18666,7 @@ C22213	Pseudomonic acid
 C22214	Pseudomonoyl-CoA
 C22215	Long-chain 3-hydroxysterol ester
 C22216	Cytidine 5'-{[hydroxy(2-hydroxyethyl)phosphonoyl]phosphate}
-C22217	Cytidine 5'-{[hydroxy(2-hydroxypropyl)phosphonoyl]phosphate}
+C22217	Cytidine 5'-({hydroxy[(S)-2-hydroxypropyl]phosphonoyl}phosphate)
 C22218	D-Apionolactone
 C22219	D-Apionate
 C22220	3-Oxoisoapionate
@@ -18894,7 +18895,7 @@ C22449	Paerucumarin
 C22450	5-Methoxybenzimidazole
 C22451	5-Methoxy-6-methylbenzimidazole
 C22452	6,7,8-Trihydroxycoumarin
-C22453	trans-Anhydromevalonate phosphate
+C22453	trans-Anhydromevalonate 5-phosphate
 C22454	11alpha-Hydroxy-9,15-dioxoprostanoate
 C22455	3-Amino-2,4-dihydroxybenzoate
 C22456	(3S)-1,2-Diazinane-3-carboxylate
@@ -19149,8 +19150,8 @@ C22708	Eutylone
 C22709	Ethylone
 C22710	N-Ethylpentylone
 C22711	Methoxetamine
-C22712	4-Deoxy-L-erythro-hex-4-enopyranuronate
-C22713	4-Deoxy-L-threo-hex-4-enopyranuronate
+C22712	4-Deoxy-L-threo-hex-4-enopyranuronate
+C22713	4-Deoxy-L-erythro-hex-4-enopyranuronate
 C22714	2,5-Dimethoxy-4-ethylamphetamine
 C22715	2,5-Dimethoxy-4-ethylthiophenethylamine
 C22716	Eticyclidine
@@ -19269,6 +19270,144 @@ C22828	3-Methylmethcathinone
 C22829	alpha-Pyrrolidinoisohexaphenone
 C22831	5alpha-Pregnan-17alpha-ol-3,20-dione
 C22832	5alpha-Pregnane-3alpha,17alpha-diol-20-one
+C22834	Protein-trisulfide
+C22835	4-Carboxy-3-alkylbut-2-enoyl-[acyl-carrier protein]
+C22836	3-Alkylbut-2-enoyl-[acyl-carrier protein]
+C22837	(+)-delta-Cadinol
+C22838	Colleterpenol
+C22839	delta-Araneosene
+C22840	(5R,12R,14S)-Dolasta-1(15),8-diene
+C22841	Somaliensene A
+C22842	(-)-Somaliensene B
+C22843	Demethylgadusol
+C22844	Variediene
+C22845	(2E)-alpha-Cericerene
+C22846	Gadusol
+C22847	3-Carboxymethyl-3-hydroxy-acyl-[acp]
+C22848	N-(1H-1,3-Benzodiazol-2-yl)carbamate
+C22849	3-Aminoavenalumate
+C22850	3-Diazoavenalumate
+C22851	1D-myo-Inositol 1,2,5,6-tetrakisphosphate
+C22852	1D-myo-Inositol 1,2,6-trisphosphate
+C22853	1D-myo-Inositol 1,2-bisphosphate
+C22854	1D-myo-Inositol 2-phosphate
+C22855	Glucose monomycolate
+C22857	Very-long-chain alpha-carboxyacyl-CoA
+C22858	Long-chain 3-oxoacyl-[acyl-carrier protein]
+C22859	Long-chain (3R)-3-hydroxyacyl-[acyl-carrier protein]
+C22860	Long-chain trans-2-enoyl-[acyl-carrier protein]
+C22861	Very-long-chain acyl-[acyl-carrier protein]
+C22862	Very-long-chain 3-oxoacyl-[acyl-carrier protein]
+C22863	Very-long-chain (3R)-3-hydroxyacyl-[acyl-carrier protein]
+C22864	Very-long-chain trans-2-enoyl-[acyl-carrier protein]
+C22865	Ultra-long-chain mono-unsaturated acyl-[acyl-carrier protein]
+C22866	Ultra-long-chain mono-unsaturated 3-oxo-fatty acyl-[acyl-carrier protein]
+C22867	Ultra-long-chain mono-unsaturated (3R)-3-hydroxyacyl-[acyl-carrier protein]
+C22868	Ultra-long-chain mono-unsaturated trans-2-enoyl-[acyl-carrier protein]
+C22869	Ultra-long-chain di-unsaturated acyl-[acyl-carrier protein]
+C22870	Ultra-long-chain di-unsaturated 3-oxo-fatty acyl-[acyl-carrier protein]
+C22871	Ultra-long-chain di-unsaturated (3R)-3-hydroxyacyl-[acyl-carrier protein]
+C22872	Ultra-long-chain di-unsaturated trans-2-enoyl-[acyl-carrier protein]
+C22873	Meromycolic acid
+C22874	Meromycoloyl-[acp Pks13]
+C22875	Trehalose mycolic-beta-ketoester
+C22876	Trehalose monomycolate
+C22877	Trehalose dimycolate
+C22878	Mycolic acid
+C22879	mAGP
+C22880	[Methionine synthase]-cob(I)alamin
+C22881	Iron(III) oxide-hydroxide
+C22882	N-Deacetylipecoside aglycone
+C22883	6-O-Methyl-N-deacetylipecoside
+C22884	6-O-Methyl-N-deacetylipecoside aglycone
+C22885	cis-4-Hydroxycyclohexane-1-carboxylate
+C22886	N1-[(S)-3-amino-3-carboxypropyl]agmatine
+C22887	4-Oxocyclohex-2-ene-1-carboxylate
+C22888	N-Hydroxyputrescine
+C22889	5,20-Epoxytax-11-en-4alpha-ol
+C22890	3-Hydroxy-3-(4-hydroxyphenyl)propanoate
+C22891	5,20-Epoxytax-11-ene-4alpha,9alpha-diol
+C22892	3-Hydroxy-3-(4-hydroxy-3-methoxyphenyl)propanoate
+C22893	Rhazimal
+C22894	Talaropentaene
+C22895	Macrophomene
+C22896	Phomopsene
+C22897	Bonnadiene
+C22898	Allokutznerene
+C22899	alpha-L-Rhamnosyl-(1->4)-D-glucuronate
+C22900	Fatty acid phytyl ester
+C22901	Cattleyene
+C22902	N1-Acetyl-N1-hydroxyputrescine
+C22903	Ambiguine A
+C22904	(3R)-3-Methyl-L-arginine
+C22905	Ambiguine H
+C22906	Betaine-CoA
+C22907	(R)-Salsolinol
+C22908	(+)-2-epi-Prezizaene
+C22909	(-)-alpha-Cedrene
+C22910	(Z)-beta-Ocimene
+C22911	ent-Beyerene
+C22912	Pre-putrebactin
+C22913	Putrebactin
+C22914	N1-Hydroxy-N1-succinylputrescine
+C22915	N1-Hydroxy-N1-succinylcadaverine
+C22916	Bisucaberin B
+C22917	Bisucaberin
+C22918	(9Z,11E)-12-[(1E)-Hex-1-en-1-yloxy]dodeca-9,11-dienoic acid
+C22919	Isobutyraldehyde
+C22920	4-Oxocyclohex-2,5-dienecarboxylate
+C22921	Lactobionate
+C22922	17-Dehydropreakuammicine
+C22923	Norfluorocurarine
+C22924	18-Hydroxynorfluorocurarine
+C22925	Wieland-Gumlich aldehyde
+C22926	Diaboline
+C22927	Prestrychnine
+C22928	Isostrychnine
+C22929	10-Hydroxystrychnine
+C22930	beta-Colubrine
+C22931	11-Demethylbrucine
+C22932	Hydroxycitrate
+C22933	Stemmadenine acetate
+C22934	Precondylocarpine acetate
+C22935	Dihydroprecondylocarpine acetate
+C22936	3,17-Didehydrostemmadenine
+C22937	17-Dehydrostemmadenine
+C22938	UDP-N-acetyl-alpha-D-xylosamine
+C22939	Chondrochloren A
+C22940	Chondrochloren B
+C22941	1'-Carboxy-chondrochloren A
+C22942	1'-Carboxy-chondrochloren B
+C22943	3-Amino-1,5-dihydropyridine-2,6-dione
+C22944	Indigoidine
+C22945	4-Methylajmaline
+C22946	(2R,3R,5S)-2-(S-Pantetheinyl)-carbapenam-3-carboxylate
+C22947	(2R,3R,5S,6R)-6-(Methyl)-2-(S-pantetheinyl)-carbapenam-3-carboxylate
+C22948	(2R,3R,5S,6R)-6-(Ethyl)-2-(S-pantetheinyl)-carbapenam-3-carboxylate
+C22949	5'-Deoxyadenosin-5'-yl radical
+C22950	Rhazimol
+C22951	Akuammiline
+C22952	4'-Phosphooxetanocin A
+C22953	Oxetanocin A
+C22954	[Protein] with lanthionine crosslink
+C22955	[Protein] with 3-methyllanthionine crosslink
+C22956	[Protein]-(Z)-2-aminobutenoate
+C22957	beta-D-Galactofuranoside
+C22958	beta-D-Galf-(1->5)-beta-D-galactofuranoside
+C22959	4'-Phospho-dehydrooxetanocin
+C22960	Dehydrosecodine
+C22961	17-Dehydropreakuammicine hydrate
+C22962	(20S)-19,20-Dihydrovomilenine
+C22963	C22963
+C22964	C22964
+C22965	C22965
+C22966	C22966
+C22967	C22967
+C22968	C22968
+C22969	Unsaturated fatty acid
+C22970	C22970
+C22971	C22971
+C22972	C22972
 G00001	N-Acetyl-D-glucosaminyldiphosphodolichol
 G00002	N,N'-Chitobiosyldiphosphodolichol
 G00003	(GlcNAc)2 (Man)1 (PP-Dol)1
@@ -19317,7 +19456,7 @@ G00046	Fuc-Lc4Cer
 G00047	3'-isoLM1
 G00048	Fuc-3'-isoLM1
 G00050	Paragloboside
-G00051	nLc5Cer
+G00051	IV3Gala-nLc4-Cer
 G00052	Type II B antigen
 G00053	(Gal)2 (GalNAc)1 (Glc)1 (GlcNAc)1 (Cer)1
 G00054	Type II A antigen
@@ -20063,7 +20202,7 @@ G00912	Blood group B type 3
 G00913	Ranuncoside
 G00914	Mogroside
 G00915	(Gal)2
-G00916	PVLA
+G00916	Lactobionic acid
 G00917	(LRha)2
 G00918	NodBj-V(C18:1,MeFuc)
 G00920	Saikosaponin
@@ -20758,7 +20897,7 @@ G01753	(GlcNAc)1 (LRha)3
 G01755	Soyasaponin II
 G01756	(3,6-Anhydro-Glc)1 (Glc)3
 G01758	(Gal)1 (GlcNAc)1 (gro-7dgalHep)1
-G01759	(Gal4,6Py)1 (GlcNAc)1 (LFuc)1
+G01759	(Gal4,6Pyr)1 (GlcNAc)1 (LFuc)1
 G01761	(Gal)1 (Man)2
 G01762	(Gal)1 (GlcNAc)1 (LFuc)1
 G01763	(Gal)2 (LAraf)1
@@ -21172,7 +21311,7 @@ G02259	(Gal)2 (GlcNAc)2 (LFuc)3
 G02260	(Gal)1 (GlcNAc)3 (LFuc)1 (Man)2
 G02263	(Gal)1 (GlcNAc)3 (Man)3
 G02264	(GlcNAc)2 (Man)5
-G02265	(Gal)2 (Gal3,4Py)1 (GalNAc)1 (Glc)1 (Cer)1
+G02265	(Gal)2 (Gal3,4Pyr)1 (GalNAc)1 (Glc)1 (Cer)1
 G02266	(GlcNAc)2 (Man)5
 G02267	GM2 analog
 G02268	(LAraf)2 (Xyl)6
@@ -21208,10 +21347,10 @@ G02300	(Gal)2 (Glc)2 (LRha)2
 G02301	(GalA)3 (LRha)3
 G02302	(GlcNAc)1 (Man)3 (P)2
 G02304	(Gal)1 (Glc)3 (Xyl)1
-G02305	(Glc)3 (Glc3Me4,6Py)1 (Glc4,6Py)1
+G02305	(Glc)3 (Glc3Me4,6Pyr)1 (Glc4,6Pyr)1
 G02306	(2,6daraHex3Me)3 (Cym)1 (Glc)1
 G02307	(Gal)1 (Glc)2 (LRha)1 (Xyl)1
-G02309	(Glc)2 (Glc3Me4,6Py)1 (Glc4,6Py)1 (Glc4X)1
+G02309	(Glc)2 (Glc3Me4,6Pyr)1 (Glc4,6Pyr)1 (Glc4X)1
 G02310	(Gal)1 (Glc)2 (LRha)1 (Xyl)1
 G02311	(Gal)2 (GalNAc)1 (Neu5Ac)1
 G02312	(LAraf)3 (Xyl)4
@@ -21740,7 +21879,7 @@ G02884	GM1b, positional analog
 G02885	(Gal)2 (GalNAc)1 (Glc)1 (GlcNAc4Me)1 (Cer)1
 G02886	V4Fuc-Lc6-Cer
 G02887	(Gal)1 (GlcNAc)3 (LFuc)1 (Man)2 (Asn)1
-G02888	(Gal)1 (Gal4,6Py)1 (Glc)5 (Glc4,6Py)1
+G02888	(Gal)1 (Gal4,6Pyr)1 (Glc)5 (Glc4,6Pyr)1
 G02890	(Gal)3 (GlcNAc)5 (Man)3 (Neu5Ac)3
 G02891	(Gal)3 (GlcNAc)5 (Man)3 (Neu5Ac)3
 G02892	(Gal)2 (Glc)1 (GlcNAc)3 (Man)2
@@ -22256,7 +22395,7 @@ G03525	(GlcA)1 (GlcNAc)1 (LIdoA)1 (S)1
 G03531	(GlcA)1 (Xyl)2
 G03532	(Glc)1 (Xyl)1 (Ser)1
 G03533	(LCym)3
-G03538	(Glc3Me4,6Py)1 (L1dAlt)1 (LRha)1
+G03538	(Glc3Me4,6Pyr)1 (L1dAlt)1 (LRha)1
 G03540	(GlcNAc)1 (Man)2
 G03541	(Gal)1 (Glc)1 (Man)1
 G03542	(Glc)2 (Man6Ac)1
@@ -22641,7 +22780,7 @@ G03962	(Gal)4 (GalNAc)1 (GlcNAc)3 (LFuc)3 (Neu5Ac)1
 G03963	(Gal)4 (GlcNAc)6 (Man)3
 G03964	(Gal)1 (GlcNAc)5 (LFuc)1 (Man)3 (Neu5Ac)1
 G03965	(Gal)5 (GalNAc)2 (Glc)1 (GlcNAc)1 (Neu5Gc)1 (Cer)1
-G03966	(Gal)2 (Gal4,6Py)2 (Glc)4 (GlcA)2 (Man)4
+G03966	(Gal)2 (Gal4,6Pyr)2 (Glc)4 (GlcA)2 (Man)4
 G03967	(Gal)3 (GlcNAc)7 (Man)3
 G03968	(GlcNAc)1 (Man)13
 G03969	(Gal)4 (GlcNAc)5 (LFuc)1 (Man)3
@@ -22801,7 +22940,7 @@ G04127	(Gal)3 (GlcNAc)5 (Man)3 (Neu5Ac)4
 G04128	(Gal)3 (Glc)1 (GlcNAc)2 (Neu5Ac)3
 G04129	(Gal)3 (GlcNAc)5 (LFuc)1 (Man)3 (Asn)1
 G04130	(Gal)2 (GlcNAc)4 (LFuc)3 (Man)3 (Asn)1
-G04131	(Gal4,6Py)2 (Glc)7 (Glc4,6Py)2 (GlcA)2
+G04131	(Gal4,6Pyr)2 (Glc)7 (Glc4,6Pyr)2 (GlcA)2
 G04132	(Gal3Me)2 (GalNAc)2 (GlcNAc)4 (Man)3 (Xyl)1
 G04134	(Gal)4 (GalNAc)1 (GlcNAc)3 (LFuc)2 (Neu5Ac)1
 G04135	(Gal)2 (GalNAc)3 (Neu5Ac)2 (Neu5Gc)1 (Ser/Thr)1
@@ -22854,7 +22993,7 @@ G04184	(Gal)3 (GlcNAc)4 (GlcNAc1N)1 (Man)3
 G04185	(Gal)3 (GlcNAc)5 (Man)3 (Asn)1
 G04186	(Gal)6 (GlcNAc)8 (LFuc)3 (Man)3
 G04187	(Gal)1 (GlcNAc)3 (Man)5 (Neu5Ac)1 (Asn)1
-G04188	(Gal)2 (Galf)2 (Galf5,6Py)2 (Glc)2 (GlcA)2 (LRha)2
+G04188	(Gal)2 (Galf)2 (Galf5,6Pyr)2 (Glc)2 (GlcA)2 (LRha)2
 G04189	(Gal)3 (GlcNAc)5 (LFuc)1 (Man)2 (Asn)1
 G04190	(Gal)7 (Glc)1 (GlcNAc)7 (Man)3
 G04191	(Gal)4 (GlcNAc)6 (LFuc)4 (Man)3 (Neu5Ac)1
@@ -23069,7 +23208,7 @@ G04418	(Gal)6 (GalNAc)1 (GlcNAc)3
 G04419	(GalNAc)2 (GlcNAc)5 (LFuc)1 (Man)3
 G04420	(Gal)3 (GlcNAc)5 (Man)3 (Neu5Ac)3 (Asn)1
 G04421	(Gal)3 (GlcNAc)5 (Man)3 (Neu5Ac)3 (Asn)1
-G04422	(Gal)2 (Gal4,6Py)1 (Glc)5 (GlcA)3
+G04422	(Gal)2 (Gal4,6Pyr)1 (Glc)5 (GlcA)3
 G04423	(GalNAc)2 (GlcNAc)6 (Man)3
 G04424	(GlcNAc)2 (Man)8 (P)2
 G04425	(Gal)3 (GlcNAc)3 (LFuc)2 (Neu5Ac)1
@@ -23357,7 +23496,7 @@ G04741	(Gal)3 (Man)6
 G04742	(Gal)3 (Glc)1 (GlcNAc)2 (LFuc)1 (Neu5Ac)1
 G04743	(Gal)2 (GalNAc)1 (Glc)1 (GlcNAc)2 (Kdo)1 (Lgro-manHep)2
 G04744	(Glc)1 (GlcNAc)3 (Kdo)2 (Lgro-manHep)3
-G04745	(Gal)1 (Glc)5 (Glc4,6Py)1 (GlcA)3
+G04745	(Gal)1 (Glc)5 (Glc4,6Pyr)1 (GlcA)3
 G04747	(Gal)2 (Man)7
 G04748	(Galf)1 (GlcNAc)2 (Man)7
 G04749	(Gal)3 (Glc)1 (GlcNAc)2 (LFuc)3 (Cer)1
@@ -23465,7 +23604,7 @@ G04861	(Gal)7
 G04862	(Gal)7
 G04863	(Galf)7
 G04864	(Glc)1 (GlcNAc)1 (Man)8
-G04866	(Gal)1 (Glc)5 (Glc4,6Py)1 (GlcA)3
+G04866	(Gal)1 (Glc)5 (Glc4,6Pyr)1 (GlcA)3
 G04867	(Gal3Me)1 (GalNAc)1 (GlcNAc)3 (Man)3 (Xyl)1
 G04869	(Gal)2 (GalNAc)2 (Glc)1 (Neu5Ac)1 (Cer)1
 G04870	(Gal)2 (Glc)1 (GlcNAc)2 (Kdo)1 (Lgro-manHep)2 (P)2
@@ -23725,7 +23864,7 @@ G05153	(Gal)3 (Glc)1 (GlcNAc)2 (LFuc)3
 G05154	(Glc)6 (Man)3
 G05155	(Gal)4 (Glc)2 (GlcNAc)2
 G05156	(Man)8
-G05157	(Gal4,6Py)1 (Glc)5 (GlcA)3
+G05157	(Gal4,6Pyr)1 (Glc)5 (GlcA)3
 G05158	(Gal)4 (GlcNAc)4
 G05159	(Gal)6 (GlcNAc)7 (LFuc)1 (Man)3
 G05160	(Gal)3 (GlcNAc)3 (LFuc)2
@@ -23749,7 +23888,7 @@ G05178	(GalNAc)2 (Man)6
 G05179	(Gal)3 (Glc)1 (GlcNAc)3 (Cer)1
 G05180	(Gal)3 (GalNAc)1 (GlcNAc)3 (LFuc)1
 G05182	(GlcA)1 (GlcN)3 (Xyl)1 (S)8
-G05183	(Gal)1 (Gal2Ac3Ac4,6Py)1 (Glc)5 (GlcA)2
+G05183	(Gal)1 (Gal2Ac3Ac4,6Pyr)1 (Glc)5 (GlcA)2
 G05185	(Gal)2 (GalNAc)1 (GlcNAc)2 (LFuc)2 (Neu5Ac)1
 G05186	(Gal)3 (GalNAc)1 (GlcNAc)2 (Neu5Gc)1
 G05187	(GlcNAc)4 (Man)5
@@ -23853,7 +23992,7 @@ G05291	XXFG
 G05292	XXFG
 G05293	XXFG
 G05294	XXFG
-G05295	(Gal)2 (Glc)5 (Glc4,6Py)1
+G05295	(Gal)2 (Glc)5 (Glc4,6Pyr)1
 G05296	(Gal)2 (GalA)4 (LRha)2
 G05297	(Glc)4 (S)14
 G05298	(Glc)3 (GlcNAc)2 (Man)4
@@ -23962,7 +24101,7 @@ G05411	(Gal)1 (Glc)5 (GlcA)2
 G05412	(GlcNAc)1 (Man)7
 G05413	(D/LHep)2 (Gal)2 (GalNAc)1 (Glc)1 (GlcNAc)2 (Kdo)1
 G05414	(Gal)3 (GalNAc)1 (GlcNAc)2 (S)2
-G05416	(Gal)1 (Gal3,4Py)1 (GalNAc)1 (Glc)1 (LGal)1 (P)1 (Cer)1
+G05416	(Gal)2 (Gal3,4Pyr)1 (GalNAc)1 (Glc)1 (P)1 (Cer)1
 G05417	(Gal)2 (GlcNAc)1 (LFuc)2 (Man)1
 G05419	(GlcN)2 (Kdo)4 (P)2
 G05420	(Gal)1 (GlcNAc)3 (LFuc)1 (Man)3
@@ -24012,7 +24151,7 @@ G05470	(Gal)2 (GalNAc)1 (Glc)1 (Neu5Ac)1 (Cer)1
 G05471	(GlcA)1 (GlcN)2 (GlcNAc)1 (LIdoA)1 (S)7
 G05472	(Glc)1 (Glc2Me3Me4Me)1 (GlcA3Me)1 (GlcN)1 (LIdoA)1 (S)9
 G05473	(Glc)2 (Neu5Ac)2 (Cer)1
-G05474	(Gal)1 (Glc)6 (Glc4,6Py)1
+G05474	(Gal)1 (Glc)6 (Glc4,6Pyr)1
 G05475	(GlcA)1 (GlcN)2 (GlcNAc)1 (L4-en-thrHexA)1 (LIdoA)1 (S)6
 G05476	(Gal)1 (GlcNAc)4 (Man)3
 G05477	(GlcNAc)3 (LFuc)2 (Man)3
@@ -24044,7 +24183,7 @@ G05503	(2,5-Anhydro-Man-ol)1 (Gal)4 (Man)3
 G05504	(Gal)2 (Glc)2 (GlcNAc)2 (LFuc)2
 G05505	(GlcA)1 (GlcN)2 (GlcNAc)1 (LIdoA)2 (S)7
 G05506	(GalNAc)1 (GlcN)1 (Man)4
-G05507	(Glc)7 (Glc4,6Py)1
+G05507	(Glc)7 (Glc4,6Pyr)1
 G05508	(GalNAc)3 (Qui3N)4
 G05509	(Gal)2 (GalNAc)2 (Glc)2 (Cer)1
 G05510	(Glc)1 (Kdo)1 (Lgro-manHep)3 (P)2
@@ -24066,7 +24205,7 @@ G05526	(GlcNAc)2 (LFuc)1 (Man)5
 G05527	(FucNAc4NAc)1 (GalNAc)2 (Glc)1 (Rib)1 (P)2
 G05528	AGal,Fuc-GA1
 G05529	(Gal)2 (GalNAc)1 (GlcNAc)1 (Neu5Ac)1 (S)1
-G05530	Sialyl Lewis a antigen, dimeric
+G05530	2-6 Sialyl Lewis a antigen
 G05531	(Gal)2 (GalNAc)1 (GlcA)1 (L4-en-thrHexA)1 (Xyl)1 (S)2
 G05532	(Gal)2 (GalNAc)1 (GlcA)1 (L4-en-thrHexA)1 (Xyl)1 (S)2
 G05533	(Gal)2 (GalNAc)1 (GlcA)1 (L4-en-thrHexA)1 (Xyl)1 (S)2
@@ -24078,7 +24217,7 @@ G05540	(Fuc)1 (Gal)2 (GalNAc)1 (Glc)1 (GlcNAc)1 (Cer)1
 G05541	(GlcNAc)5 (Man)3
 G05542	(GlcN)8
 G05543	(Fuc)1 (Gal)3 (Glc)1 (GlcNAc)1 (Cer)1
-G05544	(Gal4,6Py)1 (Glc)4 (Glc4,6Py)1 (GlcA)2
+G05544	(Gal4,6Pyr)1 (Glc)4 (Glc4,6Pyr)1 (GlcA)2
 G05545	(Gal)1 (GalNAc)1 (GlcNAc)1 (Neu5Ac)1 (S)1 (Ser/Thr)1
 G05546	(GlcNAc)3 (LFuc)2 (Man)2 (Asn)1
 G05547	(GlcNAc)3 (LFuc)2 (Man)2 (Asn)1
@@ -24092,7 +24231,7 @@ G05554	(Glc)1 (GlcNAc)1 (Man)5
 G05555	(Glc)8
 G05556	(Glc)8
 G05557	(Gal)2 (GalNAc)1 (GlcNAc)1 (LFuc)1 (Neu5Ac)1
-G05558	(1,5-Anhydro-Glc)1 (Gal)1 (Glc)5 (Glc4,6Py)1
+G05558	(1,5-Anhydro-Glc)1 (Gal)1 (Glc)5 (Glc4,6Pyr)1
 G05559	(Gal)3 (GalNAc)1 (Glc)1 (GlcNAc)1 (Cer)1
 G05560	IV3Galb,III6PE-Ap4-Cer
 G05561	(GlcNAc)1 (Man)7
@@ -24150,7 +24289,7 @@ G05621	Heparin/heparan sulfate
 G05622	(Asc)2 (Gal)2 (LRha)2 (Man)2
 G05623	(Gal)1 (Glc)3 (Kdo)1 (Lgro-manHep)2
 G05624	(Gal)3 (GalNAc)1 (GlcNAc)2 (LFuc)2
-G05625	(Gal)1 (Gal3,4Py)1 (GalNAc)1 (Glc)1 (LFuc)1 (P)1 (Cer)1
+G05625	(Gal)1 (Gal3,4Pyr)1 (GalNAc)1 (Glc)1 (LFuc)1 (P)1 (Cer)1
 G05626	(Gal)1 (GlcNAc)6
 G05627	LPS L3,7,9 oligosaccharide
 G05628	(GlcNAc)1 (GlcNAc1N)1 (LFuc)1 (Man)3
@@ -24196,7 +24335,7 @@ G05671	(Gal)3 (GalNAc)1 (GlcNAc)3
 G05672	(Gal)1 (Galf)4 (Glc)2
 G05673	(Gal)3 (GlcNAc)2 (LFuc)3
 G05674	(Glc)9
-G05675	(Gal4,6Py)1 (Glc)4 (Glc4,6Py)1 (GlcA)2
+G05675	(Gal4,6Pyr)1 (Glc)4 (Glc4,6Pyr)1 (GlcA)2
 G05676	(Gal)4 (GlcNAc)3
 G05677	(Gal)4 (Glc)1 (GlcNAc)2
 G05680	Sialyl Lewis x antigen ganglioside analog
@@ -24233,7 +24372,7 @@ G05716	(Gal)2 (Glc)1 (Neu5Ac)1 (Cer)1
 G05718	(GlcNAc)2 (LFuc)1 (Man)3 (Xyl)1 (Asn)1
 G05719	(Gal)1 (Glc)3 (GlcNAc)1 (Lgro-manHep)3
 G05720	(Gal)2 (GalNAc)1 (Glc)1 (GlcNAc)1 (LFuc)1 (Cer)1
-G05721	(Gal4,6Py)1 (Glc)4 (Glc4,6Py)1 (GlcA)1 (L4-en-thrHexA)1
+G05721	(Gal4,6Pyr)1 (Glc)4 (Glc4,6Pyr)1 (GlcA)1 (L4-en-thrHexA)1
 G05722	(Gal)1 (GlcNAc)2 (LRha)5
 G05723	(1,6-Anhydro-Glc)1 (GalNAc4Me)1 (GlcA4Me)1 (GlcNAc)1 (LFuc)1 (Man)2 (Xyl)1
 G05724	(1,6-Anhydro-Glc)1 (GalNAc3Me)1 (GlcA4Me)1 (GlcNAc)1 (LFuc)1 (Man)2 (Xyl)1
@@ -24251,7 +24390,7 @@ G05736	(Gal)5 (GlcNAc)8 (LFuc)1 (Man)3 (Asn)1
 G05737	(Gal)3 (GalNAc)1 (GlcNAc)2 (LFuc)1
 G05738	(4-C-methyl-GlcA6N)1 (GalA6N)1 (Glc)1 (GlcNAc)1 (QuiNAc)1 (P)1
 G05739	(Gal)1 (GalNAc)2 (Neu5Ac)2
-G05740	(Gal4,6Py)1 (Glc)4 (Glc4,6Py)1 (GlcA)1 (L4-en-thrHexA)1
+G05740	(Gal4,6Pyr)1 (Glc)4 (Glc4,6Pyr)1 (GlcA)1 (L4-en-thrHexA)1
 G05741	(Gal)3 (GlcNAc)4
 G05742	(2,5-Anhydro-Man)1 (Gal)2 (GlcNAc)1 (LFuc)1 (S)3
 G05743	(Gal)2 (Glc)1 (GlcNAc)1 (LFuc)1 (Neu5Ac)1
@@ -24295,7 +24434,7 @@ G05785	PSGP, polysialoglycoprotein
 G05786	(Gal)2 (GalNAc)2 (GlcNAc)1 (LFuc)2
 G05788	(Gal)1 (GlcNAc)1 (Man)3
 G05789	(GalA)1 (GalNAc)2 (GlcA)2 (S)2
-G05790	(Gal)1 (Gal3,4Py)1 (GalNAc)1 (Glc)1 (LFuc)1 (Cer)1
+G05790	(Gal)1 (Gal3,4Pyr)1 (GalNAc)1 (Glc)1 (LFuc)1 (Cer)1
 G05791	(Abe)1 (Gal)2 (LRha)2 (Man)2
 G05792	(GlcA)1 (GlcN)3 (GlcNAc)1 (L4-en-thrHexA)1 (LIdoA)2 (S)6
 G05793	II3NeuAc-GA2
@@ -24360,7 +24499,7 @@ G05857	(Gal)3 (Glc)1 (GlcNAc)2 (LFuc)1
 G05858	(Gal)1 (GlcNAc)3 (Man)3
 G05859	(Gal)1 (GlcNAc)2 (Man)3
 G05860	(Gal)1 (GalNAc)2 (GlcNAc)1 (Kdn)1 (LFuc)2
-G05861	(Gal)1 (Gal3,4Py)1 (GalNAc)1 (Glc)1 (Cer)1
+G05861	(Gal)1 (Gal3,4Pyr)1 (GalNAc)1 (Glc)1 (Cer)1
 G05862	(GlcNAc)4 (Man)3
 G05863	(Gal)3 (GalNAc)1 (GlcNAc)2 (S)1
 G05864	Sapindoside D
@@ -24440,7 +24579,7 @@ G05944	(Gal)1 (GlcN)1 (Man)3 (P)1
 G05945	(GlcNAc)1 (Man)6
 G05946	(GlcA)3 (GlcNAc)4
 G05947	(GlcN)7
-G05948	(Gal)1 (Gal4,6Py)1 (Glc)2 (GlcA)1 (Man)2
+G05948	(Gal)1 (Gal4,6Pyr)1 (Glc)2 (GlcA)1 (Man)2
 G05949	(Gal)2 (GalNAc)1 (Glc)1 (GlcNAc)1
 G05950	(Glc)3 (S)11
 G05951	(Gal)4 (Glc)1 (GlcNAc)1
@@ -24686,7 +24825,7 @@ G06208	(2,5-Anhydro-Man)1 (GlcA)1 (GlcN)2 (LIdoA)1 (S)6
 G06209	(Gal)2 (Glc)2 (Man)2
 G06210	(GlcNAc)2 (LFuc)1 (Man)3 (Xyl)1
 G06211	(Fuc)1 (Glc)1 (LRha)3
-G06212	(Gal)1 (Galf)1 (Galf5,6Py)1 (Glc)1 (GlcA)1 (LRha)1
+G06212	(Gal)1 (Galf)1 (Galf5,6Pyr)1 (Glc)1 (GlcA)1 (LRha)1
 G06214	(GlcNAc)1 (Hex)1 (LFuc)1 (Man)3 (Xyl)1
 G06215	(4-C-methyl-GlcA6N)1 (GalA6N)1 (GlcNAc)1 (QuiNAc)1 (P)1
 G06216	(Gal)1 (Glc)2 (Xyl)2
@@ -24750,7 +24889,7 @@ G06278	(Glc)1 (Kdo)1 (Lgro-manHep)2 (P)2
 G06279	(Glc)5 (Ribf)2
 G06280	Pharbitic acid D
 G06281	(GlcNAc)2 (Man)2 (Man3Me)1 (Asn)1
-G06282	(Gal)2 (Glc)1 (GlcA)1 (Man)1 (Man4,6Py)1
+G06282	(Gal)2 (Glc)1 (GlcA)1 (Man)1 (Man4,6Pyr)1
 G06283	(Rha)1 (Rha4NFormyl)4
 G06284	(Gal)2 (GalNAc)1 (GlcNAc)1 (LFuc)2
 G06285	(Gal)2 (Glc)1 (GlcNAc)1 (LFuc)2
@@ -24780,7 +24919,7 @@ G06311	(Gal)3 (GalNAc)1 (GlcNAc)6 (LFuc)1 (Man)3 (Neu5Ac)4
 G06312	(Araf)1 (Galf)3
 G06313	(Fruf)5 (Glc)1
 G06314	(Gal6Me)3 (L3,6-Anhydro-Gal)3
-G06316	(Gal)2 (Gal4,6Py)1 (L3,6-Anhydro-Gal)3
+G06316	(Gal)2 (Gal4,6Pyr)1 (L3,6-Anhydro-Gal)3
 G06317	(Gal)3 (GalNAc)1 (GlcNAc)6 (LFuc)1 (Man)3 (Neu5Ac)4
 G06318	(Gal)1 (GlcNAc)1 (Man)1 (Neu)1
 G06319	Alepposide A
@@ -24961,7 +25100,7 @@ G06513	DS-18
 G06514	(Glc)3 (Xyl)2
 G06515	(Cym)5 (Fuc2Ac3Me)1
 G06516	(GalA)1 (GalNAc)2 (Glc)1 (GlcA)1
-G06517	(Glc)4 (Glc4,6Py)1
+G06517	(Glc)4 (Glc4,6Pyr)1
 G06518	(Man)6
 G06519	(Gal)1 (Glc)3 (GlcA)1 (LRha)1
 G06520	(Gal)1 (GalNAc6Me)1 (Neu5Ac)1
@@ -24969,7 +25108,7 @@ G06521	(3,6-Anhydro-Glc)3 (Glc)4
 G06522	(3,6-Anhydro-Glc)3 (Glc)4
 G06523	(3,6-Anhydro-Glc)2 (Glc)5
 G06524	III4Fuc,II3Rha-Gb3-Cer
-G06525	(Gal)1 (Gal4,6Py)1 (Glc)1 (GlcA)1 (LFuc)2
+G06525	(Gal)1 (Gal4,6Pyr)1 (Glc)1 (GlcA)1 (LFuc)2
 G06526	(GalA)3 (LRha)3
 G06527	Methyl-glucuronoxylan
 G06528	Macrophyllicinin
@@ -25253,7 +25392,7 @@ G06843	(Glc)2 (LAra)1 (LRha)1 (Xyl)1
 G06844	(Gal)1 (GalNAc)1 (Glc)1 (GlcNAc)1
 G06845	(Glc)1 (GlcNAc)4
 G06846	(Gal)2 (Glc)1 (GlcNAc)1 (Cer)1
-G06847	(Glc)2 (GlcA)1 (Man4,6Py)1 (Man6Ac)1
+G06847	(Glc)2 (GlcA)1 (Man4,6Pyr)1 (Man6Ac)1
 G06848	(GlcA)1 (GlcN)2 (GlcNAc)1 (L4-en-thrHexA)1 (LIdoA)1 (S)4
 G06849	(Gal)2 (Man)3
 G06850	(GlcA)1 (GlcN)2 (L4-en-thrHexA)1 (S)5
@@ -25289,7 +25428,7 @@ G06881	(Fuc)1 (Gal)1 (Glc)2
 G06883	(Ara)1 (Gal)1 (Glc)2 (S)4
 G06884	(Glc)1 (LRha)1 (Man)3
 G06886	(Gal)1 (Glc)2 (Man)2
-G06887	(Gal3,4Py)1 (Glc)1 (GlcA)1 (Man)2
+G06887	(Gal3,4Pyr)1 (Glc)1 (GlcA)1 (Man)2
 G06888	(GlcA4Me)2 (Xyl)4
 G06889	(LAra)1 (LRha)2 (Xyl)2
 G06890	(GalNAc)2 (GlcA)1 (L4-en-thrHexA)1 (S)3
@@ -25305,7 +25444,7 @@ G06899	(D/LAco)1 (Gal)1 (Glc)3 (LXyl)1
 G06900	(Fuc)1 (Glc2Me)1 (LRha)3
 G06901	(Man)5 (P)1
 G06902	(GlcNAc)2 (LRha)4
-G06903	(Glc)1 (Glc4,6Py)1 (GlcA)1 (LRha)1 (Man)2
+G06903	(Glc)1 (Glc4,6Pyr)1 (GlcA)1 (LRha)1 (Man)2
 G06904	(GlcNAc)1 (Man)4 (P)1
 G06905	Hep tetra
 G06906	GM2 analog
@@ -25342,7 +25481,7 @@ G06940	(Glc)3 (LRha)2
 G06941	(GlcA4Me)1 (Xyl)5
 G06942	(Gal)2 (Glc)3
 G06943	(2,5-Anhydro-Man)1 (Man)3
-G06944	(Gal)1 (GalA)1 (Man)2 (Man4,6Py)1
+G06944	(Gal)1 (GalA)1 (Man)2 (Man4,6Pyr)1
 G06945	(Glc2Ac3Ac6Ac)1 (LAra2Ac4Ac)1 (LAra3Ac4Ac)1 (LRha2Ac4Ac)1 (Xyl2Ac3Ac4Ac)1
 G06946	(Gal)2 (GalNAc)1 (GlcNAc)2
 G06948	(Glc)1 (Man)3 (Cer)1
@@ -25380,13 +25519,13 @@ G06980	(Gal)2 (Glc)1 (GlcA)1
 G06981	(Gal)6 (Glc)1 (Cer)1
 G06982	II3Rha-Gb3-Cer
 G06983	(Glc)2 (GlcA)1 (Man)1 (Man6Ac)1
-G06984	(Glc)2 (GlcA)1 (Man)1 (Man4,6Py)1
+G06984	(Glc)2 (GlcA)1 (Man)1 (Man4,6Pyr)1
 G06985	(Gal)1 (Glc3Ac4Ac6Ac)2
 G06986	(2,5-Anhydro-Man-ol)1 (GalNAc)1 (Man)3
 G06987	(Gal)1 (GalNAc)1 (LFuc)1 (Neu5Gc)1
 G06988	(Gal)2 (Glc1N)1 (GlcNAc)1 (LFuc)1
 G06989	(GlcA)1 (GlcN)1 (GlcNAc)1 (L4-en-thrHexA)1 (S)4
-G06990	(Gal)1 (Gal4,6Py)1 (Glc)1 (Man)2
+G06990	(Gal)1 (Gal4,6Pyr)1 (Glc)1 (Man)2
 G06991	(Gal)1 (GlcNAc)1 (L2dlyxHex)1 (Neu5Ac)1
 G06992	(Gal)1 (Glc)2 (P)1
 G06993	(Gal)3 (GlcNAc)2
@@ -25585,8 +25724,7 @@ G07215	(Man)4
 G07216	(Glc)4 (LAraf)2
 G07217	(Gal4N)1 (GlcNAc)1 (LFuc)2
 G07218	(Gal3N)1 (GlcNAc)1 (LFuc)2
-G07219	(Glc)3 (Glc3Me4,6Py)1 (Glc4,6Py)1
-G07220	(Glc)3 (Glc3Me)1 (Glc4,6Py)1
+G07220	(Glc)3 (Glc3Me)1 (Glc4,6Pyr)1
 G07221	(Glc)4 (Glc3Me)1
 G07222	(Glc)3 (Lgro-manHep)1
 G07223	(Gal)1 (Glc)1 (GlcA)1 (Man)2
@@ -26058,7 +26196,7 @@ G07756	Elatoside B
 G07757	(Gal)1 (Glc)4 (Lgro-manHep)1
 G07759	(Glc)2 (L6dTal3Me)1
 G07760	(Glc)1 (Glc3Ac4Ac6Ac)1
-G07762	(Gal2,3Py)1 (GalNAc)1 (LFucNAc)1 (ManNAc)1
+G07762	(Gal2,3Pyr)1 (GalNAc)1 (LFucNAc)1 (ManNAc)1
 G07763	(Gal)1 (GalA)1 (LKdo)1 (Man)1
 G07764	(GlcNAc)2 (Man)2
 G07765	(3,6-Anhydro-Glc)2 (Glc)3
@@ -26080,7 +26218,7 @@ G07781	(Glc)2 (LAra)1 (LRha)1
 G07782	(GlcNAc)1 (Man)3 (P)1
 G07783	(Gal)1 (Glc)1 (LRha)1 (Rib-ol)1 (P)1
 G07785	(Gal)1 (GalNAc)1 (Glc)1 (LFuc)2
-G07786	(D/LEry)1 (Gal3,4Py)1 (Glc)1 (Man)1
+G07786	(D/LEry)1 (Gal3,4Pyr)1 (Glc)1 (Man)1
 G07787	(2dGlc)1 (Glc)2 (LRha)1 (Xyl)1
 G07788	(Gal)1 (GalNAc)1
 G07789	(Gal2Ac3Ac4Ac6Ac)1 (Gal2Ac3Ac6Ac)1 (Glc2Ac3Ac6Ac)1
@@ -26327,7 +26465,6 @@ G08077	(Gal)1 (GalNAc)1 (GlcNAc)2
 G08078	(Fuc)1 (GalNAc)1 (S)1
 G08079	(3,6dxylHex2Ac)1 (Gal)1 (LRha)1 (Man)1
 G08080	(2,5-Anhydro-Man)1 (GlcA)2 (GlcNAc)1 (S)1
-G08081	(GlcNAc)1 (GlcNAc4,6(S)Py)1 (LRha)1 (*)2
 G08082	(Glc)1 (Man)2
 G08083	(GlcA)1 (Man)3
 G08085	(Glc)1 (LRha)3
@@ -26382,7 +26519,7 @@ G08143	(Gal)1 (GlcNAc)1 (LRha)2
 G08144	(Gal)2 (L3,6-Anhydro-Gal2Me)2
 G08145	(GlcNAc)1 (Man)1 (Xyl)1
 G08146	(Gal)1 (Gal6Me)1 (L3,6-Anhydro-Gal)2
-G08147	(Gal)1 (Gal4,6Py)1 (L3,6-Anhydro-Gal)2
+G08147	(Gal)1 (Gal4,6Pyr)1 (L3,6-Anhydro-Gal)2
 G08148	(GalNAc)1 (GlcA)1 (GlcNAc)1 (LRha)1
 G08150	Melandrioside A
 G08151	(Glc)5
@@ -26412,7 +26549,7 @@ G08179	(Gal)1 (Neu5Ac4Ac)1
 G08181	(GalA)2 (LRha)2
 G08182	(GalA)2 (LRha)2
 G08183	(2,6daraHex)2 (2,6daraHex3Me)1
-G08184	(Glc)3 (Glc4,6Py)1
+G08184	(Glc)3 (Glc4,6Pyr)1
 G08185	(Glc)4
 G08186	(Glc)4
 G08187	(Glc)4
@@ -26505,7 +26642,7 @@ G08281	(D/L5dlyxHep-6-ulop3NGc)1 (Gal)1 (Glc)1 (Cer)1
 G08282	(GlcN)2 (L4-en-thrHexA)1 (LIdoA)1 (S)4
 G08283	(2,6daraHex3Me)1 (Cym)3
 G08284	(Glc)2 (GlcA)1 (Man)1
-G08285	(Gal)1 (Glc)1 (GlcA2,3Py)1 (LFuc)1
+G08285	(Gal)1 (Glc)1 (GlcA2,3Pyr)1 (LFuc)1
 G08287	(Glc)1 (Lgro-manHep)3
 G08288	(GlcA4Me)1 (Xyl)3
 G08289	(GlcA4Me)1 (Xyl)2
@@ -26893,7 +27030,7 @@ G08729	(GlcN)1 (L4-en-thrHexA)1 (S)3
 G08730	(D/LFuc)1 (D/LHex)1 (D/LHexNAc)1 (GalNAc)1 (Neu5Ac)1
 G08731	(Fuc)1 (Glc)2
 G08732	(Gal)1 (GalNAc)1 (Neu5Gc)1
-G08733	(Glc)1 (GlcA2,3Py)1 (Man4,6Py)1
+G08733	(Glc)1 (GlcA2,3Pyr)1 (Man4,6Pyr)1
 G08734	(GlcNAc)1 (Man)2
 G08736	(LFucN)1 (gro-L3,9dgalNon-2-ulop5NAc7NAc-onic)1
 G08737	(Gal6SH)1 (Neu5Ac)1
@@ -27067,7 +27204,7 @@ G08924	(GlcA)1 (GlcNAc)2 (L4-en-thrHexA)1
 G08925	(Gal2Me3Me)1 (Xyl)1
 G08926	(Gal2Me)1 (Xyl)1
 G08927	(Glc)1 (LFuc)1 (LRha)1
-G08929	(D/LFuc)1 (Gal4,6Py)1 (GlcNAc)1
+G08929	(D/LFuc)1 (Gal4,6Pyr)1 (GlcNAc)1
 G08930	(Fruf6NAc)1 (Gal)1 (Glc)1
 G08931	(Fruf6N)1 (Gal)1 (Glc)1
 G08932	(4dxylHex)1 (Glc)2
@@ -27157,7 +27294,7 @@ G09027	(Gal)1 (Glc)2
 G09028	(Gal4Fluoro)1 (Glc)1 (Cer)1
 G09029	(Gal3Fluoro)1 (Glc)1 (Cer)1
 G09030	(Gal6Fluoro)1 (Glc)1
-G09031	(Gal4,6Py)1 (Glc)1
+G09031	(Gal4,6Pyr)1 (GlcNAc)1
 G09032	(Gal)1 (Glc)1 (Cer)1
 G09035	(GlcN)2 (LIdo)1
 G09036	(Fuc2Me3Me)1 (Xyl2Me)1
@@ -27232,7 +27369,7 @@ G09114	(L6dTal)1 (LFuc2Me)2 (LRha)1
 G09115	(Gal)1 (GalNAc)1 (GlcNAc)1
 G09116	(Glc)1 (LRha4Ac)1
 G09117	(Fuc)1 (LRha)1
-G09118	(Glc)1 (GlcA2,3Py)1 (LFuc)1
+G09118	(Glc)1 (GlcA2,3Pyr)1 (LFuc)1
 G09119	(Fruf)1 (Glc)2
 G09120	(Gal)1 (Glc)1 (GlcNAc)1
 G09121	(Gal)1 (Glc)1 (LRha)1
@@ -27256,7 +27393,7 @@ G09147	Camelliaside B
 G09148	(GalA6N)1 (GlcNAc3Ac4Ac6Ac)1
 G09150	(Glc)3
 G09151	(LFucNAm)1 (gro-L3,9dgalNon-2-ulop5NAc7NAc-onic)1
-G09152	(Gal)1 (GlcNAc4,6Py)1 (LRha)1
+G09152	(Gal)1 (GlcNAc4,6Pyr)1 (LRha)1
 G09153	(Glc)4
 G09154	(Glc)4
 G09155	(Glc)4
@@ -27281,7 +27418,7 @@ G09177	(D/LGalNAc)1 (Gal)1 (LFuc)1
 G09178	(Gal6Fluoro)1 (LFuc)1
 G09179	(Gal6Me)1 (LFuc)1
 G09180	(Gal4Me)1 (LFuc)1
-G09181	(Glc)1 (GlcA2,3Py)1 (LFuc)1
+G09181	(Glc)1 (GlcA2,3Pyr)1 (LFuc)1
 G09182	(Fruf)1 (Glc)3
 G09183	RG-I
 G09184	(Gal)1 (LAra2Ac3Ac4Ac)1
@@ -27620,11 +27757,11 @@ G09576	(Ara-ol)1 (Fruf)2
 G09577	(GlcNAc)1 (LRha)2
 G09578	(GlcNAc)1 (LRha)2
 G09579	(GlcNAc)1 (LRha)1
-G09580	(Glc4,6Py)1 (L1dAlt)1 (LRha)1
+G09580	(Glc4,6Pyr)1 (L1dAlt)1 (LRha)1
 G09581	(Glc)1 (LRha)2
 G09582	(Glc)1 (LRha)2
 G09583	(Glc)1 (LMan)1 (LRha)1
-G09584	(Glc3Me4,6Py)1 (L6dTal)1 (LRha)1
+G09584	(Glc3Me4,6Pyr)1 (L6dTal)1 (LRha)1
 G09585	(Glc)1 (L2,6daraHex3Me)1
 G09586	(Fruf1Chloro6Chloro)1 (Man2Chloro6Chloro)1
 G09588	(Glc)1 (LRha)1
@@ -28227,7 +28364,7 @@ G10338	(GlcNAc)2 (Man)5
 G10345	(GlcNAc)3 (Man)2 (Xyl)1
 G10346	(GlcNAc)2 (Man)6
 G10348	(Fuc)1 (Gal)2 (Glc)1 (GlcNAc)1 (Neu5Ac)1 (Cer)1
-G10349	(Gal)1 (GlcNAc)1 (Man)1 (NeuGc)1
+G10349	(Gal)1 (GlcNAc)1 (Man)1 (Neu5Gc)1
 G10350	(Gal)6 (GlcNAc)7 (Man)3
 G10351	(Gal)1 (GalNAc)1 (Glc)1 (Neu5Ac)1 (P)1
 G10352	(Gal)3 (Glc)1 (GlcNAc)1
@@ -28733,8 +28870,8 @@ G11257	(Gal)2 (Glc)4 (Kdo)1 (Lgro-manHep)3
 G11258	(Gal)4 (Glc)4 (Kdo)1 (Lgro-manHep)3
 G11259	(6dTal2Ac3Me)1 (Gal)2 (GalNAc)2 (Glc)3 (GlcA)1 (GlcN)3 (GlcNAc)2 (Kdo)3 (LAra4N)1 (LFuc)2 (Man)3 (ManNAc)1 (P)1
 G11260	(Gal)1 (GalNAc)1 (GlcNAc)2 (LFuc)1
-G11261	(Gal)1 (GalNAc)2 (NeuGc)1
-G11262	(Gal)2 (GalNAc)2 (NeuGc)1
+G11261	(Gal)1 (GalNAc)2 (Neu5Gc)1
+G11262	(Gal)2 (GalNAc)2 (Neu5Gc)1
 G11263	(Gal)3 (GalNAc)1 (LFuc)1
 G11264	(Gal)3 (GalNAc)1 (GlcNAc)1 (LFuc)1
 G11265	(Gal)4 (GalNAc)1 (LFuc)2
@@ -28898,7 +29035,7 @@ G11446	(GalNAc)1 (GlcNAc)4 (LFuc)1 (Man)3 (Neu5Ac)1 (Asn)1
 G11447	(Gal)2 (GalNAc)1 (Glc)2 (Hep)1 (Kdo)1 (Lgro-manHep)2
 G11448	(2dGlcA)1 (Glc)2 (LRha)1 (*)2
 G11449	(Gal)3 (Glc)2 (Lgro-manHep)4 (gro-manHep)1
-G11452	(Gal)1 (Glc)2 (LRha)4 (*)2
+G11452	(Gal4,6Pyr)1 (Glc)2 (LRha)4 (*)2
 G11453	(GalNAc)2 (GlcNAc)4 (LFuc)1 (Man)3 (Neu5Ac)2 (Asn)1
 G11454	(GlcNAc)1 (Man)3 (*)2
 G11457	(GlcNAc)1 (LFucNAc)1 (Lgro-L3,9dmanNon-2-ulop5NAc7NAc-onic)1 (*)2
@@ -29041,7 +29178,7 @@ G11613	GalSEGLx
 G11614	(Gal)3 (Glc)1 (Cer)1
 G11615	(Gal)2 (Glc)1 (Cer)1
 G11616	(GalNAla)1 (Glc)3 (Kdo)2 (LRha)1 (Lgro-manHep)1 (Lgro-manHep7Cm)1 (P)3
-G11617	(GalNAcAN3Ac)1 (GalNAla)1 (GalNFormylAN)1 (Glc)3 (Kdo)2 (LRha)2 (Lgro-manHep)1 (Lgro-manHep7Cm)1 (QuiNAc)1 (P)3
+G11617	(GalANFormyl)1 (GalNAcAN3Ac)1 (GalNAla)1 (Glc)3 (Kdo)2 (LRha)2 (Lgro-manHep)1 (Lgro-manHep7Cm)1 (QuiNAc)1 (P)3
 G11618	(GalANAc3Ac6N)1 (GalANFormyl)1 (LRha)1 (QuiNAc)1 (*)2
 G11619	Arabinoxylan
 G11620	(GalANAc6N)1 (GalANFormyl3Ac6N)1 (LRha)1 (QuiNAc)1 (*)2
@@ -29125,7 +29262,7 @@ G11736	(Glc)1 (Man2Ac)1 (*)2
 G11737	(GlcNAc)1 (LRha)1 (*)2
 G11738	(GlcNAc)1 (LRha)1 (*)2
 G11739	(Gal)1 (GalNAc)1 (Glc)1 (GlcNAc)1 (LRha)1 (LRha2Ac)1 (*)2
-G11740	(Gal)1 (Gal4,6Pyr)1 (Glc)2 (Man)1 (*)2
+G11740	(Gal)1 (Gal4,6Pyr)1 (Glc)1 (GlcA)1 (Man)1 (*)2
 G11741	(Gal)2 (GalNAc)1 (Glc)1 (GlcNAc)1 (LRha)1 (LRha2Ac)1 (*)2
 G11745	(Gal)1 (GalNAc)2 (Glc)1 (LRha)1 (LRha2Ac)1 (*)2
 G11747	(Glc)1 (Xyl)1
@@ -29137,7 +29274,7 @@ G11752	(Gal)2 (Man)5 (*)2
 G11753	(Gal)1 (Glc)1 (*)2
 G11755	(Glc)2 (GlcA)1 (LRha)4 (*)2
 G11756	(Gal)1 (GalA)1 (GlcNAc)1 (Ribf)1 (*)2
-G11757	(Gal)1 (Glc)1 (LRha)3 (LRha3,4pyr)1 (*)2
+G11757	(Gal)1 (GlcA)1 (LRha)3 (LRha3,4Pyr)1 (*)2
 G11763	(GlcNAc)5 (Man)3
 G11764	(Gal)2 (Glc)3 (GlcNAc)1 (GlcNAcAc)1 (Kdo)1 (Lgro-manHep)2
 G11765	(Gal)2 (Glc)1 (GlcNAc)1 (GlcNAcAc)1 (Kdo)1 (Lgro-manHep)2
@@ -29179,7 +29316,7 @@ G11815	(Gal6Ac)1 (Glc)1 (GlcNAc)1 (GlcNAc4(S-Lac))1 (LRha)2 (*)2
 G11816	(Glc)1 (GlcNAc)1 (L6dTal2Ac)1 (LRhaNAc3NAc)1 (*)2
 G11817	(GalNAc)1 (GlcA)1 (GlcNAc)1 (GlcNAc4Ac)1 (*)2
 G11818	(Gal)3 (Glc)4 (*)2
-G11819	(Gal)2 (Gal4,6Pyr)1 (Glc)3 (*)2
+G11819	(Gal)2 (Gal4,6Pyr)1 (Glc)2 (GlcA)1 (*)2
 G11821	(Gal)2 (GalNAc)1 (Glc)1 (Neu5Ac)4 (Cer)1
 G11822	Escherichia coli O86 O-antigen
 G11823	(Gal)1 (Glc)2 (GlcA)1 (Man)1 (*)2
@@ -29684,7 +29821,7 @@ G12378	(Gal)1 (GalNAc)1 (Neu5Ac)1 (S)1
 G12379	(Gal)1 (GalNAc)1 (GlcNAc)1 (Cer)1
 G12380	(Glc)2 (LRha)1 (ManNAc)1
 G12381	(GlcNAc)2 (Man)1 (P)1
-G12382	(LRha)2 (Xyluf)2
+G12382	(LRha)2 (Xulf)2
 G12385	(Gal)3 (Glc)1
 G12386	(GlcNAc)2 (Man)2
 G12387	(Gal)1 (Glc)1 (S)2
@@ -29943,7 +30080,7 @@ G12722	(Gal)1 (GlcNAc)3 (LFuc)1 (Man)5 (Neu5Ac)1
 G12723	(Gal)1 (GlcNAc)3 (LFuc)1 (Man)5 (Neu5Ac)1
 G12725	(GalA)1 (Galf)1 (GlcNAc)1 (LRha)2 (Ribf)1 (*)2 (EtN)1 (P)1
 G12726	(Gal)2 (Glc)6 (Kdo)1
-G12727	(GlcNAcA)2 (Man)1 (*)2 (S)1
+G12727	(GlcANAc)2 (Man)1 (*)2 (S)1
 G12728	(LRha)1 (Man)2 (*)2
 G12729	(Gal)1 (Galf)2 (*)2
 G12730	(Fuc)1 (Fuc4NAc)1 (GlcNAc)1 (*)2
@@ -30015,7 +30152,7 @@ G12817	(Glc)4 (GlcA)1 (LRha)1 (*)2
 G12818	(Glc)1 (GlcNAc)1 (Kdo)1 (LFuc)1 (LQuiNAc3Me)1 (Lgro-manHep)3 (Man)2 (ManNAc)1
 G12819	(EtnP)1 (Gal)2 (Glc)1 (GlcNAc)1 (Kdo)2 (Lgro-manHep)2 (LipidA)1
 G12820	(Gal)1 (Glc)2 (GlcNAc)2 (*)2
-G12821	(GalNAcAN)3 (QuiNAc4NAc)1 (*)2
+G12821	(BacNAc4NAc)1 (GalNAcAN)3 (*)2
 G12822	(8-amino-Kdo)1 (Glc)1 (GlcN)2 (GlcNAc)1 (LRha)1 (Lgro-manHep)2 (gro-manHep)1 (P)3
 G12823	(8-amino-Kdo)1 (Gal)1 (Glc)1 (GlcN)2 (gro-manHep)1 (P)3
 G12824	(LXyl)1 (Rha)1 (Rha4NAc)1 (*)2
@@ -30025,8 +30162,8 @@ G12827	(Gal)2 (GlcNAc)2 (Qui4N(L-AspAc))1 (*)2
 G12828	XUFG
 G12829	(Man)2 (Rha)1 (Ribf)1 (*)2
 G12830	(GalA)1 (GalNAc)1 (GlcNAc)1 (LRha)1 (*)2
-G12831	(GalA)1 (GalNAc4,6(R-Pyr))1 (GlcNAc)1 (LRha)1 (*)2
-G12832	(GalA)1 (GalNAc4,6(R-Pyr))1 (GlcNAc)1 (LRha2Ac)1 (*)2
+G12831	(GalA)1 (GalNAc4,6Pyr)1 (GlcNAc)1 (LRha)1 (*)2
+G12832	(GalA)1 (GalNAc4,6Pyr)1 (GlcNAc)1 (LRha2Ac)1 (*)2
 G12834	(GalNAc)1 (GlcA)1 (GlcNAc)1 (Qui3NAc)1 (*)2
 G12835	(Fuc3NAc4Ac)1 (Gal)2 (GlcNAc)2 (*)2
 G12836	(Fuc)1 (Gal)1 (Galf)1 (*)2
@@ -30036,8 +30173,8 @@ G12839	Escherichia coli O126 O-antigen
 G12840	(Glc)1 (GlcA)1 (Man)2 (Xyl)1 (*)2
 G12841	(Gal)3 (GalNAc)1 (GlcN)3 (GlcNAc)1 (Kdo)3 (LAra4N)1 (LFuc4Me)1 (Man)4 (ManNAc)1 (gro-galHep)1 (gro-galHep4Me)1 (P)2
 G12842	(Gal)1 (Glc)1 (GlcN)1 (Kdo)1 (Lgro-manHep)4 (gro-manHep)2 (P)1
-G12845	(Gal)1 (Glc)1 (GlcN)3 (Kdo)2 (LRha)1 (Lgro-manHep)2 (P)5
-G12846	((S)-Pyr)1 (Gal)1 (Glc)1 (GlcN)3 (Kdo)2 (Lgro-manHep)2 (P)4
+G12845	(GalN)1 (Glc)1 (GlcN)3 (Kdo)2 (LRha)1 (Lgro-manHep)2 (P)5
+G12846	(GalN)1 (Glc4,6Pyr)1 (GlcN)3 (Kdo)2 (Lgro-manHep)2 (P)5
 G12847	(Gal)1 (Glc)1 (GlcNAc)2 (Gro)1 (Qui4NAc)1 (*)2 (P)1
 G12848	Escherichia coli O79 O-antigen
 G12849	(Gal)2 (GalA)1 (Glc)4 (GlcA)2 (*)2 (S)1
@@ -30488,3 +30625,18 @@ G13341	Globo-B
 G13342	6,6'-Bissulfo-sialyl Lewis x
 G13343	Blood group B type 4
 G13344	B Lewis b antigen
+G13345	(1,6-Anhydro-MurNAc)1 (GlcNAc)1 (MurNAc)1 (peptide)2 (*)1
+G13346	(GlcNAc)2 (MurNAc)1 (peptide)1 (*)1
+G13347	(GlcNAc)2 (MurNAc)1 (peptide)1 (*)2
+G13348	Sialyl core 3
+G13349	Sialyl core 5
+G13350	(GalNAc)1 (GlcN)1 (Man)3 (EtN)2 (P)2 (protein)1 (Ino-P)1
+G13351	(Gal)1 (GalNAc)1 (GlcN)1 (Man)3 (EtN)2 (P)2 (protein)1 (Ino-P)1
+G13352	(Gal)1 (GalNAc)1 (GlcN)1 (Man)3 (Neu5Ac)1 (EtN)2 (P)2 (protein)1 (Ino-P)1
+G13353	(GlcN)1 (Man)4 (EtN)3 (P)3 (protein)1 (Ino-P)1
+G13354	(GlcN)1 (Man)4 (EtN)3 (P)3 (protein)1 (Cer)1 (Ino-P)1
+G13355	(GlcN)1 (Man)4 (EtN)2 (P)2 (protein)1 (Cer)1 (Ino-P)1
+G13356	(GlcN)1 (Man)4 (EtN)1 (P)1 (protein)1 (Cer)1 (Ino-P)1
+G13357	(GlcN)1 (Man)5 (EtN)1 (P)1 (protein)1 (Cer)1 (Ino-P)1
+G13358	(GlcN)1 (Man)4 (EtN)2 (P)2 (protein)1 (Ino-P)1
+G13359	(GlcN)1 (Man)4 (EtN)1 (P)1 (protein)1 (Ino-P)1

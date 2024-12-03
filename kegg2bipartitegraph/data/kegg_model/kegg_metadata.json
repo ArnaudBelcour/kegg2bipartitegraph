@@ -2,8 +2,8 @@
     "tool_options": {
         "tool_dependencies": {
             "python_package": {
-                "Python_version": "3.12.0 | packaged by conda-forge | (main, Oct  3 2023, 08:43:22) [GCC 12.3.0]",
-                "kegg2bipartitegraph": "0.1.0",
+                "Python_version": "3.12.2 | packaged by conda-forge | (main, Feb 16 2024, 20:50:58) [GCC 12.3.0]",
+                "kegg2bipartitegraph": "0.2.0",
                 "bioservices": "1.11.2",
                 "urllib": "3.12",
                 "libsbml": "5.20.2",
@@ -11,6 +11,6 @@
             }
         }
     },
-    "kegg_release_number": "109.0+/01-08, Jan 24",
-    "kegg2bipartitegraph_reference_duration": 36591.192302942276
+    "kegg_release_number": "112.0+/12-03, Dec 24",
+    "kegg2bipartitegraph_reference_duration": 43.026246070861816
 }

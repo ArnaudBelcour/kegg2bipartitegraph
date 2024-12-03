@@ -36,7 +36,10 @@ logger = logging.getLogger(__name__)
 
 ROOT = os.path.dirname(__file__)
 DATA_ROOT = os.path.join(ROOT, 'data')
-
+KEGG_MODEL = os.path.join(DATA_ROOT, 'kegg_model')
+SEED_FILES = [os.path.join(KEGG_MODEL, 'seed_hyperterm_med.txt'), os.path.join(KEGG_MODEL, 'seeds_meso_medium.txt'),
+              os.path.join(KEGG_MODEL, 'seeds_psychromed.txt'), os.path.join(KEGG_MODEL, 'seeds_therm_med.txt'),
+              os.path.join(KEGG_MODEL, 'seed_union_all.txt')]
 
 def test_seeds_graph(seeds, model_graph) :
     """Function from the work of Adèle Webber Zendrera et al. (2021),
@@ -128,7 +131,7 @@ def compute_scope(input_graphml_folder, output_folder, seed_file, reference_fold
         reference_folder (str): path to a reference KEGG folder, to use it instead of the default ones contained in kegg2bipartitegraph
     """
     starttime = time.time()
-    logger.info('|kegg2bipartitegraph|scope| Begin scope computation for grpahml filesi n {0}.'.format(input_graphml_folder))
+    logger.info('|kegg2bipartitegraph|scope| Begin scope computation for graphml files in {0}.'.format(input_graphml_folder))
 
     if reference_folder is not False:
         kegg_model_path = reference_folder
@@ -168,7 +171,7 @@ def compute_scope(input_graphml_folder, output_folder, seed_file, reference_fold
     activated_reactions = {}
     for graphml_file in os.listdir(input_graphml_folder):
         organism_name = graphml_file.replace('.graphml', '')
-        logger.info('|kegg2bipartitegraph|scope| -- Check producibility of {0}'.format(organism_name))
+        logger.info('|kegg2bipartitegraph|scope| -- Check producibility of {0} with seed {1}'.format(organism_name, seed_file))
         graphml_path = os.path.join(input_graphml_folder, graphml_file)
         accessibility = compute_scope_from_graphml(graphml_path, seed_metabolites)
         producible_compounds = [compound for compound in accessibility if accessibility[compound] == 'Accessible' and compound.startswith('C')]

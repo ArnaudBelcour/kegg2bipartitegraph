@@ -13,10 +13,21 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>
 
+import os
+import csv
 import libsbml
 
 SBML_CHARACTER_TO_REPLACE = ['-', '|', '/', '(', ')', "'", '=', '#', '*', '.',
                         ':', '!', '+', '[', ']', ',', ' ']
+
+ROOT = os.path.dirname(__file__)
+DATA_ROOT = os.path.join(ROOT, 'data')
+KEGG_MODEL_PATH = os.path.join(DATA_ROOT, 'kegg_model')
+KEGG_REMOVED_CHANGED_REACTION_PATH = os.path.join(KEGG_MODEL_PATH, 'kegg_removed_changed_reaction.tsv')
+
+UBIQUITOUS_METABOLITES = ["C00001", "C00002", "C00003", "C00004", "C00005", "C00006",
+                          "C00008", "C00009", "C00011", "C00013", "C00014", "C00059",
+                          "C00080", "C00342"]
 
 def gene_to_sbml(gene):
     """ Replace incorrect character for SBML in gene by unicode value.
@@ -148,6 +159,16 @@ def create_sbml_from_kegg_reactions(org_name, reference_reactions, reference_spe
 
     # Extract reaction found both in organism and in reference.
     reaction_to_adds = set(list(taxon_reactions.keys())).intersection(set(list(reference_reactions.keys())))
+
+    # Remove reactions associated with glycan.
+    reaction_to_removes = []
+    with open(KEGG_REMOVED_CHANGED_REACTION_PATH, 'r') as open_KEGG_REMOVED_CHANGED_REACTION_PATH:
+        csvreader = csv.DictReader(open_KEGG_REMOVED_CHANGED_REACTION_PATH, delimiter='\t')
+        for line in csvreader:
+            reaction_to_removes.append(line['reaction_id'])
+
+    reaction_to_adds = reaction_to_adds - set(reaction_to_removes)
+
     for reaction_id in reaction_to_adds:
         reaction = reference_reactions[reaction_id]
         ref_r_fbc: "libsbml.FbcReactionPlugin" = reaction.getPlugin("fbc")
@@ -185,16 +206,32 @@ def create_sbml_from_kegg_reactions(org_name, reference_reactions, reference_spe
 
         # Add reaction to organism model.
         org_reaction = reaction.clone()
+
+        # Remove product/reactant if they are glycan or ubiquitous.
+        product_to_removes = []
+        for product in org_reaction.getListOfProducts():
+            if product.species.startswith('G') or product.species in UBIQUITOUS_METABOLITES:
+                product_to_removes.append(product.species)
+        for product_to_remove in product_to_removes:
+            org_reaction.removeProduct(product_to_remove)
+
+        reactant_to_removes = []
+        for reactant in org_reaction.getListOfReactants():
+            if reactant.species.startswith('G') or reactant.species in UBIQUITOUS_METABOLITES:
+                reactant_to_removes.append(reactant.species)
+        for reactant_to_remove in reactant_to_removes:
+            org_reaction.removeReactant(reactant_to_remove)
+
         model.addReaction(org_reaction)
 
         # Get list of metabolites to add in organism model.
-        kept_metabolites.extend([i.species for i in reaction.getListOfReactants()])
-        kept_metabolites.extend([i.species for i in reaction.getListOfProducts()])
+        kept_metabolites.extend([i.species for i in org_reaction.getListOfReactants()])
+        kept_metabolites.extend([i.species for i in org_reaction.getListOfProducts()])
 
-    # Add metabolites from reaction to organism model.
+    # Add metabolites from reaction to organism model if they are not ubiquitous or glycan metabolites.
     kept_metabolites = set(kept_metabolites)
     for species in reference_species:
-        if species.id in kept_metabolites:
+        if not species.id.startswith('G') and species.id not in UBIQUITOUS_METABOLITES and species.id in kept_metabolites:
             model.addSpecies(species)
 
     # Add groups in metabolic networks.
