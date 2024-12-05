@@ -26,8 +26,23 @@ kegg2bipartitegraph_path = kegg2bipartitegraph.__path__[0]
 # Seed created in Weber Zendrera et al. (2021): https://doi.org/10.1038/s41598-021-91486-8
 # from https://github.com/AWebZen/FunctionalPrediction5000species/blob/2ff7c4fd4092a8b565da9d3fa2f4b557d9954bf0/utils_general.py
 
-# Letort c et al, 2001 : https://mediadb.systemsbiology.net/defined_media/media/322/
-MESO_MEDIUM = [ 
+# Letort c et al, 2001:
+# https://doi.org/10.1046/j.1365-2672.2001.01469.x
+# https://mediadb.systemsbiology.net/defined_media/media/322/
+MESO_MEDIUM = {'C00568': '4-Aminobenzoate', 'C00147': 'Adenine', 'C00041': 'L-Alanine', 'C01342': 'NH4+',
+                'C00158': 'Citrate', 'C00062': 'L-Arginine', 'C00072': 'Ascorbate', 'C00152': 'L-Asparagine',
+                'C00049': 'L-Aspartate', 'C00120': 'Biotin', 'C08130': 'Calcium chloride anhydrous',
+                'C00076': 'Calcium cation', 'C00698': 'Cl-', 'C00864': 'Pantothenate', 'C00175': 'Cobalt ion',
+                'C00070': 'Copper', 'C00059': 'Sulfate', 'C00097': 'L-Cysteine', 'C00740': 'D-Serine', 'C00065': 'L-Serine',
+                'C06420': 'D-Tyrosine', 'C00082': 'L-Tyrosine', 'C00855': 'D-Methionine', 'C00073': 'L-Methionine', 'C14818': 'Fe2+',
+                'C14819': 'Fe3+', 'C00504': 'Folate', 'C00064': 'L-Glutamine', 'C00037': 'Glycine', 'C00242': 'Guanine', 'C00135': 'L-Histidine',
+                'C00294': 'Inosine', 'C00081': 'ITP', 'C00104': 'IDP', 'C00407': 'L-Isoleucine', 'C00025': 'L-Glutamate', 'C00243': 'Lactose',
+                'C00123': 'L-Leucine', 'C00725': 'Lipoate', 'C00047': 'L-Lysine', 'C00305': 'Magnesium cation', 'C00034': 'Manganese', 'C19610': 'Manganese(2+)',
+                'C19611': 'Manganese(3+)', 'C00253': 'Nicotinate', 'C00295': 'Orotate', 'C00079': 'L-Phenylalanine', 'C13197': 'Potassium dibasic phosphate',
+                'C00238': 'Potassium cation', 'C00009': 'Orthophosphate', 'C00148': 'L-Proline', 'C00534': 'Pyridoxamine', 'C00314': 'Pyridoxine', 'C00255': 'Riboflavin',
+                'C01330': 'Sodium cation', 'C00033': 'Acetate', 'C00378': 'Thiamine', 'C00188': 'L-Threonine', 'C00214': 'Thymidine', 'C00078': 'L-Tryptophan',
+                'C00106': 'Uracil', 'C00183': 'L-Valine', 'C05776': 'Vitamin B12', 'C00385': 'Xanthine', 'C00038': 'Zinc cation'}
+OLD_MESO_MEDIUM = [ 
 "C00568", #4-Aminobenzoate
 "C00147", #Adenine
 "C00041", #Alanine
@@ -82,7 +97,14 @@ MESO_MEDIUM = [
 ]
 
 #Maria-Paz Cortes https://www.frontiersin.org/articles/10.3389/fmicb.2017.02462/full
-PSYCHROMED = [ 
+PSYCHROMED = {'C00407': 'L-Isoleucine', 'C00123': 'L-Leucine', 'C00183': 'L-Valine', 'C00073': 'L-Methionine', 'C00135': 'L-Histidine',
+              'C00062': 'L-Arginine', 'C00097': 'L-Cysteine', 'C00037': 'Glycine', 'C00041': 'L-Alanine', 'C00049': 'L-Aspartate',
+              'C00025': 'L-Glutamate', 'C00064': 'L-Glutamine', 'C00079': 'L-Phenylalanine', 'C00148': 'L-Proline', 'C00065': 'L-Serine',
+              'C00188': 'L-Threonine', 'C00082': 'L-Tyrosine', 'C00314': 'Pyridoxine', 'C00378': 'Thiamine', 'C00864': 'Pantothenate',
+              'C14819': 'Fe3+', 'C00122': 'Fumarate', 'C00149': '(S)-Malate', 'C00497': '(R)-Malate', 'C00042': 'Succinate', 'C00026': '2-Oxoglutarate',
+              'C00031': 'D-Glucose', 'C00124': 'D-Galactose', 'C00051': 'Glutathione', 'C00116': 'Glycerol', 'C01342': 'NH4+', 'C00147': 'Adenine'}
+
+OLD_PSYCHROMED = [
     "C00407", # L-Isoleucine
     "C00123", # L-Leucine
     "C00183", # L-Valine
@@ -114,10 +136,19 @@ PSYCHROMED = [
     "C00116", # Glycerol
     "C01342", # Ammonium
     "C00147", # Adenine
-    ]
+]
 
-#https://mediadb.systemsbiology.net/defined_media/media/382/ Rinker kd et al, 2000 Thermotoga maritima
-HYPERTHERM_MED = [
+# Rinker kd et al, 2000 Thermotoga maritima:
+# https://doi.org/10.1002/1097-0290(20000905)69:5<537::AID-BIT8>3.0.CO;2-7
+# https://mediadb.systemsbiology.net/defined_media/media/382/ 
+HYPERTHERM_MED = {'C00568': '4-Aminobenzoate', 'C01342': 'NH4+', 'C00120': 'Biotin', 'C12486': 'Boric acid',
+                  'C08130': 'Calcium chloride anhydrous', 'C00698': 'Cl-', 'C00076': 'Calcium cation', 'C00864': 'Pantothenate',
+                  'C00504': 'Folate', 'C00725': 'Lipoate', 'C07755': 'Magnesium chloride', 'C00305': 'Magnesium cation',
+                  'C00208': 'Maltose', 'C00253': 'Nicotinate', 'C00238': 'Potassium cation', 'C08219': 'Potassium iodide',
+                  'C01382': 'Iodine', 'C00314': 'Pyridoxine', 'C11178': 'Resazurin', 'C00255': 'Riboflavin', 'C01330': 'Sodium cation',
+                  'C01324': 'Bromide', 'C00059': 'Sulfate', 'C20679': 'Tungstate', 'C13884': 'Strontium cation', 'C00378': 'Thiamine', 'C05776': 'Vitamin B12'}
+
+OLD_HYPERTHERM_MED = [
 "C00568", # 4-Aminobenzoate
 "C01342", # Ammonium chloride
 "C00120", # Biotin
@@ -145,8 +176,14 @@ HYPERTHERM_MED = [
 "C05776", # Vitamin B12
 ]
 
-#https://mediadb.systemsbiology.net/defined_media/media/227/ Suzuki et al, 2001 Hydrogenobacter thermophilus TK-6
-THERM_MED = [
+# Suzuki et al, 2001 Hydrogenobacter thermophilus TK-6:
+# https://doi.org/10.1007/s002030000230
+# https://mediadb.systemsbiology.net/defined_media/media/227/
+THERM_MED = {'C01342': 'NH4+', 'C00698': 'Cl-', 'C12486': 'Boric acid', 'C00076': 'Calcium cation', 'C00070': 'Copper',
+             'C00059': 'Sulfate', 'C07755': 'Magnesium chloride', 'C00305': 'Magnesium cation', 'C00034': 'Manganese',
+             'C19610': 'Manganese(2+)', 'C19611': 'Manganese(3+)', 'C00150': 'Molybdenum', 'C14818': 'Fe2+', 'C00238': 'Potassium cation',
+             'C00009': 'Orthophosphate', 'C13197': 'Potassium dibasic phosphate', 'C08219': 'Potassium iodide', 'C01330': 'Sodium cation', 'C00038': 'Zinc cation'}
+OLD_THERM_MED = [
 "C01342", "C00698", # Ammonium chloride
 "C12486", # Boric acid
 "C00076", # Calcium chloride anhydrous

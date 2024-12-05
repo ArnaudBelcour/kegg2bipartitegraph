@@ -16369,7 +16369,7 @@ C19855	D-Man-alpha-(1->3)-D-Glc-beta-(1->4)-D-Glc-alpha-1-diphospho-ditrans,octa
 C19856	D-Glc-beta-(1->4)-Glc-alpha-1-diphospho-ditrans,octacis-undecaprenol
 C19857	D-Man-beta-(1->4)-GlcA-beta-(1->2)-D-Man-alpha-(1->3)-D-Glc-beta-(1->4)-D-Glc-alpha-1-diphospho-ditrans,octacis-undecaprenol
 C19858	2-Methoxy-6-all-trans-polyprenyl-1,4-benzoquinol
-C19859	6-Methoxy-3-methyl-2-all-trans-polyprenyl-1,4-benzoquinol
+C19859	5-Methoxy-2-methyl-3-(all-trans-polyprenyl)benzene-1,4-diol
 C19861	3-Hydroxy fatty acid
 C19862	Cyclic ketone
 C19863	Lupan-3beta,20-diol
@@ -19408,6 +19408,7 @@ C22969	Unsaturated fatty acid
 C22970	C22970
 C22971	C22971
 C22972	C22972
+C22973	UDP-yelosamine
 G00001	N-Acetyl-D-glucosaminyldiphosphodolichol
 G00002	N,N'-Chitobiosyldiphosphodolichol
 G00003	(GlcNAc)2 (Man)1 (PP-Dol)1

@@ -5,7 +5,7 @@
 ## Add
 
 * `scope` subcommand to compute scope using graphml files and seed files.
-* Script (`seeds.py`) to create several seed files used in the [article of Webber-Zendrera et al. (2021)](https://doi.org/10.1038/s41598-021-91486-8) when creating reference model.
+* Script (`seeds.py`) to create several seed files used in the [article of Webber-Zendrera et al. (2021)](https://doi.org/10.1038/s41598-021-91486-8) when creating reference model. Add the seed files to the archive.
 * Warning to k2bg organism if there is a difference between the version of KEGG in the package and the version of KEGG online.
 
 ## Fix
@@ -15,7 +15,7 @@
 ## Modify
 
 * Update reference model to KEGG 112.
-* Reference model now contains reaction to remove (either glycan or ubiquitous), they are removed when creating specific models.
+* Reference model now contains reactions to remove (either glycan or ubiquitous), they are removed when creating specific models.
 
 ## Remove
 

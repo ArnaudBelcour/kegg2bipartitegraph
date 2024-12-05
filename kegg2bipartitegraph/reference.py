@@ -785,11 +785,27 @@ def create_reference_base(output_folder=None):
     kegg_metadata_path = os.path.join(kegg_model_path, 'kegg_metadata.json')
     ec2gos_file = os.path.join(kegg_model_path, 'ec_to_gos.tsv')
 
+    # Seed file.
+    seed_hyperterm_med_sbml = os.path.join(kegg_model_path, 'seed_hyperterm_med.sbml')
+    seed_hyperterm_med_txt = os.path.join(kegg_model_path, 'seed_hyperterm_med.txt')
+    seed_union_all_sbml = os.path.join(kegg_model_path, 'seed_union_all.sbml')
+    seed_union_all_txt = os.path.join(kegg_model_path, 'seed_union_all.txt')
+    seeds_meso_medium_sbml = os.path.join(kegg_model_path, 'seeds_meso_medium.sbml')
+    seeds_meso_medium_txt = os.path.join(kegg_model_path, 'seeds_meso_medium.txt')
+    seeds_psychromed_sbml = os.path.join(kegg_model_path, 'seeds_psychromed.sbml')
+    seeds_psychromed_txt = os.path.join(kegg_model_path, 'seeds_psychromed.txt')
+    seeds_therm_med_sbml = os.path.join(kegg_model_path, 'seeds_therm_med.sbml')
+    seeds_therm_med_txt = os.path.join(kegg_model_path, 'seeds_therm_med.txt')
+
+
     logger.info('|kegg2bipartitegraph|reference| Check missing files in {0}.'.format(DATA_ROOT))
     input_files = [kegg_compound_file_path, kegg_sbml_model_path, kegg_rxn_mapping_path,
                    kegg_pathways_path, kegg_modules_path, kegg_reactions_folder_path,
                    kegg_removed_changed_reaction_path, kegg_hierarchy_path,
-                   ec2gos_file]
+                   ec2gos_file, seed_hyperterm_med_sbml, seed_hyperterm_med_txt,
+                   seed_union_all_sbml, seed_union_all_txt, seeds_meso_medium_sbml,
+                   seeds_meso_medium_txt, seeds_psychromed_sbml, seeds_psychromed_txt,
+                   seeds_therm_med_sbml, seeds_therm_med_txt]
 
     missing_files = []
     for input_file in input_files:
