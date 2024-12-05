@@ -24,7 +24,7 @@ Kegg2bipartitegraph can be called by using the command `k2bg`. It is divided in 
     - `k2bg reconstruct_from_organism` takes as input an organism ID from KEGG (such as `hsa` for human or `eco` for *Escherichia coli*). You can find the list of the accessile organisms in [KEGG website](https://www.genome.jp/kegg/catalog/org_list.html).
     - `k2bg reconstruct_from_genbank` takes as input a folder containing GenBank files.
 
-- `k2bg scope` subcommand to compute scope according to the procedure presented in the article of [Weber Zendrera et al. (2021)](https://www.nature.com/articles/s41598-021-91486-8). It expects as input a folder containing graphml files. By default, it uses seed file from the article of [Weber Zendrera et al. (2021)](https://www.nature.com/articles/s41598-021-91486-8) but you can prodive your own seed fiel as a text file containing KEGG metabolites. It computes the scope and returns in a json file the activated reactions and the accessible metabolites for each graphml file of the input folder. 
+- `k2bg scope` subcommand to compute scope according to the procedure presented in the article of [Weber Zendrera et al. (2021)](https://www.nature.com/articles/s41598-021-91486-8). It expects as input a folder containing graphml files. By default, it uses the four seed files from the article of [Weber Zendrera et al. (2021)](https://www.nature.com/articles/s41598-021-91486-8) but you can provide your own seed file as a text file containing KEGG metabolites. It computes the scope and returns in a json file the activated reactions and the accessible metabolites for each graphml file of the input folder.
 
 ## Online / Offline requirements
 
@@ -71,6 +71,16 @@ Then it will create multiple files:
 - a `module_class.tsv` showing the absence/presence of generic module classes in the organism.
 
 - several statistics/metadata/log files.
+
+## Output files of scope command
+
+For each seed file, an output subfolder is created in the output fodler and containes a `accessibility.json` file. This json file contains two keys:
+
+- `producible_metabolites` indicates for each input graphml file the accessible metabolites.
+
+- `activated_reactions` indicates for each input graphml file the activated reactions.
+
+Right now, the metabolic networks created by `kegg2bipartitegraph` do not reproduce exactly the ones from the article of [Weber Zendrera et al. (2021)](https://www.nature.com/articles/s41598-021-91486-8). This leads to a bigger scope.
 
 ## Citation
 
