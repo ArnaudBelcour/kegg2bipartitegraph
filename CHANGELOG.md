@@ -4,7 +4,7 @@
 
 ## Fix
 
-* issue in pyproject.toml leading to missing fiels in archive.
+* issue in pyproject.toml leading to missing files in archive.
 
 # Kegg2bipartitegraph v0.2.1 (2024-12-05)
 
