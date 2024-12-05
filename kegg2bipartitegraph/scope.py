@@ -66,7 +66,7 @@ def test_seeds_graph(seeds, model_graph) :
 
 def compute_scope_from_graphml(graphml_file, seeds):
     """Function modified from the work of Adèle Webber Zendrera et al. (2021),
-    compute the scope using the list of seeds and metaoblic bipartite graph.
+    compute the scope using the list of seeds and metabolic bipartite graph.
 
     Args:
         graphml_file (str): path to the input graphml file
@@ -85,11 +85,11 @@ def compute_scope_from_graphml(graphml_file, seeds):
         seeds = test_seeds_graph(seeds, model_graph)
     else:
         # Inputs deduced from graph ("complete" input compounds)
-        in_array = np.array(list(model_graph.in_degree)) #reaction graph's in-degrees
-        input_cpd = in_array[np.where(in_array[:,1] == '0')[0],0] #out nodes of in/out graph (sources)
+        in_array = np.array(list(model_graph.in_degree)) # reaction graph's in-degrees
+        input_cpd = in_array[np.where(in_array[:,1] == '0')[0],0] # out nodes of in/out graph (sources)
         if added_inp :
             added_inp = test_seeds_graph(added_inp)
-        seeds = set(list(input_cpd) + added_inp) #+ ["C00028", "C00073"]
+        seeds = set(list(input_cpd) + added_inp)
 
     accessibility = dict.fromkeys(model_graph.nodes, "Non accessible")
 
