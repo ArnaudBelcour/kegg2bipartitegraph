@@ -1,5 +1,11 @@
 # Changelog
 
+# Kegg2bipartitegraph v0.2.1 (2024-12-05)
+
+## Add
+
+* `module_class.tsv` creation to `k2bg organism `.
+
 # Kegg2bipartitegraph v0.2.0 (2024-12-05)
 
 ## Add
