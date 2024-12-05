@@ -26,7 +26,7 @@ Changelog = "https://github.com/ArnaudBelcour/kegg2bipartitegraph/blob/main/CHAN
 [tool.setuptools]
 packages = ['kegg2bipartitegraph', 'kegg2bipartitegraph.data', 'kegg2bipartitegraph.data.kegg_model']
 package-dir = {'kegg2bipartitegraph'= 'kegg2bipartitegraph'}
-package-data = {'kegg2bipartitegraph.data.kegg_model'= ['*.tsv', '*.json', '*.sbml', '*.graphml']}
+package-data = {'kegg2bipartitegraph.data.kegg_model'= ['*.tsv', '*.json', '*.sbml', '*.graphml', '*.txt']}
 
 [tool.setuptools.dynamic]
 version = { attr = "kegg2bipartitegraph.__version__" }

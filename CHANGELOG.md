@@ -1,10 +1,16 @@
 # Changelog
 
+# Kegg2bipartitegraph v0.2.2 (2024-12-05)
+
+## Fix
+
+* issue in pyproject.toml leading to missing fiels in archive.
+
 # Kegg2bipartitegraph v0.2.1 (2024-12-05)
 
 ## Add
 
-* `module_class.tsv` creation to `k2bg organism `.
+* `module_class.tsv` creation to `k2bg organism`.
 
 # Kegg2bipartitegraph v0.2.0 (2024-12-05)
 
