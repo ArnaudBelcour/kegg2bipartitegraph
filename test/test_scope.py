@@ -33,7 +33,7 @@ def test_compute_scope_cli():
     output_folder = 'test_out'
     subprocess.call(['k2bg', 'scope', '-i', graphml_path, '-o', output_folder, '-s', seed_path])
 
-    output_json_file = os.path.join(output_folder, 'accessibility.json')
+    output_json_file = os.path.join(output_folder, 'scope_seed', 'accessibility.json')
     with open(output_json_file, 'r') as open_output_json_file:
         json_data = json.load(open_output_json_file)
 
