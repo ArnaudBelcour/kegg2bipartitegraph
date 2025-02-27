@@ -261,11 +261,35 @@ def get_modules(module_file):
     return module_data
 
 
-def get_kegg_hierarchy(hierarchy_file):
+def extract_parent_child_nested_dict(input_dicitonary, parent_child_dict):
+    """ From a nested dictionary, extract couple between key element and value element as a parent-child relation in the hierarchy.
+
+    Args:
+        input_dicitonary (dict): input nested dictionary
+        parent_child_dict (dict): output dictionary with child as key and parent as values
+    """
+    for dict_key, dict_values in input_dicitonary.items():
+        if isinstance(dict_values, dict):
+            for nested_dict_key in dict_values:
+                if nested_dict_key not in parent_child_dict:
+                    parent_child_dict[nested_dict_key] = [dict_key]
+                else:
+                    parent_child_dict[nested_dict_key].append(dict_key)
+            extract_parent_child_nested_dict(dict_values, parent_child_dict)
+        else:
+            for element in dict_values:
+                if element not in parent_child_dict:
+                    parent_child_dict[element] = [dict_key]
+                else:
+                    parent_child_dict[element].append(dict_key)
+
+
+def get_kegg_hierarchy(hierarchy_file, parent_child_hierarchy_file=None):
     """Using bioservices.KEGG to create hierarchy of metabolite IDs.
 
     Args:
         hierarchy_file (str): output file which will contains hierarchy of KEGG IDs
+        parent_child_hierarchy_file (str): optional output file associating parent and child
     """
     # Create hierarchy for module ID.
     response_text = KEGG_BIOSERVICES.get('br:ko00002')
@@ -450,6 +474,13 @@ def get_kegg_hierarchy(hierarchy_file):
 
     with open(hierarchy_file, 'w') as open_json_file:
         json.dump(global_hierarchy, open_json_file, indent=4)
+
+    # Create a parent/child json file for ontosunburst.
+    if parent_child_hierarchy_file is not None:
+        parent_child_dict = {}
+        extract_parent_child_nested_dict(global_hierarchy, parent_child_dict)
+        with open(parent_child_hierarchy_file, 'w') as open_json_file:
+            json.dump(parent_child_dict, open_json_file, indent=4)
 
 
 def get_pathways(pathway_file):
