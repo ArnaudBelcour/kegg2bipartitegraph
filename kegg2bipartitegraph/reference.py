@@ -289,7 +289,7 @@ def get_kegg_hierarchy(hierarchy_file, parent_child_hierarchy_file=None):
 
     Args:
         hierarchy_file (str): output file which will contains hierarchy of KEGG IDs
-        parent_child_hierarchy_file (str): optional output file associating parent and child
+        parent_child_hierarchy_file (str): optional output file associating child element in hierarchy with their direct parents
     """
     # Create hierarchy for module ID.
     response_text = KEGG_BIOSERVICES.get('br:ko00002')
