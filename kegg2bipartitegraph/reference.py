@@ -277,9 +277,14 @@ def get_kegg_hierarchy(hierarchy_file):
             module_hierarchy[a_category] = {}
         if line.startswith('B  '):
             b_category = line.replace('B  ', '')
+            # If statement to avoid having the same module name in both parent and child.
+            if b_category == a_category:
+                b_category = b_category + ' B'
             module_hierarchy[a_category][b_category] = {}
         if line.startswith('C    '):
             c_category = line.replace('C    ', '')
+            if c_category in [a_category, b_category]:
+                c_category = c_category + ' C'
             module_hierarchy[a_category][b_category][c_category] = []
         if line.startswith('D      '):
             d_category = line.replace('D      ', '')
@@ -296,6 +301,8 @@ def get_kegg_hierarchy(hierarchy_file):
             pathway_hierarchy[a_category] = {}
         if line.startswith('B  '):
             b_category = line.replace('B  ', '')
+            if b_category == a_category:
+                b_category = b_category + ' B'
             pathway_hierarchy[a_category][b_category] = []
         if line.startswith('C    '):
             pathway_id = 'map' + line.replace('C    ', '').split('  ')[0]
@@ -312,9 +319,13 @@ def get_kegg_hierarchy(hierarchy_file):
             ko_hierarchy[a_category] = {}
         if line.startswith('B  '):
             b_category = line.replace('B  ', '')
+            if b_category == a_category:
+                b_category = b_category + ' B'
             ko_hierarchy[a_category][b_category] = {}
         if line.startswith('C    '):
             c_category = line.replace('C    ', '')
+            if c_category in [a_category, b_category]:
+                c_category = c_category + ' C'
             ko_hierarchy[a_category][b_category][c_category] = []
         if line.startswith('D      '):
             d_category = line.replace('D      ', '')
@@ -324,6 +335,7 @@ def get_kegg_hierarchy(hierarchy_file):
 
     # Create hierarchy for KO transporter.
     response_text = KEGG_BIOSERVICES.get('br:ko02000')
+    ko_regex = r'K\d{5}'
 
     transporter_hierarchy = {}
     for line in response_text.split('\n'):
@@ -332,18 +344,30 @@ def get_kegg_hierarchy(hierarchy_file):
             transporter_hierarchy[a_category] = {}
         if line.startswith('B  '):
             b_category = line.replace('B  ', '')
+            if b_category == a_category:
+                b_category = b_category + ' B'
             transporter_hierarchy[a_category][b_category] = {}
         if line.startswith('C    '):
             c_category = line.replace('C    ', '')
-            transporter_hierarchy[a_category][b_category][c_category] = []
+            if c_category in [a_category, b_category]:
+                c_category = c_category + ' C'
+            ko_c_category = c_category.split('  ')[0]
+            # Check if the element is a Kegg orthologs or a name of a category.
+            if re.match(ko_regex, ko_c_category):
+                if transporter_hierarchy[a_category][b_category] == {}:
+                    transporter_hierarchy[a_category][b_category] = []
+                transporter_hierarchy[a_category][b_category].append(ko_c_category)
+            else:
+                transporter_hierarchy[a_category][b_category][c_category] = []
         if line.startswith('D      '):
             d_category = line.replace('D      ', '')
-            ko_id = d_category.split('  ')[0]
-            transporter_hierarchy[a_category][b_category][c_category].append(module_id)
+            ko_transport_id = d_category.split('  ')[0]
+            transporter_hierarchy[a_category][b_category][c_category].append(ko_transport_id)
     time.sleep(3)
 
     # Create hierarchy for metabolite.
     response_text = KEGG_BIOSERVICES.get('br:br08001')
+    metabolite_regex = r'C\d{5}'
 
     metabolite_hierarchy = {}
     for line in response_text.split('\n'):
@@ -352,9 +376,20 @@ def get_kegg_hierarchy(hierarchy_file):
             metabolite_hierarchy[a_category] = {}
         if line.startswith('B  '):
             b_category = line.replace('B  ', '')
+            if b_category == a_category:
+                b_category = b_category + ' B'
             metabolite_hierarchy[a_category][b_category] = {}
         if line.startswith('C    '):
             c_category = line.replace('C    ', '')
+            if c_category in [a_category, b_category]:
+                c_category = c_category + ' C'
+            metabolite_c_category = c_category.split('  ')[0]
+            if re.match(metabolite_regex, metabolite_c_category):
+                if metabolite_hierarchy[a_category][b_category] == {}:
+                    metabolite_hierarchy[a_category][b_category] = []
+                metabolite_hierarchy[a_category][b_category].append(metabolite_c_category)
+            else:
+                metabolite_hierarchy[a_category][b_category][c_category] = []
             metabolite_hierarchy[a_category][b_category][c_category] = []
         if line.startswith('D      '):
             d_category = line.replace('D      ', '')
@@ -364,6 +399,7 @@ def get_kegg_hierarchy(hierarchy_file):
 
     # Create hierarchy for lipids.
     response_text = KEGG_BIOSERVICES.get('br:br08002')
+    lipid_regex = r'[GC]\d{5}'
 
     lipid_hierarchy = {}
     for line in response_text.split('\n'):
@@ -372,14 +408,36 @@ def get_kegg_hierarchy(hierarchy_file):
             lipid_hierarchy[a_category] = {}
         if line.startswith('B  '):
             b_category = line.replace('B  ', '')
+            if b_category == a_category:
+                b_category = b_category + ' B'
             lipid_hierarchy[a_category][b_category] = {}
         if line.startswith('C    '):
             c_category = line.replace('C    ', '')
-            lipid_hierarchy[a_category][b_category][c_category] = []
+            if c_category in [a_category, b_category]:
+                c_category = c_category + ' C'
+            lipid_c_category = c_category.split('  ')[0]
+            if re.match(lipid_regex, lipid_c_category):
+                if lipid_hierarchy[a_category][b_category] == {}:
+                    lipid_hierarchy[a_category][b_category] = []
+                lipid_hierarchy[a_category][b_category].append(lipid_c_category)
+            else:
+                lipid_hierarchy[a_category][b_category][c_category] = {}
         if line.startswith('D      '):
             d_category = line.replace('D      ', '')
+            if d_category in [a_category, b_category, c_category]:
+                d_category = d_category + ' D'
             lipid_id = d_category.split('  ')[0]
-            lipid_hierarchy[a_category][b_category][c_category].append(lipid_id)
+            if re.match(lipid_regex, lipid_id):
+                if lipid_hierarchy[a_category][b_category][c_category] == {}:
+                    lipid_hierarchy[a_category][b_category][c_category] = []
+                lipid_hierarchy[a_category][b_category][c_category].append(lipid_id)
+            else:
+                lipid_hierarchy[a_category][b_category][c_category][d_category] = []
+        if line.startswith('E        '):
+            e_category = line.replace('E        ', '')
+            lipid_id = e_category.split('  ')[0]
+            if re.match(lipid_regex, lipid_id):
+                lipid_hierarchy[a_category][b_category][c_category][d_category].append(lipid_id)
     time.sleep(3)
 
     global_hierarchy = {}
