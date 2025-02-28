@@ -284,12 +284,14 @@ def extract_parent_child_nested_dict(input_dicitonary, parent_child_dict):
                     parent_child_dict[element].append(dict_key)
 
 
-def get_kegg_hierarchy(hierarchy_file, parent_child_hierarchy_file=None):
-    """Using bioservices.KEGG to create hierarchy of metabolite IDs.
+def get_kegg_hierarchy(hierarchy_file=None):
+    """Using bioservices.KEGG to create hierarchy of KEGG IDs.
 
     Args:
         hierarchy_file (str): output file which will contains hierarchy of KEGG IDs
-        parent_child_hierarchy_file (str): optional output file associating child element in hierarchy with their direct parents
+    Returns:
+        global_hierarchy (dict): nested dictionary having hierarchy of KEGG IDs from brite hierarchy (higher elements in dictionary correspond to higher element in hierarchy)
+        parent_child_dict (dict): dictionary with child KEGG ID as key and a list of their direct parent KEGG elements as value
     """
     # Create hierarchy for module ID.
     response_text = KEGG_BIOSERVICES.get('br:ko00002')
@@ -472,15 +474,15 @@ def get_kegg_hierarchy(hierarchy_file, parent_child_hierarchy_file=None):
     global_hierarchy['metabolite'] = metabolite_hierarchy
     global_hierarchy['metabolite_lipid'] = lipid_hierarchy
 
-    with open(hierarchy_file, 'w') as open_json_file:
-        json.dump(global_hierarchy, open_json_file, indent=4)
+    if hierarchy_file is not None:
+        with open(hierarchy_file, 'w') as open_json_file:
+            json.dump(global_hierarchy, open_json_file, indent=4)
 
-    # Create a parent/child json file for ontosunburst.
-    if parent_child_hierarchy_file is not None:
-        parent_child_dict = {}
-        extract_parent_child_nested_dict(global_hierarchy, parent_child_dict)
-        with open(parent_child_hierarchy_file, 'w') as open_json_file:
-            json.dump(parent_child_dict, open_json_file, indent=4)
+    # Create a parent/child dictionary for ontosunburst.
+    parent_child_dict = {}
+    extract_parent_child_nested_dict(global_hierarchy, parent_child_dict)
+
+    return global_hierarchy, parent_child_dict
 
 
 def get_pathways(pathway_file):

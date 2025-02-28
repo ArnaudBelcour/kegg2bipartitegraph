@@ -134,14 +134,14 @@ def main():
         '--output',
         dest='output',
         required=False,
-        help='Redict the creation of the reference database to another fodler from the one in the package repository.',
+        help='Redirect the creation of the reference database to another folder from the one inside the package repository (default: None).',
         metavar='OUPUT_DIR')
 
     parent_parser_map_ko = argparse.ArgumentParser(add_help=False)
     parent_parser_map_ko.add_argument(
         '--map-ko',
         dest='map_ko',
-        help='From UniProt protein ID, retrieve KEGG ortholgos to infer KEGG reaction from them.',
+        help='From UniProt protein ID, retrieve KEGG ortholgos to infer KEGG reactions.',
         required=False,
         action='store_true',
         default=None)
