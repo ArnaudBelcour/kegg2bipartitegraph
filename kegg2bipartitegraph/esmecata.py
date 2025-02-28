@@ -1,4 +1,4 @@
-# Copyright (C) 2021-2024 Arnaud Belcour - Inria, Univ Rennes, CNRS, IRISA Dyliss
+# Copyright (C) 2021-2025 Arnaud Belcour - Inria, Univ Rennes, CNRS, IRISA Dyliss
 # Univ. Grenoble Alpes, Inria, Microcosme
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -46,7 +46,7 @@ KEGG_ARCHIVE = os.path.join(*[ROOT, 'data', 'kegg_model.zip'])
 
 def chunks(elements, n):
     """Yield successive n-sized chunks from list.
-    Form: https://stackoverflow.com/a/312464
+    From: https://stackoverflow.com/a/312464
     Args:
         elements (list): list of elements (proteins or proteomes) to be split in chunks of size n
         n (int): size of the chunks

@@ -1,5 +1,22 @@
 # Changelog
 
+# Kegg2bipartitegraph v0.2.3 (2024-03-03)
+
+## Add
+
+* creation of a new dictionary in `get_kegg_hierarchy` to give a better input for ontosunburst.
+* test for new `extract_parent_child_nested_dict` function.
+
+## Modify
+
+* Update reference model to KEGG 113.
+
+## Fix
+
+* issue with redundant names in hierarchy.
+* issue in missing several elements (especially compound IDs) when retrieving hierarchy information.
+* issue in scope test.
+
 # Kegg2bipartitegraph v0.2.2 (2024-12-05)
 
 ## Fix
