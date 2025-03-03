@@ -10,6 +10,7 @@
 ## Modify
 
 * Update reference model to KEGG 113.
+* Move to Trusted Publisher to publish on PyPI.
 
 ## Fix
 
