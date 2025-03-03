@@ -1,6 +1,6 @@
 # Changelog
 
-# Kegg2bipartitegraph v0.2.3 (2024-03-03)
+# Kegg2bipartitegraph v0.2.3 (2025-03-03)
 
 ## Add
 
