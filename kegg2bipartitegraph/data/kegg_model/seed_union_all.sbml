@@ -12,12 +12,12 @@
       <species metaid="C00025" id="C00025" name="L-Glutamate" compartment="c" initialAmount="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
       <species metaid="C00064" id="C00064" name="L-Glutamine" compartment="c" initialAmount="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
       <species metaid="C00009" id="C00009" name="Orthophosphate" compartment="c" initialAmount="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species metaid="C00073" id="C00073" name="L-Methionine" compartment="c" initialAmount="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
       <species metaid="C00122" id="C00122" name="Fumarate" compartment="c" initialAmount="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
       <species metaid="C00698" id="C00698" name="Cl-" compartment="c" initialAmount="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
       <species metaid="C00062" id="C00062" name="L-Arginine" compartment="c" initialAmount="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
       <species metaid="C00082" id="C00082" name="L-Tyrosine" compartment="c" initialAmount="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
       <species metaid="C00031" id="C00031" name="D-Glucose" compartment="c" initialAmount="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-      <species metaid="C00073" id="C00073" name="L-Methionine" compartment="c" initialAmount="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
       <species metaid="C00042" id="C00042" name="Succinate" compartment="c" initialAmount="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
       <species metaid="C00037" id="C00037" name="Glycine" compartment="c" initialAmount="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
       <species metaid="C00041" id="C00041" name="L-Alanine" compartment="c" initialAmount="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
@@ -62,6 +62,7 @@
       <species metaid="C00081" id="C00081" name="ITP" compartment="c" initialAmount="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
       <species metaid="C00104" id="C00104" name="IDP" compartment="c" initialAmount="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
       <species metaid="C00295" id="C00295" name="Orotate" compartment="c" initialAmount="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species metaid="C05776" id="C05776" name="Vitamin B12" compartment="c" initialAmount="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
       <species metaid="C00740" id="C00740" name="D-Serine" compartment="c" initialAmount="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
       <species metaid="C00123" id="C00123" name="L-Leucine" compartment="c" initialAmount="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
       <species metaid="C00158" id="C00158" name="Citrate" compartment="c" initialAmount="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
@@ -72,7 +73,6 @@
       <species metaid="C00208" id="C00208" name="Maltose" compartment="c" initialAmount="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
       <species metaid="C12486" id="C12486" name="Boric acid" compartment="c" initialAmount="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
       <species metaid="C00497" id="C00497" name="(R)-Malate" compartment="c" initialAmount="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-      <species metaid="C05776" id="C05776" name="Vitamin B12" compartment="c" initialAmount="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
       <species metaid="C20679" id="C20679" name="Tungstate" compartment="c" initialAmount="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
     </listOfSpecies>
     <listOfParameters>

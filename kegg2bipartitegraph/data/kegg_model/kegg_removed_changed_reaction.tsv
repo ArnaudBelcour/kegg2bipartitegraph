@@ -386,6 +386,7 @@ R00138	ubiquitous_products	triphosphate phosphohydrolase	C00536,C00001	C00013,C0
 R09139	ubiquitous_products		C18244	C00011	[('C18244', 1)]	[('C00011', 1)]	
 R11999	change_stoichiometry	cis-1,4-polyisoprene:oxygen dioxygenase [(4Z,8Z)-4,8-dimethyl-12-oxotrideca-4,8-dienal-forming]	C02321,C00007	C21834	[('C02321', 1), ('C00007', 1)]	[('C21834', 1)]	
 R09721	change_stoichiometry	peptidoglycan-N-acetylglucosamine amidohydrolase	C04394,C00001	C19842,C00033	[('C04394', 1), ('C00001', 1)]	[('C19842', 1), ('C00033', 1)]	
+R13436	glycan	oligosaccharide exo beta-(1,3)-N-acetyllactosamine hydrolase (non-reducing end)	G00536,C00001	G00246,G10504	[('G00536', 1), ('C00001', 1)]	[('G00246', 1), ('G10504', 1)]	
 R13005	glycan	ADP-L-glycero-beta-D-manno-heptose:an alpha-Hep-(1->3)-4-O-phospho-alpha-Hep-(1->5)-[alpha-Kdo-(2->4)]-alpha-Kdo-(2->6)-[lipid A] heptoseI 7-alpha-heptosyltransferase	C06398,G13208	C00008,G13209	[('C06398', 1), ('G13208', 1)]	[('C00008', 1), ('G13209', 1)]	
 R12944	glycan	UDP-N-acetyl-alpha-D-glucosamine:N-acetyl-beta-D-glucosaminyl-(1->3)-beta-D-galactosyl-(1->4)-N-acetyl-beta-D-glucosaminide 6-beta-N-acetylglucosaminyltransferase (configuration-inverting)	C00043,G00399	C00015,G00628	[('C00043', 1), ('G00399', 1)]	[('C00015', 1), ('G00628', 1)]	
 R11994	glycan		G10614,G13108	G10620,G13103	[('G10614', 1), ('G13108', 1)]	[('G10620', 1), ('G13103', 1)]	K14335

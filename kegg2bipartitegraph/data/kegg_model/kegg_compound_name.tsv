@@ -19409,6 +19409,33 @@ C22970	C22970
 C22971	C22971
 C22972	C22972
 C22973	UDP-yelosamine
+C22974	ditrans,polycis-Polyprenal
+C22975	Dolichal
+C22976	(Z)-(2-Aminovinyl)sulfanolate
+C22977	(Z)-2-Aminoethene-1-sulfonate
+C22978	2-Oxoethane-1-sulfonamide
+C22979	CMP-N-acetyl-9-O-acetyl-beta-neuraminate
+C22980	4-Nitro-L-tryptophan
+C22981	3-Nitro-L-tyrosine
+C22982	2'-N-Hydroxynocardicin C
+C22983	2'-N,N-Dihydroxynocardicin C
+C22986	3'-Hydroxyisoflavone
+C22987	3'-Methoxyisoflavone
+C22988	4'-O-Methyl-trans-resveratrol
+C22989	N-Amidino-L-valine
+C22990	Nalpha-Amidino-L-arginine
+C22991	3,5-Dicaffeoylquinate
+C22992	11-Methyldodecanoyl-[acp]
+C22993	N-(11-Methyldodecanoyl)-L-phenylalanine
+C22994	(3R)-3-Methyl-L-phenylalanyl-[peptidyl carrier-protein]
+C22995	(Sulfonamide-N)(L-isoleucyl)altemicidin
+C22996	SB-203208
+C22997	Altemicidin
+C22998	(4aR,7S)-2-(Adenosyl(5')diphospho(5)ribosyl)-7-amino-4-carbamoyl-4a,5,6,7-tetrahydro-2H-cyclopenta[c]pyridine-7-carboxylate
+C22999	2-Fluorodeschloroketamine
+C23000	4-Hydroxy-4alpha,5beta-5,20-epoxytax-11-en-9-one
+C23001	3-Aminopropyl(dimethyl)sulfanium
+C23002	3-Dimethylsulfoniopropionaldehyde
 G00001	N-Acetyl-D-glucosaminyldiphosphodolichol
 G00002	N,N'-Chitobiosyldiphosphodolichol
 G00003	(GlcNAc)2 (Man)1 (PP-Dol)1
@@ -30476,16 +30503,16 @@ G13191	Und-P-Gal
 G13192	(DAG)1 (Gal)2 (Glc)1 (Gro)2 (*)1 (P)2
 G13193	(Ala)1 (DAG)1 (Gal)2 (Glc)1 (Gro)2 (*)1 (P)2
 G13194	UDP-AATGal
-G13195	(AATGal)1 (PP-Und)1
-G13196	(AATGal)1 (Glc)1 (PP-Und)1
-G13197	(AATGal)1 (Glc)1 (Rib-ol)1 (P)1 (PP-Und)1
-G13198	(AATGal)1 (GalNAc)1 (Glc)1 (Rib-ol)1 (P)1 (PP-Und)1
-G13199	(AATGal)1 (GalNAc)2 (Glc)1 (Rib-ol)1 (P)1 (PP-Und)1
-G13200	(AATGal)1 (Cho)1 (GalNAc)2 (Glc)1 (Rib-ol)1 (P)2 (PP-Und)1
-G13201	(AATGal)1 (Cho)2 (GalNAc)2 (Glc)1 (Rib-ol)1 (P)3 (PP-Und)1
-G13202	(AATGal)2 (Cho)4 (GalNAc)4 (Glc)2 (Rib-ol)2 (*)1 (P)6 (PP-Und)1
-G13203	(AATGal)2 (Cho)4 (DAG)1 (GalNAc)4 (Glc)3 (Rib-ol)2 (*)1 (P)6
-G13204	(AATGal)2 (Ala)2 (Cho)4 (DAG)1 (GalNAc)4 (Glc)3 (Rib-ol)2 (*)1 (P)6
+G13195	(FucNAc4N)1 (PP-Und)1
+G13196	(FucNAc4N)1 (Glc)1 (PP-Und)1
+G13197	(FucNAc4N)1 (Glc)1 (Rib-ol)1 (P)1 (PP-Und)1
+G13198	(FucNAc4N)1 (GalNAc)1 (Glc)1 (Rib-ol)1 (P)1 (PP-Und)1
+G13199	(FucNAc4N)1 (GalNAc)2 (Glc)1 (Rib-ol)1 (P)1 (PP-Und)1
+G13200	(Cho)1 (FucNAc4N)1 (GalNAc)2 (Glc)1 (Rib-ol)1 (P)2 (PP-Und)1
+G13201	(Cho)2 (FucNAc4N)1 (GalNAc)2 (Glc)1 (Rib-ol)1 (P)3 (PP-Und)1
+G13202	(Cho)4 (FucNAc4N)2 (GalNAc)4 (Glc)2 (Rib-ol)2 (*)1 (P)6 (PP-Und)1
+G13203	(Cho)4 (DAG)1 (FucNAc4N)2 (GalNAc)4 (Glc)3 (Rib-ol)2 (*)1 (P)6
+G13204	(Ala)2 (Cho)4 (DAG)1 (FucNAc4N)2 (GalNAc)4 (Glc)3 (Rib-ol)2 (*)1 (P)6
 G13205	(Kdo)2 (Lgro-manHep)2
 G13206	(Kdo)2 (Lgro-manHep)2 (P)1
 G13207	(GlcN)2 (Kdo)2 (Lgro-manHep)2

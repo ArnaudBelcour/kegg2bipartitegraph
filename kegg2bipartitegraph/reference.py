@@ -890,9 +890,9 @@ def create_reference_base(output_folder=None):
 
 
     logger.info('|kegg2bipartitegraph|reference| Check missing files in {0}.'.format(DATA_ROOT))
-    input_files = [kegg_compound_file_path, kegg_sbml_model_path, kegg_rxn_mapping_path,
-                   kegg_pathways_path, kegg_modules_path, kegg_reactions_folder_path,
-                   kegg_removed_changed_reaction_path, kegg_hierarchy_path,
+    input_files = [kegg_compound_file_path, kegg_sbml_model_path, kegg_graphml_model_path,
+                   kegg_rxn_mapping_path, kegg_pathways_path, kegg_modules_path,
+                   kegg_reactions_folder_path, kegg_removed_changed_reaction_path, kegg_hierarchy_path,
                    ec2gos_file, seed_hyperterm_med_sbml, seed_hyperterm_med_txt,
                    seed_union_all_sbml, seed_union_all_txt, seeds_meso_medium_sbml,
                    seeds_meso_medium_txt, seeds_psychromed_sbml, seeds_psychromed_txt,
@@ -948,7 +948,8 @@ def create_reference_base(output_folder=None):
         logger.info('|kegg2bipartitegraph|reference| Create KEGG reference SBML and mapping tsv file.')
         create_sbml_model_from_kegg_file_libsbml(kegg_reactions_folder_path, kegg_compound_file_path, kegg_sbml_model_path, kegg_rxn_mapping_path, kegg_removed_changed_reaction_path,
                                                  pathway_data, module_data)
-        sbml_to_graphml(kegg_sbml_model_path, kegg_graphml_model_path)
+        if not os.path.exists(kegg_graphml_model_path):
+            sbml_to_graphml(kegg_sbml_model_path, kegg_graphml_model_path)
 
         # Create seed file.
         create_seeds_file(kegg_model_path)
