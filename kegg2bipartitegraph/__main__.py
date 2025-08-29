@@ -56,7 +56,8 @@ def main():
     database_version = get_current_database_version(reference_model_path)
     if database_version is not False:
         kegg_database_version = 'Version of KEGG database used for reference model: ' + database_version
-        version_message = '%(prog)s version: ' + VERSION + ', '+ kegg_database_version
+        reference_model_path_str = 'Path of reference model: ' + reference_model_path
+        version_message = '%(prog)s version: ' + VERSION + ', (1) '+ kegg_database_version + ', (2) ' + reference_model_path_str
     else:
         version_message = '%(prog)s version: ' + VERSION + ', no database version found'
 
