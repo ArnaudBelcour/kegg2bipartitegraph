@@ -1,4 +1,4 @@
-# Copyright (C) 2021-2025 Arnaud Belcour - Inria, Univ Rennes, CNRS, IRISA Dyliss
+# Copyright (C) 2021-2026 Arnaud Belcour - Inria, Univ Rennes, CNRS, IRISA Dyliss
 # Univ. Grenoble Alpes, Inria, Microcosme
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -29,7 +29,7 @@ from bioservices import version as bioservices_version
 from bioservices import KEGG
 from networkx import __version__ as networkx_version
 
-from kegg2bipartitegraph.utils import is_valid_dir, urllib_query
+from kegg2bipartitegraph.utils import is_valid_dir, urllib_query, test_connection
 from kegg2bipartitegraph.sbml import libsbml_check, initiate_sbml_model
 from kegg2bipartitegraph import __version__ as kegg2bipartitegraph_version
 from kegg2bipartitegraph.graph import sbml_to_graphml
@@ -85,7 +85,13 @@ def get_reactions(reaction_folder):
             reaction_file = os.path.join(reaction_folder, reaction_id+'.keg')
             if not os.path.exists(reaction_file):
                 with open(reaction_file, 'w') as output_file:
-                    output_file.write(response_split+'///')
+                    file_lines = [line for line in response_split.split('\n')]
+                    # Check that file do not begin with new line.
+                    if file_lines[0]=='':
+                        file_lines = file_lines[1:]
+                    else:
+                        file_lines = file_lines
+                    output_file.write('\n'.join(file_lines)+'///')
                 time.sleep(3)
 
 
@@ -638,7 +644,11 @@ def create_sbml_model_from_kegg_file_libsbml(reaction_folder, compound_file, out
                 libsbml_check(s.setHasOnlySubstanceUnits(False), 'set setHasOnlySubstanceUnits to False')
                 libsbml_check(s.setConstant(False), 'set setConstant to False')
                 libsbml_check(s.setInitialAmount(0.0), 'set initAmount')
-                libsbml_check(s.setName(compounds[metabolite_id]), 'set species Name {0}'.format(compounds[metabolite_id]))
+                if metabolite_id in compounds:
+                    libsbml_check(s.setName(compounds[metabolite_id]), 'set species Name {0}'.format(compounds[metabolite_id]))
+                else:
+                    logger.critical('|kegg2bipartitegraph|reference| Warning compound {0} without name.'.format(reaction_id))
+                    libsbml_check(s.setName(metabolite_id), 'set species Name {0}'.format(metabolite_id))
                 libsbml_check(s.setCompartment('c'), 'set species compartment c')
                 metabolites.append(metabolite_id)
             # Create species as reactant in SBML.
@@ -665,7 +675,11 @@ def create_sbml_model_from_kegg_file_libsbml(reaction_folder, compound_file, out
                 libsbml_check(s.setHasOnlySubstanceUnits(False), 'set setHasOnlySubstanceUnits to False')
                 libsbml_check(s.setConstant(False), 'set setConstant to False')
                 libsbml_check(s.setInitialAmount(0.0), 'set initAmount')
-                libsbml_check(s.setName(compounds[metabolite_id]), 'set species Name {0}'.format(compounds[metabolite_id]))
+                if metabolite_id in compounds:
+                    libsbml_check(s.setName(compounds[metabolite_id]), 'set species Name {0}'.format(compounds[metabolite_id]))
+                else:
+                    logger.critical('|kegg2bipartitegraph|reference| Warning compound {0} without name.'.format(reaction_id))
+                    libsbml_check(s.setName(metabolite_id), 'set species Name {0}'.format(metabolite_id))
                 libsbml_check(s.setCompartment('c'), 'set species compartment c')
                 metabolites.append(metabolite_id)
             # Create species as product in SBML.
@@ -786,8 +800,8 @@ def get_kegg_database_version():
     response_text = KEGG_BIOSERVICES.dbinfo()
 
     for line in response_text.splitlines():
-        if 'Release ' in line:
-            kegg_version = line.split('Release ')[1].strip()
+        if 'pathway ' in line:
+            kegg_version = line.split(' ')[-1].strip()
 
     return kegg_version
 
@@ -833,6 +847,9 @@ def create_reference_base(output_folder=None):
     """
     starttime = time.time()
     logger.info('|kegg2bipartitegraph|reference| Begin KEGG metabolism reference model creation.')
+
+    # Test internet connection.
+    test_connection()
 
     # Create KEGG instance of bioservices.KEEG in this function to avoid trying to connect to KEGG with offline mode.
     global KEGG_BIOSERVICES

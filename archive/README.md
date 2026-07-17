@@ -5,7 +5,8 @@ For reproducibility purpose, old reference model of Kegg2BipartiteGraph are stor
 The compatibility between the latest K2BG version and these reference models are shown below:
 
 | Reference model  | Kegg2BipartiteGraph   |
-|---|---|
+|------|-------|
+| 119  | 0.2.4 |
 | 113  | 0.2.3 |
 | 112  | 0.2.0 |
 | 109  | 0.1.0 |

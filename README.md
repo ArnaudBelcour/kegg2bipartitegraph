@@ -1,4 +1,4 @@
-[![PyPI version](https://img.shields.io/pypi/v/kegg2bipartitegraph.svg)](https://pypi.org/project/kegg2bipartitegraph/) [![KEGG version](https://img.shields.io/badge/KEGG-113-brightgreen)](https://www.genome.jp/kegg/docs/upd_all.html)
+[![PyPI version](https://img.shields.io/pypi/v/kegg2bipartitegraph.svg)](https://pypi.org/project/kegg2bipartitegraph/) [![KEGG version](https://img.shields.io/badge/KEGG-119-brightgreen)](https://www.genome.jp/kegg/docs/upd_all.html)
 
 # kegg2bipartitegraph
 

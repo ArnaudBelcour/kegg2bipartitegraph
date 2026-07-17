@@ -1,10 +1,10 @@
 import shutil
 import subprocess
-import libsbml
 import os
 import json
+import networkx as nx
 
-from kegg2bipartitegraph.scope import compute_scope
+from kegg2bipartitegraph.scope import compute_scope, filter_seeds_graph
 
 def test_compute_scope():
     graphml_path = os.path.join('scope_data', 'graphml')
@@ -27,6 +27,7 @@ def test_compute_scope():
 
     shutil.rmtree('test_out')
 
+
 def test_compute_scope_cli():
     graphml_path = os.path.join('scope_data', 'graphml')
     seed_path = os.path.join('scope_data', 'scope_seed.txt')
@@ -47,3 +48,13 @@ def test_compute_scope_cli():
     assert sorted(expected_activated_reactions) == sorted(found_activated_reactions)
 
     shutil.rmtree('test_out')
+
+
+def test_filter_seeds_graph():
+    seeds = ['C_A', 'C_B', 'C_X']
+    exepcted_seeds = ['C_A', 'C_B']
+    graph = nx.Graph()
+    graph.add_nodes_from(['C_A', 'C_B', 'C_C', 'C_D'])
+    returned_seeds = filter_seeds_graph(seeds, graph)
+
+    assert sorted(exepcted_seeds) == sorted(returned_seeds)

@@ -1,4 +1,4 @@
-# Copyright (C) 2021-2025 Arnaud Belcour - Inria, Univ Rennes, CNRS, IRISA Dyliss
+# Copyright (C) 2021-2026 Arnaud Belcour - Inria, Univ Rennes, CNRS, IRISA Dyliss
 # Univ. Grenoble Alpes, Inria, Microcosme
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -41,7 +41,7 @@ SEED_FILES = [os.path.join(KEGG_MODEL, 'seed_hyperterm_med.txt'), os.path.join(K
               os.path.join(KEGG_MODEL, 'seeds_psychromed.txt'), os.path.join(KEGG_MODEL, 'seeds_therm_med.txt'),
               os.path.join(KEGG_MODEL, 'seed_union_all.txt')]
 
-def test_seeds_graph(seeds, model_graph) :
+def filter_seeds_graph(seeds, model_graph) :
     """Function from the work of Adèle Webber Zendrera et al. (2021),
     Tests if seeds exist in graph, else only selects compounds in graph,
     otherwise throws an error.
@@ -53,9 +53,9 @@ def test_seeds_graph(seeds, model_graph) :
     Returns:
         seeds (list): list of seeds in the graph
     """
-    if not np.all(np.in1d(list(seeds), list(model_graph.nodes)) == True):
+    if not np.all(np.isin(list(seeds), list(model_graph.nodes)) == True):
         length = len(seeds)
-        seeds = list(np.array(seeds)[np.in1d(list(seeds), list(model_graph.nodes))])
+        seeds = list(np.array(seeds)[np.isin(list(seeds), list(model_graph.nodes))])
 
         logger.warning("|kegg2bipartitegraph|scope| At least one metabolite absent from graph (or wrong compound name), will be removed: {0}/{1} kept from added inputs.".format(len(seeds), length))
         if len(seeds) < 1 :
@@ -82,13 +82,13 @@ def compute_scope_from_graphml(graphml_file, seeds):
 
     # Source compounds (seeds) from which accessibility will be measured
     if seeds:
-        seeds = test_seeds_graph(seeds, model_graph)
+        seeds = filter_seeds_graph(seeds, model_graph)
     else:
         # Inputs deduced from graph ("complete" input compounds)
         in_array = np.array(list(model_graph.in_degree)) # reaction graph's in-degrees
         input_cpd = in_array[np.where(in_array[:,1] == '0')[0],0] # out nodes of in/out graph (sources)
         if added_inp :
-            added_inp = test_seeds_graph(added_inp)
+            added_inp = filter_seeds_graph(added_inp)
         seeds = set(list(input_cpd) + added_inp)
 
     accessibility = dict.fromkeys(model_graph.nodes, "Non accessible")

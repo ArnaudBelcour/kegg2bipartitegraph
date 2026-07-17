@@ -24,6 +24,7 @@
       <species metaid="C00072" id="C00072" name="Ascorbate" compartment="c" initialAmount="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
       <species metaid="C01330" id="C01330" name="Sodium cation" compartment="c" initialAmount="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
       <species metaid="C00116" id="C00116" name="Glycerol" compartment="c" initialAmount="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species metaid="C00097" id="C00097" name="L-Cysteine" compartment="c" initialAmount="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
       <species metaid="C14818" id="C14818" name="Fe2+" compartment="c" initialAmount="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
       <species metaid="C00047" id="C00047" name="L-Lysine" compartment="c" initialAmount="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
       <species metaid="C00149" id="C00149" name="(S)-Malate" compartment="c" initialAmount="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
@@ -45,7 +46,6 @@
       <species metaid="C00255" id="C00255" name="Riboflavin" compartment="c" initialAmount="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
       <species metaid="C00120" id="C00120" name="Biotin" compartment="c" initialAmount="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
       <species metaid="C00148" id="C00148" name="L-Proline" compartment="c" initialAmount="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-      <species metaid="C00097" id="C00097" name="L-Cysteine" compartment="c" initialAmount="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
       <species metaid="C00079" id="C00079" name="L-Phenylalanine" compartment="c" initialAmount="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
       <species metaid="C00152" id="C00152" name="L-Asparagine" compartment="c" initialAmount="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
       <species metaid="C00294" id="C00294" name="Inosine" compartment="c" initialAmount="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>

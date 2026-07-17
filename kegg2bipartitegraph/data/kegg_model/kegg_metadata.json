@@ -4,13 +4,13 @@
             "python_package": {
                 "Python_version": "3.12.2 | packaged by conda-forge | (main, Feb 16 2024, 20:50:58) [GCC 12.3.0]",
                 "kegg2bipartitegraph": "0.2.3",
-                "bioservices": "1.12.0",
+                "bioservices": "1.16.0",
                 "urllib": "3.12",
                 "libsbml": "5.20.2",
-                "networkx": "3.2.1"
+                "networkx": "3.4.2"
             }
         }
     },
-    "kegg_release_number": "113.0+/03-03, Mar 25",
-    "kegg2bipartitegraph_reference_duration": 41.90881824493408
+    "kegg_release_number": "2026/07/16",
+    "kegg2bipartitegraph_reference_duration": 37.4878294467926
 }

@@ -1,4 +1,4 @@
-# Copyright (C) 2021-2025 Arnaud Belcour - Inria, Univ Rennes, CNRS, IRISA Dyliss
+# Copyright (C) 2021-2026 Arnaud Belcour - Inria, Univ Rennes, CNRS, IRISA Dyliss
 # Univ. Grenoble Alpes, Inria, Microcosme
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,7 +19,6 @@ import os
 import json
 import time
 import sys
-import urllib.parse
 import urllib.request
 import libsbml
 
@@ -27,7 +26,7 @@ from networkx import __version__ as networkx_version
 from bioservices import version as bioservices_version
 from bioservices import KEGG
 
-from kegg2bipartitegraph.utils import is_valid_dir, write_pathway_file, write_module_file, get_current_database_version
+from kegg2bipartitegraph.utils import is_valid_dir, write_pathway_file, write_module_file, get_current_database_version, test_connection
 from kegg2bipartitegraph import __version__ as kegg2bipartitegraph_version
 from kegg2bipartitegraph.mapping import retrieve_mapping_dictonaries, compute_stat_kegg
 from kegg2bipartitegraph.reference import sbml_to_graphml, get_kegg_database_version
@@ -158,6 +157,9 @@ def create_organism_network(organism, output_folder, reference_folder=False):
     """
     starttime = time.time()
     logger.info('|kegg2bipartitegraph|organism| Begin KEGG metabolism mapping for organism {0}.'.format(organism))
+
+    # Test internet connection.
+    test_connection()
 
     if reference_folder != False:
         kegg_model_path = reference_folder

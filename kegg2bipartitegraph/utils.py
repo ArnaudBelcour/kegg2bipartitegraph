@@ -1,4 +1,4 @@
-# Copyright (C) 2021-2025 Arnaud Belcour - Inria, Univ Rennes, CNRS, IRISA Dyliss
+# Copyright (C) 2021-2026 Arnaud Belcour - Inria, Univ Rennes, CNRS, IRISA Dyliss
 # Univ. Grenoble Alpes, Inria, Microcosme
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -22,9 +22,9 @@ import os
 import urllib.request
 import sys
 import time
+import socket
 
-from socket import timeout
-
+from urllib.error import URLError
 from kegg2bipartitegraph import __version__ as kegg2bipartitegraph_version
 
 MIN_VAL = 0
@@ -140,7 +140,7 @@ def urllib_query(request, nb_retry=5):
     try:
         response = urllib.request.urlopen(request)
         passed = True
-    except timeout:
+    except socket.timeout:
         logger.critical('Timeout occurs for query, try to relaunch query.')
         time.sleep(10)
         urllib_query(request, nb_retry-1)
@@ -183,6 +183,49 @@ def get_rest_uniprot_release(options):
     uniprot_releases['tool_options'] = options
 
     return uniprot_releases
+
+
+def test_connection(host='8.8.8.8', port=53, kegg_url="https://rest.kegg.jp/info/kegg", timeout=5):
+    """ Test internet connection and access to KEGG.
+
+    Args:
+        host (str): DNS host to test (default google, 8.8.8.8)
+        port (int): port to test
+        kegg_url (str): KEGG API to test
+        timeout (int): timeout
+    """
+    # Use Google port to test internet connection.
+    internet_connection = None
+    try:
+        socket.setdefaulttimeout(timeout)
+        socket.socket(socket.AF_INET, socket.SOCK_STREAM).connect((host, port))
+        internet_connection = True
+        logger.info('|kegg2bipartitegraph|utils| Connection to google found.')
+    except socket.error as ex:
+        internet_connection = False
+        logger.critical('|kegg2bipartitegraph|utils| Error when testing host {0}, port {1}. Either no inrernet connection or change to DNS used as check.'.format(host, port))
+        logger.critical(ex)
+        sys.exit(1)
+
+    # Use KEGG API to see if KEGG is up.
+    kegg_connection = None
+    if internet_connection is True:
+        try:
+            kegg_result_code = urllib.request.urlopen(kegg_url, timeout=timeout).getcode()
+            if kegg_result_code == 200:
+                kegg_connection = True
+                logger.info('|kegg2bipartitegraph|utils| KEGG API seems to be up and working.')
+            else:
+                kegg_connection = False
+                logger.critical('|kegg2bipartitegraph|utils| Issue with KEGG API.')
+        except URLError as error:
+            logger.critical('|kegg2bipartitegraph|utils| Error when trying to access KEGG: ')
+            logger.critical(error)
+            sys.exit(1)
+        except socket.timeout as error:
+            logger.critical('|kegg2bipartitegraph|utils| Error when trying to access KEGG: ')
+            logger.critical(error)
+            sys.exit(1)
 
 
 def get_internal_reference_model_path():

@@ -1,5 +1,23 @@
 # Changelog
 
+# Kegg2bipartitegraph v0.2.4 (2026-07-16)
+
+## Add
+
+* check for internet connection and KEGG API.
+* test for new `extract_parent_child_nested_dict` function.
+
+## Modify
+
+* Update reference model to KEGG 119.
+
+## Fix
+
+* several issues following changes in KEGG API.
+* issue with compound without names.
+* issue in missing several elements (especially compound IDs) when retrieving hierarchy information.
+* issue in scope test.
+
 # Kegg2bipartitegraph v0.2.3 (2025-03-03)
 
 ## Add
