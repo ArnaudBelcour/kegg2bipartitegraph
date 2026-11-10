@@ -1,3 +1,4 @@
+biopython
 bioservices>=1.11.2
 python-libsbml>=5.19.7
 networkx>=2.8.8

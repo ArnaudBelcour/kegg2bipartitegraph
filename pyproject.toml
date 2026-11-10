@@ -11,6 +11,7 @@ description = "Reconstruct metabolic bipartite graph using KEGG"
 license = {text = "GPL-3.0-or-later"}
 
 dependencies = [
+  'biopython',
   'bioservices',
   'python-libsbml',
   'networkx'
