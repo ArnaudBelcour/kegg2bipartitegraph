@@ -224,7 +224,7 @@ def test_connection(hosts=['8.8.8.8', '1.1.1.1'], port=53, kegg_url="https://res
             break
 
     # Use KEGG API to see if KEGG is up.
-    kegg_connection = None
+    kegg_connection = False
     try:
         kegg_result_code = urllib.request.urlopen(kegg_url, timeout=timeout).getcode()
         if kegg_result_code == 200:
@@ -246,6 +246,10 @@ def test_connection(hosts=['8.8.8.8', '1.1.1.1'], port=53, kegg_url="https://res
     if any(all_internet_connections) is False:
         logger.critical('|kegg2bipartitegraph|utils| Error when testing all hosts. Either no internet connection or change to DNS used as check.')
         sys.exit(1)
+    else:
+        if kegg_connection is False:
+            logger.critical('|kegg2bipartitegraph|utils| No access to KEGG, exit as it is requited for further analysis.')
+            sys.exit(1)
 
 
 def get_internal_reference_model_path():
