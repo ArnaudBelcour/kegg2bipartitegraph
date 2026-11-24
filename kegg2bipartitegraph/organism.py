@@ -145,7 +145,7 @@ def get_pathway_org(organism):
     return pathways
 
 
-def create_organism_network(organism, output_folder, reference_folder=False):
+def create_organism_network(organism, output_folder, reference_folder=False, do_not_test_connection=False):
     """From a KEGG organism ID create KEGG SBML files using bioservices.KEGG.
     To retrieve KEGG reactions, a mapping is performed between EC number foundin organism and KEGG reactions.
     And if the option mapping_ko is set to True, it will also map KO ID to KEGG reaction
@@ -154,12 +154,13 @@ def create_organism_network(organism, output_folder, reference_folder=False):
         organism (str): KEGG code for an organism
         output_folder (str): path to the output folder
         reference_folder (str): path to a reference KEGG folder, to use it instead of the default ones contained in kegg2bipartitegraph
+        do_not_test_connection (bool): avoid to test internet connection
     """
     starttime = time.time()
     logger.info('|kegg2bipartitegraph|organism| Begin KEGG metabolism mapping for organism {0}.'.format(organism))
 
     # Test internet connection.
-    test_connection()
+    test_connection(do_not_test_connection=do_not_test_connection)
 
     if reference_folder != False:
         kegg_model_path = reference_folder
